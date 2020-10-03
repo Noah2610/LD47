@@ -16,4 +16,6 @@ pub enum ActionType {
     SetOutput(Vec<String>),
     AddOutput(Vec<String>),
     ClearOutput,
+    // duration-ms, strength
+    ScreenShake(u64, f32),
 }

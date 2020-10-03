@@ -1738,6 +1738,7 @@ version = "0.0.0"
 dependencies = [
  "climer",
  "deathframe",
+ "rand 0.7.3",
  "ron",
  "serde",
  "serde_json",

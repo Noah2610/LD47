@@ -10,6 +10,7 @@ impl<'a> System<'a> for HandleEventsActionsSystem {
     type SystemData = (
         Entities<'a>,
         Write<'a, TextOutput>,
+        Write<'a, ScreenShake>,
         WriteStorage<'a, EventsRegister>,
         ReadStorage<'a, Object>,
         WriteStorage<'a, Player>,
@@ -24,6 +25,7 @@ impl<'a> System<'a> for HandleEventsActionsSystem {
         (
             entities,
             mut text_output,
+            mut screen_shake,
             mut events_register_store,
             object_store,
             mut player_store,
@@ -143,6 +145,10 @@ impl<'a> System<'a> for HandleEventsActionsSystem {
 
                     ActionType::ClearOutput => {
                         text_output.clear();
+                    }
+
+                    ActionType::ScreenShake(duration_ms, strength) => {
+                        screen_shake.shake = Some((duration_ms, strength));
                     }
                 }
             }

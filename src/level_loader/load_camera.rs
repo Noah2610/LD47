@@ -27,9 +27,8 @@ pub(super) fn build_camera(
         bottom: -half_size.h,
         left:   -half_size.w,
         right:  half_size.w,
-        // TODO
-        near:   -10.0,
-        far:    10.0,
+        near:   0.0,
+        far:    20.0,
     };
 
     let level_center = level_size.half();
@@ -42,6 +41,7 @@ pub(super) fn build_camera(
         .with(transform)
         .with(size)
         .with(camera)
+        .with(camera_ortho)
         .build();
 
     Ok(())

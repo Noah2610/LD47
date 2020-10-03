@@ -102,10 +102,11 @@
 
             OnInteract: [
                 Echo("INTERACT WITH ALARM!"),
-                ForeignObjectAction(Player, [
-                    Hide,
-                    SetControllable(false),
-                ]),
+                ScreenShake(2000, 4.0),
+                // ForeignObjectAction(Player, [
+                //     Hide,
+                //     SetControllable(false),
+                // ]),
                 // SetPlayerControllable(false),
                 // ShowEntities("AlarmText"),  // `type: "Custom(AlarmText)"`
                 // ShowEntities("AlarmChild"), // `type: "Custom(AlarmChild)"`
