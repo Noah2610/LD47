@@ -28,13 +28,38 @@
         ],
     ),
 
+    "Other": (
+        spritesheet: "player.png",
+        components: [
+            Animations({
+                Idle: Cycle([
+                    (0, 500),
+                    (1, 500),
+                    (2, 500),
+                    (3, 500),
+                ]),
+            }),
+            Collidable((
+                tag: Interactable,
+            )),
+            Hitbox(Size),
+            Interactable(()),
+        ],
+        events: {
+            OnInteract: [
+                Echo("INTERACT"),
+                FaceTowardsObject(Player),
+            ],
+        },
+    ),
+
     "Alarm": (
         components: [
             Collidable((
                 tag: Interactable,
             )),
             Collider((
-                tag: WithPlayer,
+                tag: SelfCollidesWithPlayer,
             )),
             Hitbox(Size),
             Interactable(()),
