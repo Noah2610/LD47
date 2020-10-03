@@ -29,7 +29,9 @@
         events: {
             OnInteract: [
                 Echo("INTERACT WITH ALARM!"),
-                ForeignObjectAction(Player, SetControllable(false)),
+                ForeignObjectAction(Player, [
+                    SetControllable(false),
+                ]),
                 // SetPlayerControllable(false),
                 // ShowEntities("AlarmText"),  // `type: "Custom(AlarmText)"`
                 // ShowEntities("AlarmChild"), // `type: "Custom(AlarmChild)"`
