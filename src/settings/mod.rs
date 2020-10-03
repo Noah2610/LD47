@@ -1,4 +1,5 @@
 pub mod prelude {
+    pub use super::camera_settings::CameraSettings;
     pub use super::entity_components::*;
     pub use super::objects_settings::{ObjectType, ObjectsSettings};
     pub use super::player_settings::PlayerSettings;
@@ -6,6 +7,7 @@ pub mod prelude {
     pub use super::Settings;
 }
 
+pub mod camera_settings;
 pub mod entity_components;
 pub mod objects_settings;
 pub mod player_settings;
@@ -21,6 +23,7 @@ use std::fs::File;
 #[serde(deny_unknown_fields)]
 pub struct Settings {
     pub player:  PlayerSettings,
+    pub camera:  CameraSettings,
     pub tiles:   TilesSettings,
     pub objects: ObjectsSettings,
 }
@@ -29,6 +32,7 @@ impl Settings {
     pub fn load() -> amethyst::Result<Self> {
         Ok(Self {
             player:  load_settings("player.ron")?,
+            camera:  load_settings("camera.ron")?,
             tiles:   load_settings("tiles.ron")?,
             objects: load_settings("objects.ron")?,
         })

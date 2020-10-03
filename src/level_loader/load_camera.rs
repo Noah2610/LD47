@@ -1,4 +1,5 @@
 use crate::components::prelude::*;
+use crate::settings::prelude::CameraSettings;
 use amethyst::ecs::{Builder, World, WorldExt};
 use deathframe::amethyst;
 
@@ -13,9 +14,9 @@ pub(super) fn build_camera(
         CameraOrthoWorldCoordinates,
     };
 
-    const CAMERA_Z: f32 = 10.0;
+    let settings = (*world.read_resource::<CameraSettings>()).clone();
 
-    let size = level_size;
+    let size = settings.size;
 
     let camera = Camera::standard_2d(size.w, size.h);
     let mut camera_ortho =
@@ -31,8 +32,9 @@ pub(super) fn build_camera(
         far:    10.0,
     };
 
+    let level_center = level_size.half();
     let mut transform = Transform::default();
-    transform.set_translation_xyz(half_size.w, half_size.h, CAMERA_Z);
+    transform.set_translation_xyz(level_center.w, level_center.h, settings.z);
 
     world
         .create_entity()

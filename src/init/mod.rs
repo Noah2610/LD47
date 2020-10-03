@@ -17,6 +17,7 @@ pub fn run() -> amethyst::Result<()> {
 
     let Settings {
         player: player_settings,
+        camera: camera_settings,
         tiles: tiles_settings,
         objects: objects_settings,
     } = settings;
@@ -25,6 +26,7 @@ pub fn run() -> amethyst::Result<()> {
         ApplicationBuilder::new(application_root_dir()?, Startup::default())?
             .with_frame_limit_config(frame_rate_limit_config()?)
             .with_resource(player_settings)
+            .with_resource(camera_settings)
             .with_resource(tiles_settings)
             .with_resource(objects_settings)
             .build(game_data)?;
