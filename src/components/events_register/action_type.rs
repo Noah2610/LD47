@@ -5,4 +5,6 @@ pub enum ActionType {
     Echo(String),
     ForeignObjectAction(ObjectType, Vec<ActionType>),
     SetControllable(bool),
+    Show,
+    Hide,
 }

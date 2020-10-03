@@ -30,6 +30,7 @@
             OnInteract: [
                 Echo("INTERACT WITH ALARM!"),
                 ForeignObjectAction(Player, [
+                    Hide,
                     SetControllable(false),
                 ]),
                 // SetPlayerControllable(false),
