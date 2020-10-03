@@ -1,0 +1,10 @@
+# rust
+/target
+
+# logs
+/logs
+*.log
+
+# misc
+_ignore/
+/releases
