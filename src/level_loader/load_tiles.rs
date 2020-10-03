@@ -56,10 +56,10 @@ pub(super) fn load_tiles(
             .with(ScaleOnce::default())
             .with(Loadable::default());
 
-        entity_builder = add_components_to_entity(
-            entity_builder,
-            tile_settings.components.components,
-        );
+        if let Some(components) = tile_settings.components {
+            entity_builder =
+                add_components_to_entity(entity_builder, components.components);
+        }
 
         entity_builder.build();
     }

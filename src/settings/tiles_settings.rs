@@ -20,5 +20,6 @@ impl From<HashMap<TileType, TileSettings>> for TilesSettings {
 #[derive(Deserialize, Clone)]
 #[serde(deny_unknown_fields)]
 pub struct TileSettings {
-    pub components: EntityComponents,
+    #[serde(default)]
+    pub components: Option<EntityComponents>,
 }

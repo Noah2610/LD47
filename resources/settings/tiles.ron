@@ -1,6 +1,10 @@
 // src/settings/tiles_settings.rs
 #![enable(implicit_some)]
 {
+    // For tiles without type.
+    // Empty config, only renders sprite.
+    "": (),
+
     "Solid": (
         components: [],
     ),
