@@ -14,17 +14,17 @@
                 (13, 200),
             ]),
             Walk: Cycle([
+                (0, 200),
                 (1, 200),
                 (2, 200),
                 (3, 200),
-                (4, 200),
             ]),
         }),
         Gravity(( y: -800.0 )),
         BaseFriction(( x: 1000.0 )),
         Movement((
             acceleration: 500.0,
-            max_velocity: 300.0,
+            max_velocity: 100.0,
         )),
         Collider((
             tag: Player,
