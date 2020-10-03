@@ -10,9 +10,12 @@ mod event_type;
 use super::component_prelude::*;
 use std::collections::HashMap;
 
+type EventsActionsMap = HashMap<EventType, Vec<ActionType>>;
+
 #[derive(Component, Deserialize, Clone)]
+#[serde(from = "EventsActionsMap", deny_unknown_fields)]
 pub struct EventsRegister {
-    pub events:        HashMap<EventType, Vec<ActionType>>,
+    pub events:        EventsActionsMap,
     #[serde(skip)]
     triggered_actions: Vec<ActionType>,
 }
@@ -21,6 +24,15 @@ impl EventsRegister {
     pub fn trigger_event(&mut self, event: &EventType) {
         if let Some(mut actions) = self.events.get(event).cloned() {
             self.triggered_actions.append(&mut actions);
+        }
+    }
+}
+
+impl From<EventsActionsMap> for EventsRegister {
+    fn from(events: EventsActionsMap) -> Self {
+        Self {
+            events,
+            triggered_actions: Vec::new(),
         }
     }
 }

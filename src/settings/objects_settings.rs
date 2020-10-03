@@ -1,6 +1,7 @@
 // resources/settings/objects.ron
 
 use super::EntityComponents;
+use crate::components::prelude::EventsRegister;
 use std::collections::HashMap;
 
 #[derive(Deserialize, Clone, PartialEq, Eq, Hash)]
@@ -27,4 +28,6 @@ pub struct ObjectSettings {
     #[serde(alias = "spritesheet")]
     pub spritesheet_filename: String,
     pub components:           EntityComponents,
+    #[serde(default, alias = "events")]
+    pub events_register:      Option<EventsRegister>,
 }

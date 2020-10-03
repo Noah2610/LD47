@@ -59,6 +59,10 @@ pub(super) fn load_player(
         Some(size),
     );
 
+    if let Some(events_register) = player_settings.events_register {
+        entity_builder = entity_builder.with(events_register);
+    }
+
     entity_builder.build();
 
     Ok(())

@@ -1,6 +1,7 @@
 // resources/settings/tiles.ron
 
 use super::EntityComponents;
+use crate::components::prelude::EventsRegister;
 use std::collections::HashMap;
 
 pub type TileType = String;
@@ -21,5 +22,7 @@ impl From<HashMap<TileType, TileSettings>> for TilesSettings {
 #[serde(deny_unknown_fields)]
 pub struct TileSettings {
     #[serde(default)]
-    pub components: Option<EntityComponents>,
+    pub components:      Option<EntityComponents>,
+    #[serde(default, alias = "events")]
+    pub events_register: Option<EventsRegister>,
 }

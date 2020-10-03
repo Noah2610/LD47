@@ -77,6 +77,10 @@ pub(super) fn load_objects(
                     Some(size),
                 );
 
+                if let Some(events_register) = object_settings.events_register {
+                    entity_builder = entity_builder.with(events_register);
+                }
+
                 entity_builder.build();
             }
         }

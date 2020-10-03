@@ -23,7 +23,7 @@
                 tag: Interactable,
             )),
             Hitbox(Size),
-            Interactable,
+            Interactable(()),
         ],
 
         events: {
