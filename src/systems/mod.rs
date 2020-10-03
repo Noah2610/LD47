@@ -4,6 +4,7 @@ mod trigger_collision_events;
 mod trigger_interaction_events;
 mod trigger_timer_events;
 mod update_animations;
+mod update_text_output;
 
 pub mod prelude {
     pub use super::control_player::ControlPlayerSystem;
@@ -12,6 +13,7 @@ pub mod prelude {
     pub use super::trigger_interaction_events::TriggerInteractionEventsSystem;
     pub use super::trigger_timer_events::TriggerTimerEventsSystem;
     pub use super::update_animations::UpdateAnimationsSystem;
+    pub use super::update_text_output::UpdateTextOutputSystem;
 
     pub use deathframe::systems::prelude::*;
 }

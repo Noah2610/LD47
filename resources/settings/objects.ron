@@ -49,10 +49,11 @@
             OnInteract: [
                 Echo("INTERACT"),
                 FaceTowardsObject(Player),
-                StartTimer("FacePlayer", 2000),
+                StartTimer("FacePlayer", 500),
             ],
 
             OnTimerFinish("FacePlayer"): [
+                AddOutput(["What's poppin mah dude?", "All good?"]),
                 FaceTowardsObject(Player),
             ],
         },

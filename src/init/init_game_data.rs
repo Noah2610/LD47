@@ -103,6 +103,12 @@ pub(super) fn build_game_data<'a, 'b>(
         )?
         .with(
             DispatcherId::Ingame,
+            UpdateTextOutputSystem::default(),
+            "update_text_output_system",
+            &[],
+        )?
+        .with(
+            DispatcherId::Ingame,
             TriggerInteractionEventsSystem::default(),
             "trigger_interaction_events_system",
             &[],
