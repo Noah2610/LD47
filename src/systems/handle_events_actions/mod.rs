@@ -9,6 +9,7 @@ pub struct HandleEventsActionsSystem;
 impl<'a> System<'a> for HandleEventsActionsSystem {
     type SystemData = (
         Entities<'a>,
+        Write<'a, TextOutput>,
         WriteStorage<'a, EventsRegister>,
         ReadStorage<'a, Object>,
         WriteStorage<'a, Player>,
@@ -22,6 +23,7 @@ impl<'a> System<'a> for HandleEventsActionsSystem {
         &mut self,
         (
             entities,
+            mut text_output,
             mut events_register_store,
             object_store,
             mut player_store,
@@ -129,6 +131,18 @@ impl<'a> System<'a> for HandleEventsActionsSystem {
                         );
                         timer.start().unwrap();
                         events_register.timers.insert(timer_name, timer);
+                    }
+
+                    ActionType::SetOutput(lines) => {
+                        text_output.lines = lines;
+                    }
+
+                    ActionType::AddOutput(mut lines) => {
+                        text_output.lines.append(&mut lines);
+                    }
+
+                    ActionType::ClearOutput => {
+                        text_output.lines.clear();
                     }
                 }
             }
