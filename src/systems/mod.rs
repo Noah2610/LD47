@@ -1,11 +1,13 @@
 mod control_player;
 mod handle_events_actions;
-mod handle_interaction;
+mod trigger_collision_events;
+mod trigger_interaction_events;
 
 pub mod prelude {
     pub use super::control_player::ControlPlayerSystem;
     pub use super::handle_events_actions::HandleEventsActionsSystem;
-    pub use super::handle_interaction::HandleInteractionSystem;
+    pub use super::trigger_collision_events::TriggerCollisionEventsSystem;
+    pub use super::trigger_interaction_events::TriggerInteractionEventsSystem;
 
     pub use deathframe::systems::prelude::*;
 }

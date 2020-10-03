@@ -5,6 +5,7 @@ pub enum CollisionTag {
     Player,
     Solid,
     Interactable,
+    WithPlayer,
 }
 
 impl CTag for CollisionTag {
@@ -14,6 +15,7 @@ impl CTag for CollisionTag {
         match (self, other) {
             (Tag::Player, Tag::Solid) => true,
             (Tag::Player, Tag::Interactable) => true,
+            (Tag::WithPlayer, Tag::Player) => true,
             _ => false,
         }
     }

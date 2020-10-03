@@ -3,9 +3,9 @@ use crate::input::prelude::IngameAction;
 use deathframe::physics::query::prelude::{FindQuery, Query};
 
 #[derive(Default)]
-pub struct HandleInteractionSystem;
+pub struct TriggerInteractionEventsSystem;
 
-impl<'a> System<'a> for HandleInteractionSystem {
+impl<'a> System<'a> for TriggerInteractionEventsSystem {
     type SystemData = (
         Entities<'a>,
         ReadExpect<'a, InputManager<IngameBindings>>,

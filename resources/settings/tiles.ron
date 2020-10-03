@@ -22,6 +22,9 @@
             Collidable((
                 tag: Interactable,
             )),
+            Collider((
+                tag: WithPlayer,
+            )),
             Hitbox(Size),
             Interactable(()),
         ],
@@ -40,6 +43,10 @@
                 //     HideEntities("AlarmText"),
                 //     HideEntities("AlarmChild"),
                 // ]),
+            ],
+
+            OnCollision(And([IsTag(Player), IsState(Enter)])): [
+                Echo("Colliding with player!"),
             ],
         },
     ),

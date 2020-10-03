@@ -97,18 +97,25 @@ pub(super) fn build_game_data<'a, 'b>(
         )?
         .with(
             DispatcherId::Ingame,
-            HandleInteractionSystem::default(),
-            "handle_interaction_system",
+            TriggerInteractionEventsSystem::default(),
+            "trigger_interaction_events_system",
+            &[],
+        )?
+        .with(
+            DispatcherId::Ingame,
+            TriggerCollisionEventsSystem::default(),
+            "trigger_collision_events_system",
             &[],
         )?
         .with(
             DispatcherId::Ingame,
             HandleEventsActionsSystem::default(),
             "handle_events_actions_system",
-            &[],
-        )?
-        /* - */
-        ;
+            &[
+                "trigger_interaction_events_system",
+                "trigger_collision_events_system",
+            ],
+        )?;
 
     Ok(custom_game_data)
 }
