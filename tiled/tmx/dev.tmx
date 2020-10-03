@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.4" tiledversion="1.4.2" orientation="orthogonal" renderorder="right-down" width="64" height="64" tilewidth="16" tileheight="16" infinite="0" nextlayerid="2" nextobjectid="1">
+<map version="1.4" tiledversion="1.4.2" orientation="orthogonal" renderorder="right-down" width="64" height="64" tilewidth="16" tileheight="16" infinite="0" nextlayerid="3" nextobjectid="1">
+ <editorsettings>
+  <export target="../../resources/levels/dev.json" format="ld47-export"/>
+ </editorsettings>
  <tileset firstgid="1" source="../tsx/colors.tsx"/>
  <layer id="1" name="Tile Layer 1" width="64" height="64">
   <data encoding="csv">
@@ -69,4 +72,5 @@
 2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2
 </data>
  </layer>
+ <objectgroup id="2" name="Object Layer 1"/>
 </map>

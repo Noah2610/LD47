@@ -1,4 +1,7 @@
 (
     axes: {},
-    actions: {},
+    actions: {
+        Accept:  [ [Key(Space)], [Key(Enter)], ],
+        Decline: [ [Key(Escape)], [Key(Backspace)], ],
+    },
 )

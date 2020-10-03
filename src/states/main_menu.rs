@@ -1,5 +1,6 @@
 use super::menu_prelude::*;
 use super::state_prelude::*;
+use crate::input::prelude::{MenuAction, MenuBindings};
 
 #[derive(Default)]
 pub struct MainMenu {
@@ -40,6 +41,15 @@ impl<'a, 'b> State<GameData<'a, 'b>, StateEvent> for MainMenu {
         data.data
             .update(data.world, DispatcherId::MainMenu)
             .unwrap();
+
+        let input_manager =
+            data.world.read_resource::<InputManager<MenuBindings>>();
+        if input_manager.is_down(MenuAction::Accept) {
+            return Trans::Push(Box::new(Ingame::default()));
+        } else if input_manager.is_down(MenuAction::Decline) {
+            return Trans::Quit;
+        }
+
         Trans::None
     }
 
