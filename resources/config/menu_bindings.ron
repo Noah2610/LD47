@@ -1,3 +1,5 @@
+// src/input/menu_bindings.rs
+
 (
     axes: {},
     actions: {

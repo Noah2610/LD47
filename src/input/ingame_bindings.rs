@@ -1,3 +1,5 @@
+// resources/config/ingame_bindings.ron
+
 use deathframe::amethyst::input::{BindingTypes, InputBundle};
 use std::fmt;
 
@@ -5,10 +7,14 @@ use std::fmt;
 pub struct IngameBindings;
 
 #[derive(Debug, Clone, PartialEq, Eq, Hash, Serialize, Deserialize)]
-pub enum IngameAxis {}
+pub enum IngameAxis {
+    WalkX,
+}
 
 #[derive(Debug, Clone, PartialEq, Eq, Hash, Serialize, Deserialize)]
-pub enum IngameAction {}
+pub enum IngameAction {
+    Interact,
+}
 
 impl BindingTypes for IngameBindings {
     type Axis = IngameAxis;

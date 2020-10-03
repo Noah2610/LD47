@@ -1,4 +1,10 @@
+// src/input/ingame_bindings.rs
+
 (
-    axes: {},
-    actions: {},
+    axes: {
+        WalkX: Emulated(pos: Key(D), neg: Key(A)),
+    },
+    actions: {
+        Interact: [ [Key(Space)], [Key(J)] ],
+    },
 )
