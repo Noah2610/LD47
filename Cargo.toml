@@ -5,7 +5,7 @@ authors = []
 edition = "2018"
 
 [dependencies]
-ron = "0.6.2"
+ron = "0.5.1"
 
 [dependencies.deathframe]
 version = "*"

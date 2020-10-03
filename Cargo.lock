@@ -146,7 +146,7 @@ dependencies = [
  "objekt",
  "parking_lot 0.10.2",
  "rayon",
- "ron 0.5.1",
+ "ron",
  "serde",
 ]
 
@@ -174,7 +174,7 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "587b1ab5cec425194e727f229ff018d7c33a6af2a129ac6cd6243cedd06aef63"
 dependencies = [
  "log",
- "ron 0.5.1",
+ "ron",
  "serde",
 ]
 
@@ -283,7 +283,7 @@ dependencies = [
  "log",
  "palette",
  "rendy",
- "ron 0.5.1",
+ "ron",
  "serde",
  "smallvec 1.4.2",
  "static_assertions 1.1.0",
@@ -315,7 +315,7 @@ dependencies = [
  "log",
  "paste",
  "rand 0.7.3",
- "ron 0.5.1",
+ "ron",
  "serde",
  "smallvec 1.4.2",
  "unicode-normalization",
@@ -1675,7 +1675,7 @@ name = "ld47"
 version = "0.0.0"
 dependencies = [
  "deathframe",
- "ron 0.6.2",
+ "ron",
  "serde",
 ]
 
@@ -3008,17 +3008,6 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "2ece421e0c4129b90e4a35b6f625e472e96c552136f5093a2f4fa2bbb75a62d5"
 dependencies = [
  "base64 0.10.1",
- "bitflags",
- "serde",
-]
-
-[[package]]
-name = "ron"
-version = "0.6.2"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "f8a58080b7bb83b2ea28c3b7a9a994fd5e310330b7c8ca5258d99b98128ecfe4"
-dependencies = [
- "base64 0.12.3",
  "bitflags",
  "serde",
 ]
