@@ -1,0 +1,119 @@
+on:
+  push:
+    tags:
+      - "v[0-9]+.[0-9]+.[0-9]+*"
+
+name: Build-Release
+
+jobs:
+  build-linux-release:
+    name: Build Linux Release
+    runs-on: ubuntu-18.04
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Install Dependencies
+        run: |
+          sudo apt update
+          sudo apt install -y \
+            gcc \
+            pkg-config \
+            openssl \
+            libasound2-dev \
+            cmake \
+            build-essential \
+            python3 \
+            libfreetype6-dev \
+            libexpat1-dev \
+            libxcb-composite0-dev \
+            libssl-dev \
+            libx11-dev
+        shell: bash
+
+      - name: Install Rust Toolchain
+        uses: actions-rs/toolchain@v1
+        with:
+          profile: minimal
+          default: true
+          override: true
+
+      - name: Build Binary
+        uses: actions-rs/cargo@v1
+        with:
+          command: build
+          args: --release
+
+      - name: Bundle Release
+        run: bin/bundle-release linux
+        shell: bash
+
+      - name: Upload Bundled Release
+        uses: actions/upload-artifact@v1
+        with:
+          name: release-linux
+          path: releases
+
+  build-windows-release:
+    name: Build Windows Release
+    runs-on: windows-2019
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Install Dependencies
+        run: |
+          choco install \
+            curl \
+            zip
+        shell: bash
+
+      - name: Install Rust Toolchain
+        uses: actions-rs/toolchain@v1
+        with:
+          profile: minimal
+          default: true
+          override: true
+
+      - name: Build Binary
+        uses: actions-rs/cargo@v1
+        with:
+          command: build
+          args: --release
+
+      - name: Bundle Release
+        run: bin/bundle-release windows
+        shell: bash
+
+      - name: Upload Bundled Release
+        uses: actions/upload-artifact@v1
+        with:
+          name: release-windows
+          path: releases
+
+  build-macos-release:
+    name: Build MacOS Release
+    runs-on: macos-10.15
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Install Rust Toolchain
+        uses: actions-rs/toolchain@v1
+        with:
+          profile: minimal
+          default: true
+          override: true
+
+      - name: Build Binary
+        uses: actions-rs/cargo@v1
+        with:
+          command: build
+          args: --release --no-default-features --features metal
+
+      - name: Bundle Release
+        run: bin/bundle-release macos
+        shell: bash
+
+      - name: Upload Bundled Release
+        uses: actions/upload-artifact@v1
+        with:
+          name: release-macos
+          path: releases
