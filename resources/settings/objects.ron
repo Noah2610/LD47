@@ -53,7 +53,7 @@
             ],
 
             OnTimerFinish("FacePlayer"): [
-                AddOutput(["What's poppin mah dude?", "All good?"]),
+                AddOutput(["What's poppin mah dude?"]),
                 FaceTowardsObject(Player),
             ],
         },

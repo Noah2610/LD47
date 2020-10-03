@@ -134,15 +134,15 @@ impl<'a> System<'a> for HandleEventsActionsSystem {
                     }
 
                     ActionType::SetOutput(lines) => {
-                        text_output.lines = lines;
+                        text_output.set(lines);
                     }
 
-                    ActionType::AddOutput(mut lines) => {
-                        text_output.lines.append(&mut lines);
+                    ActionType::AddOutput(lines) => {
+                        text_output.add(lines);
                     }
 
                     ActionType::ClearOutput => {
-                        text_output.lines.clear();
+                        text_output.clear();
                     }
                 }
             }
