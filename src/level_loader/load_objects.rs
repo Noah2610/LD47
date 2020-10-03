@@ -26,7 +26,7 @@ fn load_player(world: &mut World, object: ObjectData) -> amethyst::Result<()> {
             .write_resource::<SpriteSheetHandles<PathBuf>>()
             .get_or_load(
                 resource(format!(
-                    "spritesheets/tilesets/{}",
+                    "spritesheets/{}",
                     &player_settings.spritesheet_filename
                 )),
                 world,
@@ -45,7 +45,8 @@ fn load_player(world: &mut World, object: ObjectData) -> amethyst::Result<()> {
         .with(Transparent)
         .with(ScaleOnce::default())
         .with(Loadable::default())
-        .with(Player::default());
+        .with(Player::default())
+        .with(Velocity::default());
 
     entity_builder = add_components_to_entity(
         entity_builder,

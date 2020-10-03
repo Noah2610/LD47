@@ -1,4 +1,8 @@
+mod control_player;
+
 pub mod prelude {
+    pub use super::control_player::ControlPlayerSystem;
+
     pub use deathframe::systems::prelude::*;
 }
 

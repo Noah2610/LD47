@@ -13,7 +13,7 @@ pub(super) fn build_camera(
         CameraOrthoWorldCoordinates,
     };
 
-    const CAMERA_Z: f32 = 0.0;
+    const CAMERA_Z: f32 = 10.0;
 
     let size = level_size;
 
@@ -27,7 +27,7 @@ pub(super) fn build_camera(
         left:   -half_size.w,
         right:  half_size.w,
         // TODO
-        near:   0.0,
+        near:   -10.0,
         far:    10.0,
     };
 

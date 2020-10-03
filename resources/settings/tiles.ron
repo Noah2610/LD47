@@ -6,6 +6,13 @@
     "": (),
 
     "Solid": (
-        components: [],
+        components: [
+            Collidable((
+                tag: Solid,
+            )),
+            Solid((
+                tag: Solid,
+            )),
+        ],
     ),
 }

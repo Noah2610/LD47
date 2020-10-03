@@ -32,6 +32,7 @@ pub enum EntityComponent {
     Solid(Solid<SolidTag>),
     SolidPusher(SolidPusher),
     SolidPushable(SolidPushable),
+    Movement(Movement),
 }
 
 pub fn add_components_to_entity(
@@ -42,29 +43,21 @@ pub fn add_components_to_entity(
 
     components
         .into_iter()
-        .fold(
-            entity_builder,
-            |entity_builder, component| match component {
-                Comp::Velocity(velocity) => entity_builder.with(velocity),
-                Comp::Size(size) => entity_builder.with(size),
-                Comp::Gravity(gravity) => entity_builder.with(gravity),
-                Comp::Animation(animation) => entity_builder.with(animation),
-                Comp::Animations(animations) => entity_builder.with(animations),
-                Comp::BaseFriction(base_friction) => {
-                    entity_builder.with(base_friction)
-                }
-                Comp::Hitbox(hitbox) => entity_builder.with(hitbox),
-                Comp::Loadable(loadable) => entity_builder.with(loadable),
-                Comp::Loader(loader) => entity_builder.with(loader),
-                Comp::Collider(collider) => entity_builder.with(collider),
-                Comp::Collidable(collidable) => entity_builder.with(collidable),
-                Comp::Solid(solid) => entity_builder.with(solid),
-                Comp::SolidPusher(solid_pusher) => {
-                    entity_builder.with(solid_pusher)
-                }
-                Comp::SolidPushable(solid_pushable) => {
-                    entity_builder.with(solid_pushable)
-                }
-            },
-        )
+        .fold(entity_builder, |builder, component| match component {
+            Comp::Velocity(velocity) => builder.with(velocity),
+            Comp::Size(size) => builder.with(size),
+            Comp::Gravity(gravity) => builder.with(gravity),
+            Comp::Animation(animation) => builder.with(animation),
+            Comp::Animations(animations) => builder.with(animations),
+            Comp::BaseFriction(base_friction) => builder.with(base_friction),
+            Comp::Hitbox(hitbox) => builder.with(hitbox),
+            Comp::Loadable(loadable) => builder.with(loadable),
+            Comp::Loader(loader) => builder.with(loader),
+            Comp::Collider(collider) => builder.with(collider),
+            Comp::Collidable(collidable) => builder.with(collidable),
+            Comp::Solid(solid) => builder.with(solid),
+            Comp::SolidPusher(solid_pusher) => builder.with(solid_pusher),
+            Comp::SolidPushable(solid_pushable) => builder.with(solid_pushable),
+            Comp::Movement(movement) => builder.with(movement),
+        })
 }
