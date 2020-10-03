@@ -20,8 +20,8 @@
         Gravity(( y: -800.0 )),
         BaseFriction(( x: 1000.0 )),
         Movement((
-            acceleration: 100.0,
-            max_velocity: 500.0,
+            acceleration: 500.0,
+            max_velocity: 300.0,
         )),
         Collider((
             tag: Player,

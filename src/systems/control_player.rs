@@ -37,6 +37,10 @@ impl<'a> System<'a> for ControlPlayerSystem {
                 .join()
             {
                 if x != 0.0 {
+                    if velocity.x.signum() != x.signum() {
+                        velocity.x = 0.0;
+                    }
+
                     friction.set_enabled(&Axis::X, false);
                     let accel = movement.acceleration * x * dt;
                     velocity.increase_with_max(
