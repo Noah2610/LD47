@@ -32,5 +32,6 @@
         Solid((
             tag: Player,
         )),
+        Hitbox(Size),
     ],
 )

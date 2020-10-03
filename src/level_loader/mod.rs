@@ -1,6 +1,7 @@
 mod data;
 mod load_camera;
 mod load_objects;
+mod load_player;
 mod load_tiles;
 
 use crate::components::prelude::*;

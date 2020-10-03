@@ -1,5 +1,6 @@
 use crate::components::prelude::*;
 use crate::resources::{AnimationKey, CollisionTag, SolidTag};
+use crate::settings::hitbox_config::HitboxConfig;
 use amethyst::ecs::{Builder, EntityBuilder};
 use deathframe::amethyst;
 
@@ -24,7 +25,7 @@ pub enum EntityComponent {
     Animation(Animation),
     Animations(AnimationsContainer<AnimationKey>),
     BaseFriction(BaseFriction),
-    Hitbox(Hitbox),
+    Hitbox(HitboxConfig),
     Loadable(Loadable),
     Loader(Loader),
     Collider(Collider<CollisionTag>),
@@ -38,6 +39,7 @@ pub enum EntityComponent {
 pub fn add_components_to_entity(
     entity_builder: EntityBuilder,
     components: Vec<EntityComponent>,
+    mut size_opt: Option<Size>,
 ) -> EntityBuilder {
     use self::EntityComponent as Comp;
 
@@ -45,12 +47,19 @@ pub fn add_components_to_entity(
         .into_iter()
         .fold(entity_builder, |builder, component| match component {
             Comp::Velocity(velocity) => builder.with(velocity),
-            Comp::Size(size) => builder.with(size),
+            Comp::Size(size) => {
+                if size_opt.is_none() {
+                    size_opt = Some(size.clone());
+                }
+                builder.with(size)
+            }
             Comp::Gravity(gravity) => builder.with(gravity),
             Comp::Animation(animation) => builder.with(animation),
             Comp::Animations(animations) => builder.with(animations),
             Comp::BaseFriction(base_friction) => builder.with(base_friction),
-            Comp::Hitbox(hitbox) => builder.with(hitbox),
+            Comp::Hitbox(hitbox) => {
+                hitbox.add_hitbox_to_entity(builder, size_opt.as_ref())
+            }
             Comp::Loadable(loadable) => builder.with(loadable),
             Comp::Loader(loader) => builder.with(loader),
             Comp::Collider(collider) => builder.with(collider),

@@ -57,8 +57,11 @@ pub(super) fn load_tiles(
             .with(Loadable::default());
 
         if let Some(components) = tile_settings.components {
-            entity_builder =
-                add_components_to_entity(entity_builder, components.components);
+            entity_builder = add_components_to_entity(
+                entity_builder,
+                components.components,
+                Some(tile_size.clone()),
+            );
         }
 
         entity_builder.build();

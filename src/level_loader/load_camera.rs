@@ -38,6 +38,7 @@ pub(super) fn build_camera(
 
     world
         .create_entity()
+        .with(Loader::new(size.w, size.h))
         .with(transform)
         .with(size)
         .with(camera)
