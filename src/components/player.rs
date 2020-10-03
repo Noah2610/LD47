@@ -3,19 +3,17 @@ use super::component_prelude::*;
 #[derive(Component)]
 #[storage(VecStorage)]
 pub struct Player {
-    pub interacting_with: Option<InteractableType>,
-}
-
-impl Player {
-    pub fn is_in_control(&self) -> bool {
-        self.interacting_with.is_none()
-    }
+    pub in_control: bool,
 }
 
 impl Default for Player {
     fn default() -> Self {
-        Self {
-            interacting_with: None,
-        }
+        Self { in_control: true }
+    }
+}
+
+impl Player {
+    pub fn is_in_control(&self) -> bool {
+        self.in_control
     }
 }

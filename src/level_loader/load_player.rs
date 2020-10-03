@@ -48,6 +48,7 @@ pub(super) fn load_player(
         .with(size.clone())
         .with(sprite_render)
         .with(Transparent)
+        .with(Object::from(object.object_type))
         .with(ScaleOnce::default())
         .with(Player::default())
         .with(Velocity::default());
@@ -57,6 +58,10 @@ pub(super) fn load_player(
         player_settings.components.components,
         Some(size),
     );
+
+    if let Some(events_register) = player_settings.events_register {
+        entity_builder = entity_builder.with(events_register);
+    }
 
     entity_builder.build();
 

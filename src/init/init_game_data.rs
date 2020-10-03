@@ -100,7 +100,15 @@ pub(super) fn build_game_data<'a, 'b>(
             HandleInteractionSystem::default(),
             "handle_interaction_system",
             &[],
-        )?;
+        )?
+        .with(
+            DispatcherId::Ingame,
+            HandleEventsActionsSystem::default(),
+            "handle_events_actions_system",
+            &[],
+        )?
+        /* - */
+        ;
 
     Ok(custom_game_data)
 }

@@ -64,6 +64,10 @@ pub(super) fn load_tiles(
             );
         }
 
+        if let Some(events_register) = tile_settings.events_register {
+            entity_builder = entity_builder.with(events_register);
+        }
+
         entity_builder.build();
     }
 

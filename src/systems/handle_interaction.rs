@@ -12,6 +12,8 @@ impl<'a> System<'a> for HandleInteractionSystem {
         WriteStorage<'a, Player>,
         ReadStorage<'a, Interactable>,
         ReadStorage<'a, Collider<CollisionTag>>,
+        WriteStorage<'a, EventsRegister>,
+        ReadStorage<'a, Unloaded>,
     );
 
     fn run(
@@ -22,6 +24,8 @@ impl<'a> System<'a> for HandleInteractionSystem {
             mut player_store,
             interactable_store,
             collider_store,
+            mut events_register_store,
+            unloaded_store,
         ): Self::SystemData,
     ) {
         for (player, player_collider) in
@@ -32,28 +36,24 @@ impl<'a> System<'a> for HandleInteractionSystem {
                 IsTag(CollisionTag::Interactable)
             };
 
-            if let Some(interacting_with) = &player.interacting_with {
-                unimplemented!();
-            } else {
-                if input_manager.is_down(IngameAction::Interact) {
-                    if let Some(colliding_with) = player_collider
-                        .query::<FindQuery<_>>()
-                        .exp(&query_exp)
-                        .run()
+            if input_manager.is_down(IngameAction::Interact) {
+                if let Some(colliding_with) = player_collider
+                    .query::<FindQuery<_>>()
+                    .exp(&query_exp)
+                    .run()
+                {
+                    for (entity, interactable, events_register, _) in (
+                        &entities,
+                        &interactable_store,
+                        &mut events_register_store,
+                        !&unloaded_store,
+                    )
+                        .join()
                     {
-                        if let Some(interactable) =
-                            (&entities, &interactable_store).join().find_map(
-                                |(entity, interactable)| {
-                                    if entity.id() == colliding_with.id {
-                                        Some(interactable)
-                                    } else {
-                                        None
-                                    }
-                                },
-                            )
-                        {
-                            player.interacting_with =
-                                Some(interactable.interactable_type.clone());
+                        if entity.id() == colliding_with.id {
+                            events_register
+                                .trigger_event(&EventType::OnInteract);
+                            break;
                         }
                     }
                 }

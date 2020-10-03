@@ -34,4 +34,7 @@
         )),
         Hitbox(Size),
     ],
+
+    // Need to have this be set for other entities to trigger player actions.
+    events: {},
 )
