@@ -3,7 +3,7 @@
 (
     axes: {},
     actions: {
-        Accept:  [ [Key(Space)], [Key(Enter)], ],
-        Decline: [ [Key(Escape)], [Key(Backspace)], ],
+        Accept:  [ [Key(Space)], [Key(Return)], ],
+        Decline: [ [Key(Escape)], [Key(Back)], ],
     },
 )
