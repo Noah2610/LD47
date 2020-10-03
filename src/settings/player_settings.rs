@@ -2,7 +2,7 @@
 
 use super::EntityComponents;
 
-#[derive(Deserialize)]
+#[derive(Deserialize, Clone)]
 #[serde(deny_unknown_fields)]
 pub struct PlayerSettings {
     #[serde(alias = "spritesheet")]

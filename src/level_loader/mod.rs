@@ -1,4 +1,5 @@
 mod data;
+mod load_camera;
 mod load_objects;
 mod load_tiles;
 
@@ -15,11 +16,14 @@ pub fn load_level(
 ) -> amethyst::Result<()> {
     let level_file = File::open(filepath)?;
     let level_data = serde_json::de::from_reader::<_, LevelData>(level_file)?;
+    let level_size =
+        Size::new(level_data.level.size.w, level_data.level.size.h);
     let tile_size =
         Size::new(level_data.level.tile_size.w, level_data.level.tile_size.h);
 
     load_tiles::load_tiles(world, level_data.tiles, tile_size)?;
     load_objects::load_objects(world, level_data.objects)?;
+    load_camera::build_camera(world, level_size)?;
 
     Ok(())
 }
