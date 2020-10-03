@@ -15,7 +15,6 @@ features = [
     "animation",
     "audio",
     "physics",
-    "vulkan",
 ]
 
 [dependencies.serde]
@@ -23,11 +22,13 @@ version = "1.0.116"
 features = ["derive"]
 
 [features]
-default = []
+default = ["vulkan"]
+vulkan = ["deathframe/vulkan"]
+metal = ["deathframe/metal"]
 debug = ["deathframe/debug"]
 
 [profile.dev]
-opt-level        = 2
+opt-level        = 1
 debug            = true
 debug-assertions = true
 codegen-units    = 1
