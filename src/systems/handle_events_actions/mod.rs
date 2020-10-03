@@ -11,6 +11,7 @@ impl<'a> System<'a> for HandleEventsActionsSystem {
         ReadStorage<'a, Object>,
         WriteStorage<'a, Player>,
         WriteStorage<'a, Hidden>,
+        WriteStorage<'a, AnimationsContainer<AnimationKey>>,
         ReadStorage<'a, Unloaded>,
     );
 
@@ -22,6 +23,7 @@ impl<'a> System<'a> for HandleEventsActionsSystem {
             object_store,
             mut player_store,
             mut hidden_store,
+            mut animations_store,
             unloaded_store,
         ): Self::SystemData,
     ) {
@@ -59,6 +61,39 @@ impl<'a> System<'a> for HandleEventsActionsSystem {
 
                     ActionType::Hide => {
                         let _ = hidden_store.insert(entity, Hidden);
+                    }
+
+                    ActionType::PlayAnimation(anim) => {
+                        animations_store
+                            .get_mut(entity)
+                            .expect(
+                                "PlayAnimation action requires \
+                                 AnimationsContainer component",
+                            )
+                            .play(anim)
+                            .unwrap();
+                    }
+
+                    ActionType::PushAnimation(anim) => {
+                        animations_store
+                            .get_mut(entity)
+                            .expect(
+                                "PushAnimation action requires \
+                                 AnimationsContainer component",
+                            )
+                            .push(anim)
+                            .unwrap();
+                    }
+
+                    ActionType::PopAnimation => {
+                        animations_store
+                            .get_mut(entity)
+                            .expect(
+                                "PopAnimation action requires \
+                                 AnimationsContainer component",
+                            )
+                            .pop()
+                            .unwrap();
                     }
                 }
             }

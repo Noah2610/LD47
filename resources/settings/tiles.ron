@@ -27,6 +27,18 @@
             )),
             Hitbox(Size),
             Interactable(()),
+            Animations({
+                Custom("OnPlayerCollision"): Once([
+                    (0, 250),
+                    (1, 250),
+                    (4, 250),
+                    (5, 250),
+                    (6, 250),
+                    (5, 250),
+                    (4, 250),
+                    (1, 250),
+                ]),
+            }),
         ],
 
         events: {
@@ -45,8 +57,9 @@
                 // ]),
             ],
 
-            OnCollision(And([IsTag(Player)])): [
+            OnCollision(And([IsTag(Player), IsState(Enter)])): [
                 Echo("Colliding with player!"),
+                PushAnimation(Custom("OnPlayerCollision")),
             ],
         },
     ),

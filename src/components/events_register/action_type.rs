@@ -1,3 +1,4 @@
+use crate::resources::AnimationKey;
 use crate::settings::objects_settings::ObjectType;
 
 #[derive(Deserialize, Clone)]
@@ -7,4 +8,7 @@ pub enum ActionType {
     SetControllable(bool),
     Show,
     Hide,
+    PlayAnimation(AnimationKey),
+    PushAnimation(AnimationKey),
+    PopAnimation,
 }
