@@ -28,6 +28,9 @@
             Hitbox(Size),
             Interactable(()),
             Animations({
+                Idle: Cycle([
+                    (0, 1000),
+                ]),
                 Custom("OnPlayerCollision"): Once([
                     (0, 250),
                     (1, 250),
