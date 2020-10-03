@@ -45,7 +45,7 @@
                 // ]),
             ],
 
-            OnCollision(And([IsTag(Player), IsState(Enter)])): [
+            OnCollision(And([IsTag(Player)])): [
                 Echo("Colliding with player!"),
             ],
         },

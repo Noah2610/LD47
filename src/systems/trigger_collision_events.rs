@@ -40,6 +40,10 @@ impl<'a> System<'a> for TriggerCollisionEventsSystem {
                     }
                 }
             }
+
+            for action in trigger_actions {
+                events_register.add_action(action);
+            }
         }
     }
 }
