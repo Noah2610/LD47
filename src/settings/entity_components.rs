@@ -34,6 +34,7 @@ pub enum EntityComponent {
     SolidPusher(SolidPusher),
     SolidPushable(SolidPushable),
     Movement(Movement),
+    Interactable(Interactable),
 }
 
 pub fn add_components_to_entity(
@@ -68,5 +69,6 @@ pub fn add_components_to_entity(
             Comp::SolidPusher(solid_pusher) => builder.with(solid_pusher),
             Comp::SolidPushable(solid_pushable) => builder.with(solid_pushable),
             Comp::Movement(movement) => builder.with(movement),
+            Comp::Interactable(interactable) => builder.with(interactable),
         })
 }

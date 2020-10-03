@@ -3,4 +3,5 @@
  <image source="../../resources/spritesheets/tilesets/colors.png" width="64" height="64"/>
  <tile id="0" type="Solid"/>
  <tile id="1" type="Solid"/>
+ <tile id="4" type="Alarm"/>
 </tileset>

@@ -16,4 +16,14 @@
             Hitbox(Size),
         ],
     ),
+
+    "Alarm": (
+        components: [
+            Collidable((
+                tag: Interactable,
+            ))
+            Hitbox(Size),
+            Interactable(Alarm),
+        ],
+    ),
 }
