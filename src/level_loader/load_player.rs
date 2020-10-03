@@ -48,6 +48,7 @@ pub(super) fn load_player(
         .with(size.clone())
         .with(sprite_render)
         .with(Transparent)
+        .with(Object::from(object.object_type))
         .with(ScaleOnce::default())
         .with(Player::default())
         .with(Velocity::default());

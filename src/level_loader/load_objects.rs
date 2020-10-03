@@ -17,17 +17,17 @@ pub(super) fn load_objects(
         world.read_resource::<ObjectsSettings>().objects.clone();
 
     for object in objects {
-        match object.object_type {
+        match &object.object_type {
             ObjectType::Player => {
                 load_player::load_player(world, object)?;
             }
 
             ObjectType::Custom(object_ident) => {
                 let object_settings = objects_settings
-                    .get(&object_ident)
+                    .get(object_ident)
                     .expect(&format!(
                         "No settings for object: {}",
-                        &object_ident
+                        object_ident
                     ))
                     .clone();
 
@@ -67,6 +67,7 @@ pub(super) fn load_objects(
                     .with(size.clone())
                     .with(sprite_render)
                     .with(Transparent)
+                    .with(Object::from(object.object_type))
                     .with(ScaleOnce::default())
                     .with(Loadable::default());
 

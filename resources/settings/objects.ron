@@ -46,6 +46,7 @@
             Solid((
                 tag: Solid,
             )),
+            Hitbox(Size),
         ],
     ),
 }

@@ -23,19 +23,21 @@
                 tag: Interactable,
             )),
             Hitbox(Size),
-            Interactable(Alarm),
+            Interactable,
         ],
 
-        // events: {
-        //     OnInteract: [
-        //         SetPlayerControllable(false),
-        //         ShowEntities("AlarmText"),  // `type: "Custom(AlarmText)"`
-        //         ShowEntities("AlarmChild"), // `type: "Custom(AlarmChild)"`
-        //         Delay(1000, [
-        //             HideEntities("AlarmText"),
-        //             HideEntities("AlarmChild"),
-        //         ]),
-        //     ],
-        // },
+        events: {
+            OnInteract: [
+                Echo("INTERACT WITH ALARM!"),
+                ForeignObjectAction(Player, SetControllable(false)),
+                // SetPlayerControllable(false),
+                // ShowEntities("AlarmText"),  // `type: "Custom(AlarmText)"`
+                // ShowEntities("AlarmChild"), // `type: "Custom(AlarmChild)"`
+                // Delay(1000, [
+                //     HideEntities("AlarmText"),
+                //     HideEntities("AlarmChild"),
+                // ]),
+            ],
+        },
     ),
 }
