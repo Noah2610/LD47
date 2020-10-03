@@ -4,6 +4,7 @@ use deathframe::physics::CollisionTag as CTag;
 pub enum CollisionTag {
     Player,
     Solid,
+    Interactable,
 }
 
 impl CTag for CollisionTag {
@@ -12,6 +13,7 @@ impl CTag for CollisionTag {
 
         match (self, other) {
             (Tag::Player, Tag::Solid) => true,
+            (Tag::Player, Tag::Interactable) => true,
             _ => false,
         }
     }

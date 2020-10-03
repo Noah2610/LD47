@@ -1,7 +1,9 @@
+mod interactable;
 mod movement;
 mod player;
 
 pub mod prelude {
+    pub use super::interactable::{Interactable, InteractableType};
     pub use super::movement::Movement;
     pub use super::player::Player;
 

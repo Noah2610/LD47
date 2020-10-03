@@ -28,7 +28,7 @@ impl<'a> System<'a> for ControlPlayerSystem {
         let dt = time.delta_seconds() as f32;
 
         if let Some(x) = input_manager.axis_value(IngameAxis::WalkX) {
-            for (_, velocity, movement, friction) in (
+            for (player, velocity, movement, friction) in (
                 &player_store,
                 &mut velocity_store,
                 &mut movement_store,
@@ -36,20 +36,22 @@ impl<'a> System<'a> for ControlPlayerSystem {
             )
                 .join()
             {
-                if x != 0.0 {
-                    if velocity.x.signum() != x.signum() {
-                        velocity.x = 0.0;
-                    }
+                if player.is_in_control() {
+                    if x != 0.0 {
+                        if velocity.x.signum() != x.signum() {
+                            velocity.x = 0.0;
+                        }
 
-                    friction.set_enabled(&Axis::X, false);
-                    let accel = movement.acceleration * x * dt;
-                    velocity.increase_with_max(
-                        &Axis::X,
-                        accel,
-                        movement.max_velocity,
-                    );
-                } else {
-                    friction.set_enabled(&Axis::X, true);
+                        friction.set_enabled(&Axis::X, false);
+                        let accel = movement.acceleration * x * dt;
+                        velocity.increase_with_max(
+                            &Axis::X,
+                            accel,
+                            movement.max_velocity,
+                        );
+                    } else {
+                        friction.set_enabled(&Axis::X, true);
+                    }
                 }
             }
         }
