@@ -15,10 +15,18 @@ pub fn run() -> amethyst::Result<()> {
     let settings = Settings::load()?;
     let game_data = init_game_data::build_game_data(&settings)?;
 
+    let Settings {
+        player: player_settings,
+        tiles: tiles_settings,
+        objects: objects_settings,
+    } = settings;
+
     let mut game: amethyst::CoreApplication<GameData> =
         ApplicationBuilder::new(application_root_dir()?, Startup::default())?
             .with_frame_limit_config(frame_rate_limit_config()?)
-            .with_resource(settings)
+            .with_resource(player_settings)
+            .with_resource(tiles_settings)
+            .with_resource(objects_settings)
             .build(game_data)?;
 
     game.run();

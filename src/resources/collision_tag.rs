@@ -1,17 +1,18 @@
 use deathframe::physics::CollisionTag as CTag;
 
 #[derive(PartialEq, Eq, Hash, Clone, Deserialize)]
-pub enum CollisionTag {
-    Player,
-    Solid,
+#[serde(from = "String")]
+pub struct CollisionTag(pub String);
+
+impl From<String> for CollisionTag {
+    fn from(s: String) -> Self {
+        Self(s)
+    }
 }
 
 impl CTag for CollisionTag {
     fn collides_with(&self, other: &Self) -> bool {
-        match (self, other) {
-            (CollisionTag::Player, CollisionTag::Solid) => true,
-            _ => false,
-        }
+        self.0 == other.0
     }
 }
 

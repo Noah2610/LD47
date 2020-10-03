@@ -5,7 +5,7 @@ pub mod prelude {
 }
 
 pub mod aliases {
-    use crate::resources::prelude::DispatcherId;
+    use crate::resources::DispatcherId;
     use deathframe::core::custom_game_data::prelude::*;
 
     pub type CustomData = ();
@@ -21,7 +21,7 @@ mod state_prelude {
     pub use super::aliases::*;
     pub use super::prelude::*;
     pub use crate::resource;
-    pub use crate::resources::prelude::*;
+    pub use crate::resources::*;
     pub use crate::settings::prelude::*;
     pub use deathframe::states::state_prelude::*;
 }

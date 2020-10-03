@@ -1,0 +1,3 @@
+// src/settings/objects_settings.rs
+#![enable(implicit_some)]
+{}

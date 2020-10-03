@@ -2,10 +2,12 @@ extern crate deathframe;
 extern crate ron;
 #[macro_use]
 extern crate serde;
+extern crate serde_json;
 
 mod components;
 mod init;
 mod input;
+mod level_loader;
 mod resources;
 mod settings;
 mod states;

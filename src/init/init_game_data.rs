@@ -1,5 +1,5 @@
 use crate::resource;
-use crate::resources::prelude::*;
+use crate::resources::*;
 use crate::settings::Settings;
 use crate::states::aliases::{CustomData, GameDataBuilder};
 use deathframe::amethyst;

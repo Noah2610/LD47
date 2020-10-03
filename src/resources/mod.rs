@@ -1,11 +1,9 @@
-pub mod prelude {
-    pub use super::animation_key::AnimationKey;
-    pub use super::collision_tag::{CollisionTag, SolidTag};
-    pub use super::dispatcher_id::DispatcherId;
-    pub use super::song_key::SongKey;
-    pub use super::sound_key::SoundKey;
-    pub use deathframe::resources::prelude::*;
-}
+pub use animation_key::AnimationKey;
+pub use collision_tag::{CollisionTag, SolidTag};
+pub use deathframe::resources::prelude::*;
+pub use dispatcher_id::DispatcherId;
+pub use song_key::SongKey;
+pub use sound_key::SoundKey;
 
 mod animation_key;
 mod collision_tag;

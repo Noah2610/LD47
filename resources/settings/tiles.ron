@@ -1,0 +1,7 @@
+// src/settings/tiles_settings.rs
+#![enable(implicit_some)]
+{
+    "Solid": (
+        components: [],
+    ),
+}
