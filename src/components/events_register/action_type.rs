@@ -11,4 +11,5 @@ pub enum ActionType {
     PlayAnimation(AnimationKey),
     PushAnimation(AnimationKey),
     PopAnimation,
+    FaceTowardsObject(ObjectType),
 }

@@ -12,6 +12,7 @@ impl<'a> System<'a> for HandleEventsActionsSystem {
         WriteStorage<'a, Player>,
         WriteStorage<'a, Hidden>,
         WriteStorage<'a, AnimationsContainer<AnimationKey>>,
+        WriteStorage<'a, Transform>,
         ReadStorage<'a, Unloaded>,
     );
 
@@ -24,6 +25,7 @@ impl<'a> System<'a> for HandleEventsActionsSystem {
             mut player_store,
             mut hidden_store,
             mut animations_store,
+            mut transform_store,
             unloaded_store,
         ): Self::SystemData,
     ) {
@@ -94,6 +96,28 @@ impl<'a> System<'a> for HandleEventsActionsSystem {
                             )
                             .pop()
                             .unwrap();
+                    }
+
+                    ActionType::FaceTowardsObject(other_object_type) => {
+                        if let Some(other_x) = (&object_store, &transform_store)
+                            .join()
+                            .find_map(|(object, transform)| {
+                                if &object.object_type == &other_object_type {
+                                    Some(transform.translation().x)
+                                } else {
+                                    None
+                                }
+                            })
+                        {
+                            if let Some(transform) =
+                                transform_store.get_mut(entity)
+                            {
+                                let pos = transform.translation();
+                                let diff = other_x - pos.x;
+                                let scale = transform.scale_mut();
+                                scale.x = scale.x.abs() * diff.signum();
+                            }
+                        }
                     }
                 }
             }
