@@ -1,5 +1,21 @@
 // src/settings/player_settings.rs
 #![enable(implicit_some)]
 (
-    components: [],
+    spritesheet_filename: "colors.png",
+
+    components: [
+        Animations({
+            Idle: Cycle([
+                (4, 500),
+                (5, 500),
+                (6, 500),
+                (5, 500),
+            ]),
+            Walk: Cycle([
+                (4, 200),
+                (5, 200),
+                (6, 200),
+            ]),
+        }),
+    ],
 )

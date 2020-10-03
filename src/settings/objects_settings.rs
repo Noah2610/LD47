@@ -12,17 +12,19 @@ pub enum ObjectType {
 #[derive(Deserialize, Clone)]
 #[serde(from = "HashMap<String, ObjectSettings>", deny_unknown_fields)]
 pub struct ObjectsSettings {
-    pub tiles: HashMap<String, ObjectSettings>,
+    pub objects: HashMap<String, ObjectSettings>,
 }
 
 impl From<HashMap<String, ObjectSettings>> for ObjectsSettings {
-    fn from(tiles: HashMap<String, ObjectSettings>) -> Self {
-        Self { tiles }
+    fn from(objects: HashMap<String, ObjectSettings>) -> Self {
+        Self { objects }
     }
 }
 
 #[derive(Deserialize, Clone)]
 #[serde(deny_unknown_fields)]
 pub struct ObjectSettings {
-    pub components: EntityComponents,
+    #[serde(alias = "spritesheet")]
+    pub spritesheet_filename: String,
+    pub components:           EntityComponents,
 }
