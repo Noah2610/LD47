@@ -25,5 +25,17 @@
             Hitbox(Size),
             Interactable(Alarm),
         ],
+
+        // events: {
+        //     OnInteract: [
+        //         SetPlayerControllable(false),
+        //         ShowEntities("AlarmText"),  // `type: "Custom(AlarmText)"`
+        //         ShowEntities("AlarmChild"), // `type: "Custom(AlarmChild)"`
+        //         Delay(1000, [
+        //             HideEntities("AlarmText"),
+        //             HideEntities("AlarmChild"),
+        //         ]),
+        //     ],
+        // },
     ),
 }

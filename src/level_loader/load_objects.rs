@@ -48,7 +48,7 @@ pub(super) fn load_objects(
                         .write_resource::<SpriteSheetHandles<PathBuf>>()
                         .get_or_load(
                             resource(format!(
-                                "spritesheets/tilesets/{}",
+                                "spritesheets/{}",
                                 &object_settings.spritesheet_filename
                             )),
                             world,

@@ -1,3 +1,51 @@
 // src/settings/objects_settings.rs
 #![enable(implicit_some)]
-{}
+{
+    // "AlarmChild": (
+    //     spritesheet: "alarm_child.png",
+    //     components: [
+    //         Hidden(()),
+    //     ],
+    // ),
+
+    // "Pic": (
+    //     events: {
+    //         OnInteract: [
+    //             SetOutput([
+    //                 "This is a picture.",
+    //                 "It is very colorful.",
+    //             ]),
+    //             Delay(1000, [
+    //                   ClearOutput,
+    //                   SetOutput(["Cleared"]),
+    //                   PlayAnimation(Custom("MyAnim")),
+    //             ]),
+
+    //             TriggerForeign(Custom("Npc"), [
+    //                 PlayAnimation("PlayerIsCheckingPic"),
+    //             ]),
+    //         ],
+    //     },
+    // ),
+
+    // "Npc": (
+    //     components: [
+    //         Animations({
+    //             Custom("PlayerIsCheckingPic"): [/* ... */],
+    //         }),
+    //     ],
+    // ),
+
+    "Solid": (
+        spritesheet: "tilesets/colors.png",
+
+        components: [
+            Collidable((
+                tag: Solid,
+            )),
+            Solid((
+                tag: Solid,
+            )),
+        ],
+    ),
+}
