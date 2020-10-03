@@ -56,6 +56,19 @@
         ],
 
         events: {
+            // OnSpawn(0): [
+            //     PlayAnimation(Custom("Idle0")),
+            // ],
+            // OnSpawn(1): [
+            //     PlayAnimation(Custom("Idle1")),
+            // ],
+            // OnSpawn(2): [
+            //     PlayAnimation(Custom("Idle2")),
+            // ],
+            // OnSpawn(3): [
+            //     PlayAnimation(Custom("Idle3")),
+            // ],
+
             OnInteract: [
                 Echo("INTERACT WITH ALARM!"),
                 ForeignObjectAction(Player, [
