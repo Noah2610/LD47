@@ -12,4 +12,5 @@ pub enum ActionType {
     PushAnimation(AnimationKey),
     PopAnimation,
     FaceTowardsObject(ObjectType),
+    StartTimer(String, u64),
 }

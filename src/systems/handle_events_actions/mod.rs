@@ -1,5 +1,7 @@
 use super::system_prelude::*;
+use climer::Timer;
 use std::collections::HashMap;
+use std::time::Duration;
 
 #[derive(Default)]
 pub struct HandleEventsActionsSystem;
@@ -34,7 +36,7 @@ impl<'a> System<'a> for HandleEventsActionsSystem {
         for (entity, events_register, _) in
             (&entities, &mut events_register_store, !&unloaded_store).join()
         {
-            for action in events_register.drain_actions() {
+            for action in events_register.triggered_actions.drain(..) {
                 match action {
                     ActionType::Echo(msg) => println!("> {}", msg),
 
@@ -118,6 +120,15 @@ impl<'a> System<'a> for HandleEventsActionsSystem {
                                 scale.x = scale.x.abs() * diff.signum();
                             }
                         }
+                    }
+
+                    ActionType::StartTimer(timer_name, millis) => {
+                        let mut timer = Timer::new(
+                            Some(Duration::from_millis(millis).into()),
+                            None,
+                        );
+                        timer.start().unwrap();
+                        events_register.timers.insert(timer_name, timer);
                     }
                 }
             }

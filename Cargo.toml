@@ -18,6 +18,10 @@ features = [
     "physics",
 ]
 
+[dependencies.climer]
+version = "0.6.0"
+default-features = false
+
 [dependencies.serde]
 version = "1.0.116"
 features = ["derive"]
