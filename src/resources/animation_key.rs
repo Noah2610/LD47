@@ -4,3 +4,12 @@ pub enum AnimationKey {
     Walk,
     Custom(String),
 }
+
+impl AnimationKey {
+    pub fn is_custom(&self) -> bool {
+        match self {
+            AnimationKey::Custom(_) => true,
+            _ => false,
+        }
+    }
+}

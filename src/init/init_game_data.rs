@@ -97,6 +97,12 @@ pub(super) fn build_game_data<'a, 'b>(
         )?
         .with(
             DispatcherId::Ingame,
+            UpdateAnimationsSystem::default(),
+            "update_animations_system",
+            &[],
+        )?
+        .with(
+            DispatcherId::Ingame,
             TriggerInteractionEventsSystem::default(),
             "trigger_interaction_events_system",
             &[],
