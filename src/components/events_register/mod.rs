@@ -8,6 +8,7 @@ mod action_type;
 mod event_type;
 
 use super::component_prelude::*;
+use climer::Timer;
 use std::collections::HashMap;
 
 type EventsActionsMap = HashMap<EventType, Vec<ActionType>>;
@@ -15,9 +16,11 @@ type EventsActionsMap = HashMap<EventType, Vec<ActionType>>;
 #[derive(Component, Deserialize, Clone)]
 #[serde(from = "EventsActionsMap", deny_unknown_fields)]
 pub struct EventsRegister {
-    pub events:        EventsActionsMap,
+    pub events:            EventsActionsMap,
     #[serde(skip)]
-    triggered_actions: Vec<ActionType>,
+    pub timers:            HashMap<String, Timer>,
+    #[serde(skip)]
+    pub triggered_actions: Vec<ActionType>,
 }
 
 impl EventsRegister {
@@ -32,6 +35,7 @@ impl From<EventsActionsMap> for EventsRegister {
     fn from(events: EventsActionsMap) -> Self {
         Self {
             events,
+            timers: HashMap::new(),
             triggered_actions: Vec::new(),
         }
     }

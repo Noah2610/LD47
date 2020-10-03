@@ -5,4 +5,5 @@ use deathframe::physics::query::prelude::QueryExpression;
 pub enum EventType {
     OnInteract,
     OnCollision(QueryExpression<CollisionTag>),
+    OnTimerFinish(String),
 }

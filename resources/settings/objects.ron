@@ -49,6 +49,11 @@
             OnInteract: [
                 Echo("INTERACT"),
                 FaceTowardsObject(Player),
+                StartTimer("FacePlayer", 2000),
+            ],
+
+            OnTimerFinish("FacePlayer"): [
+                FaceTowardsObject(Player),
             ],
         },
     ),
