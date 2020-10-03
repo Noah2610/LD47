@@ -1,20 +1,23 @@
 // src/settings/player_settings.rs
 #![enable(implicit_some)]
 (
-    spritesheet_filename: "tilesets/colors.png",
+    spritesheet_filename: "player.png",
 
     components: [
+        Size((
+            w: 16.0,
+            h: 32.0,
+        )),
         Animations({
             Idle: Cycle([
-                (4, 500),
-                (5, 500),
-                (6, 500),
-                (5, 500),
+                (12, 200),
+                (13, 200),
             ]),
             Walk: Cycle([
+                (1, 200),
+                (2, 200),
+                (3, 200),
                 (4, 200),
-                (5, 200),
-                (6, 200),
             ]),
         }),
         Gravity(( y: -800.0 )),
@@ -32,7 +35,14 @@
         Solid((
             tag: Player,
         )),
-        Hitbox(Size),
+        Hitbox(Custom([
+            (
+                top:     12.0,
+                bottom: -16.0,
+                left:   -3.0,
+                right:   3.0,
+            ),
+        ])),
     ],
 
     // Need to have this be set for other entities to trigger player actions.

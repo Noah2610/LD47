@@ -24,16 +24,19 @@
 
         for (let layerIdx = 0; layerIdx < map.layerCount; layerIdx++) {
             let layer = map.layerAt(layerIdx);
-            if (layer.isTileLayer) {
-                outputMap.tiles = [].concat(
-                    outputMap.tiles,
-                    getTilesFromLayer(layer)
-                );
-            } else if (layer.isObjectLayer) {
-                outputMap.objects = [].concat(
-                    outputMap.objects,
-                    getObjectsFromLayer(layer)
-                );
+            const layerProperties = layer.properties();
+            if (!layerProperties["_ignore"]) {
+                if (layer.isTileLayer) {
+                    outputMap.tiles = [].concat(
+                        outputMap.tiles,
+                        getTilesFromLayer(layer)
+                    );
+                } else if (layer.isObjectLayer) {
+                    outputMap.objects = [].concat(
+                        outputMap.objects,
+                        getObjectsFromLayer(layer)
+                    );
+                }
             }
         }
 

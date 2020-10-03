@@ -25,8 +25,8 @@ impl From<HashMap<String, ObjectSettings>> for ObjectsSettings {
 #[derive(Deserialize, Clone)]
 #[serde(deny_unknown_fields)]
 pub struct ObjectSettings {
-    #[serde(alias = "spritesheet")]
-    pub spritesheet_filename: String,
+    #[serde(alias = "spritesheet", default)]
+    pub spritesheet_filename: Option<String>,
     pub components:           EntityComponents,
     #[serde(default, alias = "events")]
     pub events_register:      Option<EventsRegister>,

@@ -43,20 +43,26 @@ pub(super) fn load_objects(
                     transform
                 };
 
-                let sprite_render = {
-                    let sprite_sheet = world
-                        .write_resource::<SpriteSheetHandles<PathBuf>>()
-                        .get_or_load(
-                            resource(format!(
-                                "spritesheets/{}",
-                                &object_settings.spritesheet_filename
-                            )),
-                            world,
-                        );
-                    SpriteRender {
-                        sprite_sheet,
-                        sprite_number: 0,
-                    }
+                let sprite_render_opt = if let Some(spritesheet_filename) =
+                    &object_settings.spritesheet_filename
+                {
+                    Some({
+                        let sprite_sheet = world
+                            .write_resource::<SpriteSheetHandles<PathBuf>>()
+                            .get_or_load(
+                                resource(format!(
+                                    "spritesheets/{}",
+                                    spritesheet_filename,
+                                )),
+                                world,
+                            );
+                        SpriteRender {
+                            sprite_sheet,
+                            sprite_number: 0,
+                        }
+                    })
+                } else {
+                    None
                 };
 
                 let size = Size::new(object.size.w, object.size.h);
@@ -65,11 +71,14 @@ pub(super) fn load_objects(
                     .create_entity()
                     .with(transform)
                     .with(size.clone())
-                    .with(sprite_render)
                     .with(Transparent)
                     .with(Object::from(object.object_type))
                     .with(ScaleOnce::default())
                     .with(Loadable::default());
+
+                if let Some(sprite_render) = sprite_render_opt {
+                    entity_builder = entity_builder.with(sprite_render);
+                }
 
                 entity_builder = add_components_to_entity(
                     entity_builder,
