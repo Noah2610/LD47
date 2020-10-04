@@ -27,7 +27,8 @@ impl From<HashMap<String, ObjectSettings>> for ObjectsSettings {
 pub struct ObjectSettings {
     #[serde(alias = "spritesheet", default)]
     pub spritesheet_filename: Option<String>,
-    pub components:           EntityComponents,
+    #[serde(default)]
+    pub components:           Option<EntityComponents>,
     #[serde(default, alias = "events")]
     pub events_register:      Option<EventsRegister>,
 }

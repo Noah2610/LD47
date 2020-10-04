@@ -81,12 +81,14 @@ pub(super) fn load_objects(
                     entity_builder = entity_builder.with(sprite_render);
                 }
 
-                entity_builder = add_components_to_entity(
-                    entity_builder,
-                    object_settings.components.components,
-                    Some(size),
-                    current_loop,
-                );
+                if let Some(components) = object_settings.components {
+                    entity_builder = add_components_to_entity(
+                        entity_builder,
+                        components.components,
+                        Some(size),
+                        current_loop,
+                    );
+                }
 
                 if let Some(events_register) = object_settings.events_register {
                     entity_builder = entity_builder.with(events_register);
