@@ -50,11 +50,22 @@
                 Echo("INTERACT"),
                 FaceTowardsObject(Player),
                 StartTimer("FacePlayer", 500),
+
+                ScreenShake((
+                    duration_ms: 500,
+                    strength: 2.0,
+                    shake_delay_ms: 5,
+                )),
+                StartTimer("NextScene", 1000),
             ],
 
             OnTimerFinish("FacePlayer"): [
                 AddOutput(["What's poppin mah dude?"]),
                 FaceTowardsObject(Player),
+            ],
+
+            OnTimerFinish("NextScene"): [
+                NextScene,
             ],
         },
     ),

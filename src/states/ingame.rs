@@ -8,11 +8,21 @@ pub struct Ingame {
     ui_data: UiData,
 }
 
+impl Ingame {
+    fn load_ui(&mut self, data: &mut StateData<GameData>) {
+        self.create_ui(data, resource("ui/ingame.ron").to_str().unwrap());
+    }
+
+    fn unload_ui(&mut self, data: &mut StateData<GameData>) {
+        self.delete_ui(data);
+    }
+}
+
 impl<'a, 'b> State<GameData<'a, 'b>, StateEvent> for Ingame {
     fn on_start(&mut self, mut data: StateData<GameData<'a, 'b>>) {
         data.world.insert(TextOutput::default());
 
-        self.create_ui(&mut data, resource("ui/ingame.ron").to_str().unwrap());
+        self.load_ui(&mut data);
 
         let level_filename = {
             let scene_manager = data.world.read_resource::<SceneManager>();
@@ -28,12 +38,12 @@ impl<'a, 'b> State<GameData<'a, 'b>, StateEvent> for Ingame {
     }
 
     fn on_stop(&mut self, mut data: StateData<GameData<'a, 'b>>) {
-        self.delete_ui(&mut data);
+        self.unload_ui(&mut data);
     }
 
     fn update(
         &mut self,
-        data: StateData<GameData<'a, 'b>>,
+        mut data: StateData<GameData<'a, 'b>>,
     ) -> Trans<GameData<'a, 'b>, StateEvent> {
         data.data.update(data.world, DispatcherId::Ingame).unwrap();
 
@@ -47,8 +57,10 @@ impl<'a, 'b> State<GameData<'a, 'b>, StateEvent> for Ingame {
             }
         };
         if let Some(next_level) = next_level_opt {
+            self.unload_ui(&mut data);
             data.world.delete_all();
             data.world.insert(TextOutput::default());
+            self.load_ui(&mut data);
             if let Err(e) = load_level(
                 data.world,
                 resource(format!("levels/{}", &next_level)),
