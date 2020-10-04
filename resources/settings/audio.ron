@@ -8,6 +8,10 @@
             file: "alarm.wav",
         ),
 
+        "BossMumble": (
+            file: "boss_mumble.wav",
+        ),
+
         "BossScream1": (
             file: "boss_scream_1.wav",
         ),
@@ -22,6 +26,30 @@
 
         "BossScream4": (
             file: "boss_scream_4.wav",
+        ),
+
+        "CoffeeMaker": (
+            file: "coffee_maker.wav",
+        ),
+
+        "Interact": (
+            file: "interact.wav",
+        ),
+
+        "Keyboard": (
+            file: "keyboard.wav",
+        ),
+
+        "PlayerFootsteps": (
+            file: "player_footsteps.wav",
+        ),
+
+        "SceneTransition": (
+            file: "scene_transition.wav",
+        ),
+
+        "Telephone": (
+            file: "telephone.wav",
         ),
     },
 )

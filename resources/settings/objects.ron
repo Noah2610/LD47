@@ -84,6 +84,8 @@
                     shake_delay_ms: 5,
                 )),
                 // StartTimer("NextScene", 1000),
+
+                PlaySound("BossScream1"),
             ],
 
             OnTimerFinish("Step"): [
@@ -143,6 +145,8 @@
                 )),
 
                 StartTimer("Text0", 0),
+
+                PlaySound("Interact"),
             ],
 
             OnTimerFinish("Text0"): [
