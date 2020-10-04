@@ -12,6 +12,7 @@ pub(super) fn load_player(
     world: &mut World,
     object: ObjectData,
 ) -> amethyst::Result<()> {
+    let current_loop = world.read_resource::<SceneManager>().current_loop;
     let player_settings = (*world.read_resource::<PlayerSettings>()).clone();
 
     let transform = {
@@ -57,6 +58,7 @@ pub(super) fn load_player(
         entity_builder,
         player_settings.components.components,
         Some(size),
+        current_loop,
     );
 
     if let Some(events_register) = player_settings.events_register {

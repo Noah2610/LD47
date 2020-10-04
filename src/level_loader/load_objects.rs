@@ -13,6 +13,7 @@ pub(super) fn load_objects(
     world: &mut World,
     objects: Vec<ObjectData>,
 ) -> amethyst::Result<()> {
+    let current_loop = world.read_resource::<SceneManager>().current_loop;
     let objects_settings =
         world.read_resource::<ObjectsSettings>().objects.clone();
 
@@ -84,6 +85,7 @@ pub(super) fn load_objects(
                     entity_builder,
                     object_settings.components.components,
                     Some(size),
+                    current_loop,
                 );
 
                 if let Some(events_register) = object_settings.events_register {
