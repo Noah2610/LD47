@@ -3,7 +3,6 @@
 {
     "Solid": (
         spritesheet: "tilesets/colors.png",
-
         components: [
             Animations({
                 Idle: Cycle([(3, 1000)]),
@@ -18,8 +17,12 @@
         ],
     ),
 
+    // -------
+    // SCENE 1
+    // -------
+
     "Scene1Bg": (
-        spritesheet: "bg/scene1.png",
+        spritesheet: "scene1/bg.png",
         components: [
             Size((
                 w: 256.0,
@@ -27,6 +30,225 @@
             )),
         ],
     ),
+
+    "Plant": (
+        spritesheet: "scene1/plant.png",
+        components: [
+            Size((
+                w: 24.0,
+                h: 32.0,
+            )),
+            Collidable((
+                tag: Interactable,
+            )),
+            Interactable(()),
+            Hitbox(Size),
+            Animations({ Idle: Cycle([ (6, 1000), ]), }),
+            InLoop(0, [ Animations({ Idle: Cycle([ (0, 1000), ]), }), ]),
+            InLoop(1, [ Animations({ Idle: Cycle([ (1, 1000), ]), }), ]),
+            InLoop(2, [ Animations({ Idle: Cycle([ (2, 1000), ]), }), ]),
+            InLoop(3, [ Animations({ Idle: Cycle([ (3, 1000), ]), }), ]),
+            InLoop(4, [ Animations({ Idle: Cycle([ (4, 1000), ]), }), ]),
+            InLoop(5, [ Animations({ Idle: Cycle([ (5, 1000), ]), }), ]),
+            InLoop(6, [ Animations({ Idle: Cycle([ (6, 1000), ]), }), ]),
+        ],
+
+        events: {
+            OnInteract: [
+                PlaySound("Interact"),
+                SetOutput([
+                    "Huxley has seen better days, but he's a fighter.",
+                    " ", // <- workaround to not scroll text
+                ]),
+            ],
+        },
+    ),
+
+    "Shoes": (
+        components: [
+            Collidable((
+                tag: Interactable,
+            )),
+            Interactable(()),
+            Hitbox(Size),
+            TextLines({
+                "Inspect": (
+                    lines: [
+                        "A pair of comically large loafers. They were passed down to me by my uncle.",
+                        "A pair of loafers. They don't quite fit.",
+                    ],
+                    behavior: Sequence(loop: true),
+                ),
+            }),
+        ],
+
+        events: {
+            OnInteract: [
+                PlaySound("Interact"),
+                PrintNextLine("Inspect"),
+                AddOutput([" "]), // WORKAROUND
+            ],
+        },
+    ),
+
+    "Painting": (
+        components: [
+            Collidable((
+                tag: Interactable,
+            )),
+            Interactable(()),
+            Hitbox(Size),
+        ],
+
+        events: {
+            OnInteract: [
+                PlaySound("Interact"),
+                SetOutput([
+                    "This has been here for as long as I remember.",
+                    "The years have left it stained with a thick, yellow tint.",
+                    " ",
+                ]),
+            ],
+        },
+    ),
+
+    "Filth": (
+        components: [
+            Collidable((
+                tag: Interactable,
+            )),
+            Interactable(()),
+            Hitbox(Size),
+        ],
+
+        events: {
+            OnInteract: [
+                PlaySound("Interact"),
+                SetOutput([
+                    "Filth.",
+                    " ",
+                ]),
+            ],
+        },
+    ),
+
+    "Bed": (
+        components: [
+            Collidable((
+                tag: Interactable,
+            )),
+            Interactable(()),
+            Hitbox(Size),
+            TextLines({
+                "Inspect": (
+                    lines: [
+                        "My only friend.",
+                        "I feel as if the cozy sheets are calling for me.",
+                    ],
+                    behavior: Sequence(loop: true),
+                ),
+            }),
+        ],
+
+        events: {
+            OnInteract: [
+                PlaySound("Interact"),
+                PrintNextLine("Inspect"),
+                AddOutput([" "]),
+            ],
+        },
+    ),
+
+    "Door": (
+        components: [
+            Collidable((
+                tag: Interactable,
+            )),
+            Interactable(()),
+            Hitbox(Size),
+        ],
+
+        events: {
+            OnInteract: [
+                PlaySound("SceneTransition"),
+                ForeignObjectAction(Player, [SetControllable(false)]),
+                Fade((
+                    type: FadeOut,
+                    duration_ms: 500,
+                )),
+                StartTimer("NextScene", 1000),
+            ],
+
+            OnTimerFinish("NextScene"): [
+                NextScene,
+            ],
+        },
+    ),
+
+    "Alarm": (
+        components: [
+            // Size(()) // TODO!
+            Collidable((
+                tag: Interactable,
+            )),
+            Hitbox(Size),
+            Interactable(()),
+            TextLines({
+                "Ring": (
+                    lines: [
+                        "ring ring",
+                        "ring ring ",
+                        "ring ring  ",
+                        "ring ring   ",
+                        "ring ring    ",
+                        "ringggg.... ringg....... ring?",
+                        "Hello-oh! Anyone home?",
+                        "Rise and shine, buddy!",
+                        "Goodmorning sunshine! Time to greet another beautiful day!",
+                        "<name>? I'm right here, buddy.",
+                        "Press me :)",
+                        "Press me. Thats how clocks work, you know?",
+                        "You DO know, right? ",
+                        "Press me. Thats how clocks work, in case you forgot.",
+                        "Obey me, mortal, or suffer the consequences.", // -> "*Press me buddy :)"
+                        "...",
+                        "press me. *now*.",
+                        "PRESS ME. NOW.",
+                        "PRESS ME YOU ****" ,
+                        "PRESS ME YOU ****** *** OR I WILL ******** AND ***** *** YOUR ****** YOU ***** *******",
+                        "****** **** *** ***** **** ***** *** ***** **** ******* ******",
+                    ],
+                    behavior: Sequence(loop: false),
+                ),
+            }),
+        ],
+
+        events: {
+            Init: [
+                StartTimer("Text", 500),
+                StartTimer("Sound", 500),
+            ],
+
+            OnTimerFinish("Text"): [
+                PrintNextLine("Ring"),
+                StartTimer("Ring", 5000),
+            ],
+
+            OnTimerFinish("Sound"): [
+                PlaySound("Alarm"),
+                StartTimer("Sound", 1000),
+            ],
+
+            OnInteract: [
+                StopTimer("Text"),
+                StopTimer("Sound"),
+                PlaySound("Interact"),
+                ClearOutput,
+            ],
+        },
+    ),
+
+    // ---
 
     "Boss": (
         spritesheet: "boss.png",
@@ -98,163 +320,6 @@
             ],
 
             OnTimerFinish("NextScene"): [
-                NextScene,
-            ],
-        },
-    ),
-
-    "Alarm": (
-        components: [
-            Collidable((
-                tag: Interactable,
-            )),
-            Collider((
-                tag: SelfCollidesWithPlayer,
-            )),
-            Hitbox(Size),
-            Interactable(()),
-            Animations({
-                Idle: Cycle([
-                    (0, 1000),
-                ]),
-                Custom("OnPlayerCollision"): Once([
-                    (0, 250),
-                    (1, 250),
-                    (4, 250),
-                    (5, 250),
-                    (6, 250),
-                    (5, 250),
-                    (4, 250),
-                    (1, 250),
-                ]),
-            }),
-            TextLines({
-                "Ring": (
-                    lines: [
-                        "ring ring",
-                        "ringggg.... ringg....... ring?",
-                        "Hello-oh! Anyone home?",
-                        "Rise and shine, buddy!",
-                        "Goodmorning sunshine! Time to greet another beautiful day!",
-                        "<name>? I'm right here, buddy.",
-                        "Press me :)",
-                        "Press me. Thats how clocks work, you know?",
-                        "You DO know, right? ",
-                        "Press me. Thats how clocks work, in case you forgot.",
-                        "Obey me, mortal, or suffer the consequences.", // -> "*Press me buddy :)"
-                        "...",
-                        "press me. *now*.",
-                        "PRESS ME. NOW.",
-                        "PRESS ME YOU ****" ,
-                        "PRESS ME YOU ****** *** OR I WILL ******** AND ***** *** YOUR ****** YOU ***** *******",
-                        "****** **** *** ***** **** ***** *** ***** **** ******* ******",
-                    ],
-                    behavior: Sequence(loop: false),
-                ),
-            }),
-        ],
-
-        events: {
-            Init: [
-                AddOutput(["Hello alarm"]),
-            ],
-
-            OnInteract: [
-                Echo("INTERACT WITH ALARM!"),
-                AddOutput(["EARTHQUAKE!"]),
-                ScreenShake((
-                    duration_ms: 2000,
-                    strength: 4.0,
-                    shake_delay_ms: 10,
-                )),
-                Fade((
-                    type: FadeIn,
-                    duration_ms: 5000,
-                )),
-
-                StartTimer("Ring", 0),
-
-                PlaySound("Interact"),
-            ],
-
-            OnTimerFinish("Ring"): [
-                PrintNextLine("Ring"),
-                StartTimer("Ring", 3000),
-            ],
-
-            OnCollision(And([IsTag(Player), IsState(Enter)])): [
-                Echo("Colliding with player!"),
-                PushAnimation(Custom("OnPlayerCollision")),
-            ],
-        },
-    ),
-
-    "Plant": (
-        spritesheet: "scene1/plant.png",
-
-        components: [
-            Size((
-                w: 24.0,
-                h: 32.0,
-            )),
-            InLoop(0, [
-                Animations({
-                    Idle: Cycle([
-                        (0, 1000),
-                    ]),
-                }),
-            ]),
-            InLoop(1, [
-                Animations({
-                    Idle: Cycle([
-                        (1, 1000),
-                    ]),
-                }),
-            ]),
-            InLoop(2, [
-                Animations({
-                    Idle: Cycle([
-                        (2, 1000),
-                    ]),
-                }),
-            ]),
-            InLoop(3, [
-                Animations({
-                    Idle: Cycle([
-                        (3, 1000),
-                    ]),
-                }),
-            ]),
-            InLoop(4, [
-                Animations({
-                    Idle: Cycle([
-                        (4, 1000),
-                    ]),
-                }),
-            ]),
-            InLoop(5, [
-                Animations({
-                    Idle: Cycle([
-                        (5, 1000),
-                    ]),
-                }),
-            ]),
-            InLoop(6, [
-                Animations({
-                    Idle: Cycle([
-                        (6, 1000),
-                    ]),
-                }),
-            ]),
-            Collidable((
-                tag: Interactable,
-            )),
-            Interactable(()),
-            Hitbox(Size),
-        ],
-
-        events: {
-            OnInteract: [
                 NextScene,
             ],
         },

@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.4" tiledversion="1.4.2" orientation="orthogonal" renderorder="right-down" width="16" height="9" tilewidth="16" tileheight="16" infinite="0" nextlayerid="6" nextobjectid="16">
+ <editorsettings>
+  <export target="../../resources/levels/scene_1.json" format="ld47-export"/>
+ </editorsettings>
+ <tileset firstgid="1" source="../tsx/scene1bg.tsx"/>
+ <layer id="1" name="ignored" width="16" height="9">
+  <properties>
+   <property name="_ignore" type="bool" value="true"/>
+  </properties>
+  <data encoding="csv">
+1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,
+17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,
+33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,
+49,50,51,52,53,54,55,56,57,58,59,60,61,62,63,64,
+65,66,67,68,69,70,71,72,73,74,75,76,77,78,79,80,
+81,82,83,84,85,86,87,88,89,90,91,92,93,94,95,96,
+97,98,99,100,101,102,103,104,105,106,107,108,109,110,111,112,
+113,114,115,116,117,118,119,120,121,122,123,124,125,126,127,128,
+129,130,131,132,133,134,135,136,137,138,139,140,141,142,143,144
+</data>
+ </layer>
+ <objectgroup id="4" name="bg" visible="0">
+  <properties>
+   <property name="z" type="float" value="-1"/>
+  </properties>
+  <object id="2" type="Custom(Scene1Bg)" x="0" y="0" width="256" height="144"/>
+ </objectgroup>
+ <objectgroup id="5" name="collision">
+  <object id="5" type="Custom(Solid)" x="0" y="96" width="256" height="48"/>
+  <object id="6" type="Custom(Solid)" x="0" y="0" width="32" height="96"/>
+  <object id="7" type="Custom(Solid)" x="228" y="0" width="28" height="96"/>
+  <object id="9" name="Painting" type="Custom(Painting)" x="132" y="67" width="10" height="14"/>
+  <object id="10" name="Shoes" type="Custom(Shoes)" x="150.091" y="87.8182" width="6.81818" height="8.18182"/>
+  <object id="11" name="Filth" type="Custom(Filth)" x="108.636" y="64" width="10.5455" height="16"/>
+  <object id="13" name="Alarm" type="Custom(Alarm)" x="80" y="64" width="16" height="32"/>
+  <object id="14" name="Door" type="Custom(Door)" x="173.875" y="64" width="11.375" height="32"/>
+  <object id="15" name="Bed" type="Custom(Bed)" x="32" y="64" width="32" height="32"/>
+ </objectgroup>
+ <objectgroup id="3" name="objects">
+  <properties>
+   <property name="z" type="float" value="0.5"/>
+  </properties>
+  <object id="8" name="Plant" type="Custom(Plant)" x="199" y="64" width="24" height="32"/>
+ </objectgroup>
+ <objectgroup id="2" name="player">
+  <properties>
+   <property name="z" type="float" value="1"/>
+  </properties>
+  <object id="1" name="Player" type="Player" x="48" y="48" width="16" height="32"/>
+ </objectgroup>
+</map>

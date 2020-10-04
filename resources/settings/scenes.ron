@@ -3,7 +3,7 @@
 (
     scenes: [
         (
-            level: "dev.json",
+            level: "scene_1.json",
         ),
         (
             level: "dev.json",
