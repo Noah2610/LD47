@@ -21,5 +21,5 @@ impl<'a, 'b> State<GameData<'a, 'b>, StateEvent> for Startup {
 fn insert_resources(world: &mut World) {
     let sprite_sheet_handles = SpriteSheetHandles::<PathBuf>::default();
     world.insert(sprite_sheet_handles);
-    world.insert(ScreenShake::default());
+    world.insert(ScreenShakeRes::default());
 }

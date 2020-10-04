@@ -7,8 +7,6 @@ use deathframe::amethyst::utils::ortho_camera::{
 use rand::prelude::Rng;
 use std::time::Duration;
 
-const SHAKE_DELAY_MS: u64 = 10;
-
 #[derive(Default)]
 pub struct HandleScreenShakeSystem {
     shaking: Option<ShakingState>,
@@ -16,7 +14,7 @@ pub struct HandleScreenShakeSystem {
 
 impl<'a> System<'a> for HandleScreenShakeSystem {
     type SystemData = (
-        Write<'a, ScreenShake>,
+        Write<'a, ScreenShakeRes>,
         WriteStorage<'a, AmethystCamera>,
         WriteStorage<'a, CameraOrtho>,
     );
@@ -38,7 +36,9 @@ impl<'a> System<'a> for HandleScreenShakeSystem {
                 self.shaking = Some(ShakingState {
                     timer:         {
                         let mut timer = Timer::new(
-                            Some(Duration::from_millis(shake.0).into()),
+                            Some(
+                                Duration::from_millis(shake.duration_ms).into(),
+                            ),
                             None,
                         );
                         timer.start().unwrap();
@@ -46,13 +46,16 @@ impl<'a> System<'a> for HandleScreenShakeSystem {
                     },
                     shake_timer:   {
                         let mut timer = Timer::new(
-                            Some(Duration::from_millis(SHAKE_DELAY_MS).into()),
+                            Some(
+                                Duration::from_millis(shake.shake_delay_ms)
+                                    .into(),
+                            ),
                             None,
                         );
                         timer.start().unwrap();
                         timer
                     },
-                    strength:      shake.1,
+                    strength:      shake.strength,
                     camera_coords: camera_ortho.world_coordinates.clone(),
                 });
             }
