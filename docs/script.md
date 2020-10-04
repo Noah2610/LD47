@@ -90,7 +90,7 @@ or "It's quite simple, you see. You're the dedicated button presser and there ar
 
 ## NPC2:
 Standing somewhere, smoking / taking a break
-- "The boss is having one of his episodes again. Earlier, he threw a dustbin at Charlie."
+- "The boss is having one of his episodes again. Earlier he threw a dustbin at Charlie."
 
 ## NPC1:
 - Standing somehwere, smoking / taking a break
@@ -105,12 +105,14 @@ Standing somewhere, smoking / taking a break
 - Sitting at desk
 - "Yo <name>. How's the button pressing going?" 
 
-
 ##Dustbin(s)
 - "A dustbin. It's offensively generic."
 
 ## Bloody Dustbin
 - "A dustbin. It's got some Charlie on it."
 
+## Locker
+- "The Boss's locker. Its doors are permanently locked. I tremble at the thought of what horrors may lie behind them." 
 
-
+## Door
+- "I wish."
