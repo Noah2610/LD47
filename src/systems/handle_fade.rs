@@ -29,7 +29,7 @@ impl<'a> System<'a> for HandleFadeSystem {
                 if let UiImage::SolidColor(color) = image {
                     if let Some(fade) = fade_res.fade.take() {
                         let fade_step =
-                            (FADE_DELAY_MS as f32 / fade.duration_ms as f32);
+                            FADE_DELAY_MS as f32 / fade.duration_ms as f32;
                         match &fade.fade_type {
                             FadeType::FadeIn => {
                                 color[3] = 1.0;
