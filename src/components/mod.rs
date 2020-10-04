@@ -3,6 +3,7 @@ mod interactable;
 mod movement;
 mod object;
 mod player;
+mod text_lines;
 
 pub mod prelude {
     pub use super::events_register::prelude::*;
@@ -10,6 +11,7 @@ pub mod prelude {
     pub use super::movement::Movement;
     pub use super::object::Object;
     pub use super::player::Player;
+    pub use super::text_lines::{TextLines, TextLinesBehavior, TextLinesGroup};
 
     pub use deathframe::components::prelude::*;
 }

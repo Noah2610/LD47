@@ -28,17 +28,42 @@
         ],
     ),
 
-    "Other": (
-        spritesheet: "player.png",
+    "Boss": (
+        spritesheet: "boss.png",
         components: [
+            Size((
+                w: 64.0,
+                h: 64.0,
+            )),
             Animations({
                 Idle: Cycle([
-                    (0, 500),
-                    (1, 500),
-                    (2, 500),
-                    (3, 500),
+                    (10, 200),
+                    (11, 200),
+                ]),
+                Walk: Cycle([
+                    (20, 100),
+                    (21, 100),
+                    (22, 250),
+                    (23, 100),
+                    (24, 100),
+                    (25, 100),
+                    (26, 100),
+                    (27, 250),
+                    (28, 100),
+                    (29, 100),
                 ]),
             }),
+            Velocity((
+                x: -10.0,
+                y: 0.0,
+            )),
+            Gravity((
+                y: -800.0,
+            )),
+            Hitbox(Size),
+            Solid((
+                tag: Player,
+            )),
             Collidable((
                 tag: Interactable,
             )),
@@ -49,19 +74,27 @@
             OnInteract: [
                 Echo("INTERACT"),
                 FaceTowardsObject(Player),
-                StartTimer("FacePlayer", 500),
+
+                StartTimer("Step", 1000),
+                AddOutput(["What's poppin mah dude?"]),
 
                 ScreenShake((
                     duration_ms: 500,
                     strength: 2.0,
                     shake_delay_ms: 5,
                 )),
-                StartTimer("NextScene", 1000),
+                // StartTimer("NextScene", 1000),
+
+                PlaySound("BossScream1"),
             ],
 
-            OnTimerFinish("FacePlayer"): [
-                AddOutput(["What's poppin mah dude?"]),
-                FaceTowardsObject(Player),
+            OnTimerFinish("Step"): [
+                ScreenShake((
+                    duration_ms: 80,
+                    strength: 4.0,
+                    shake_delay_ms: 20,
+                )),
+                StartTimer("Step", 500),
             ],
 
             OnTimerFinish("NextScene"): [
@@ -95,6 +128,30 @@
                     (1, 250),
                 ]),
             }),
+            TextLines({
+                "Ring": (
+                    lines: [
+                        "ring ring",
+                        "ringggg.... ringg....... ring?",
+                        "Hello-oh! Anyone home?",
+                        "Rise and shine, buddy!",
+                        "Goodmorning sunshine! Time to greet another beautiful day!",
+                        "<name>? I'm right here, buddy.",
+                        "Press me :)",
+                        "Press me. Thats how clocks work, you know?",
+                        "You DO know, right? ",
+                        "Press me. Thats how clocks work, in case you forgot.",
+                        "Obey me, mortal, or suffer the consequences.", // -> "*Press me buddy :)"
+                        "...",
+                        "press me. *now*.",
+                        "PRESS ME. NOW.",
+                        "PRESS ME YOU ****" ,
+                        "PRESS ME YOU ****** *** OR I WILL ******** AND ***** *** YOUR ****** YOU ***** *******",
+                        "****** **** *** ***** **** ***** *** ***** **** ******* ******",
+                    ],
+                    behavior: Sequence(loop: false),
+                ),
+            }),
         ],
 
         events: {
@@ -111,36 +168,90 @@
                     duration_ms: 5000,
                 )),
 
-                StartTimer("Text0", 0),
+                StartTimer("Ring", 0),
+
+                PlaySound("Interact"),
             ],
 
-            OnTimerFinish("Text0"): [
-                SetOutput([
-                    "ring ring"
-                ]),
-                StartTimer("Text1", 3000),
-            ],
-            OnTimerFinish("Text1"): [
-                SetOutput([
-                    "ringggg.... ringg....... ring?"
-                ]),
-                StartTimer("Text2", 3000),
-            ],
-            OnTimerFinish("Text2"): [
-                SetOutput([
-                    "Hello-oh! Anyone home?"
-                ]),
-                StartTimer("Text3", 3000),
-            ],
-            OnTimerFinish("Text3"): [
-                SetOutput([
-                    "Rise and shine, buddy!"
-                ]),
+            OnTimerFinish("Ring"): [
+                PrintNextLine("Ring"),
+                StartTimer("Ring", 3000),
             ],
 
             OnCollision(And([IsTag(Player), IsState(Enter)])): [
                 Echo("Colliding with player!"),
                 PushAnimation(Custom("OnPlayerCollision")),
+            ],
+        },
+    ),
+
+    "Plant": (
+        spritesheet: "scene1/plant.png",
+
+        components: [
+            Size((
+                w: 24.0,
+                h: 32.0,
+            )),
+            InLoop(0, [
+                Animations({
+                    Idle: Cycle([
+                        (0, 1000),
+                    ]),
+                }),
+            ]),
+            InLoop(1, [
+                Animations({
+                    Idle: Cycle([
+                        (1, 1000),
+                    ]),
+                }),
+            ]),
+            InLoop(2, [
+                Animations({
+                    Idle: Cycle([
+                        (2, 1000),
+                    ]),
+                }),
+            ]),
+            InLoop(3, [
+                Animations({
+                    Idle: Cycle([
+                        (3, 1000),
+                    ]),
+                }),
+            ]),
+            InLoop(4, [
+                Animations({
+                    Idle: Cycle([
+                        (4, 1000),
+                    ]),
+                }),
+            ]),
+            InLoop(5, [
+                Animations({
+                    Idle: Cycle([
+                        (5, 1000),
+                    ]),
+                }),
+            ]),
+            InLoop(6, [
+                Animations({
+                    Idle: Cycle([
+                        (6, 1000),
+                    ]),
+                }),
+            ]),
+            Collidable((
+                tag: Interactable,
+            )),
+            Interactable(()),
+            Hitbox(Size),
+        ],
+
+        events: {
+            OnInteract: [
+                NextScene,
             ],
         },
     ),

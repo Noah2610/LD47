@@ -13,12 +13,15 @@ impl<'a> System<'a> for HandleEventsActionsSystem {
         Write<'a, ScreenShakeRes>,
         Write<'a, FadeRes>,
         Write<'a, SceneManager>,
+        Write<'a, SoundPlayer<SoundKey>>,
+        Write<'a, Songs<SongKey>>,
         WriteStorage<'a, EventsRegister>,
         ReadStorage<'a, Object>,
         WriteStorage<'a, Player>,
         WriteStorage<'a, Hidden>,
         WriteStorage<'a, AnimationsContainer<AnimationKey>>,
         WriteStorage<'a, Transform>,
+        WriteStorage<'a, TextLines>,
         ReadStorage<'a, Unloaded>,
     );
 
@@ -30,12 +33,15 @@ impl<'a> System<'a> for HandleEventsActionsSystem {
             mut screen_shake,
             mut fade_res,
             mut scene_manager,
+            mut sound_player,
+            mut songs,
             mut events_register_store,
             object_store,
             mut player_store,
             mut hidden_store,
             mut animations_store,
             mut transform_store,
+            mut text_lines_store,
             unloaded_store,
         ): Self::SystemData,
     ) {
@@ -161,6 +167,34 @@ impl<'a> System<'a> for HandleEventsActionsSystem {
 
                     ActionType::Fade(fade) => {
                         fade_res.fade = Some(fade);
+                    }
+
+                    ActionType::PlaySound(sound_key) => {
+                        sound_player.add_action(SoundAction::Play(sound_key));
+                    }
+
+                    ActionType::PlaySong(song_key) => {
+                        songs.play(&song_key);
+                    }
+
+                    ActionType::PrintNextLine(group_name) => {
+                        let line_opt = text_lines_store
+                            .get_mut(entity)
+                            .expect(
+                                "PrintNextLine action requires TextLinesGroup \
+                                 component",
+                            )
+                            .next_line(group_name.as_str())
+                            .map(ToString::to_string);
+                        if let Some(line) = line_opt {
+                            text_output.set(vec![line]);
+                        } else {
+                            eprintln!(
+                                "[WARNING]\n    PrintNextLine action got \
+                                 group name that doesn't exist: {}",
+                                group_name
+                            );
+                        }
                     }
                 }
             }

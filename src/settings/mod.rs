@@ -1,4 +1,5 @@
 pub mod prelude {
+    pub use super::audio_settings::AudioSettings;
     pub use super::camera_settings::CameraSettings;
     pub use super::entity_components::*;
     pub use super::objects_settings::{ObjectType, ObjectsSettings};
@@ -8,6 +9,7 @@ pub mod prelude {
     pub use super::Settings;
 }
 
+pub mod audio_settings;
 pub mod camera_settings;
 pub mod entity_components;
 pub mod hitbox_config;
@@ -30,6 +32,7 @@ pub struct Settings {
     pub scenes:  ScenesSettings,
     pub tiles:   TilesSettings,
     pub objects: ObjectsSettings,
+    pub audio:   AudioSettings,
 }
 
 impl Settings {
@@ -40,6 +43,7 @@ impl Settings {
             scenes:  load_settings("scenes.ron")?,
             tiles:   load_settings("tiles.ron")?,
             objects: load_settings("objects.ron")?,
+            audio:   load_settings("audio.ron")?,
         })
     }
 }

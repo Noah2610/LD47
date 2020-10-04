@@ -13,6 +13,7 @@ pub(super) fn load_tiles(
     tiles: Vec<TileData>,
     tile_size: Size,
 ) -> amethyst::Result<()> {
+    let current_loop = world.read_resource::<SceneManager>().current_loop;
     let tiles_settings = world.read_resource::<TilesSettings>().tiles.clone();
 
     for tile in tiles {
@@ -61,6 +62,7 @@ pub(super) fn load_tiles(
                 entity_builder,
                 components.components,
                 Some(tile_size.clone()),
+                current_loop,
             );
         }
 
