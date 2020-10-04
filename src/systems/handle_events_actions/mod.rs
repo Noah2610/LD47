@@ -151,16 +151,26 @@ impl<'a> System<'a> for HandleEventsActionsSystem {
                         let _ = events_register.timers.remove(&timer_name);
                     }
 
-                    ActionType::SetOutput(lines) => {
-                        text_output.set(lines);
+                    ActionType::SetOutput {
+                        text,
+                        target_id,
+                        does_scroll,
+                    } => {
+                        text_output.set(target_id, text, does_scroll);
                     }
 
-                    ActionType::AddOutput(lines) => {
-                        text_output.add(lines);
+                    ActionType::AddOutput {
+                        text,
+                        target_id,
+                        does_scroll,
+                    } => {
+                        text_output.add(target_id, text, does_scroll);
                     }
 
-                    ActionType::ClearOutput => {
-                        text_output.clear();
+                    ActionType::ClearOutput {
+                        target_id: output_name,
+                    } => {
+                        text_output.clear(output_name.as_str());
                     }
 
                     ActionType::ScreenShake(shake) => {
@@ -183,22 +193,26 @@ impl<'a> System<'a> for HandleEventsActionsSystem {
                         songs.play(&song_key);
                     }
 
-                    ActionType::PrintNextLine(group_name) => {
+                    ActionType::OutputNextLine {
+                        id,
+                        target_id,
+                        does_scroll,
+                    } => {
                         let line_opt = text_lines_store
                             .get_mut(entity)
                             .expect(
                                 "PrintNextLine action requires TextLinesGroup \
                                  component",
                             )
-                            .next_line(group_name.as_str())
+                            .next_line(id.as_str())
                             .map(ToString::to_string);
                         if let Some(line) = line_opt {
-                            text_output.set(vec![line]);
+                            text_output.set(target_id, line, does_scroll);
                         } else {
                             eprintln!(
-                                "[WARNING]\n    PrintNextLine action got \
-                                 group name that doesn't exist: {}",
-                                group_name
+                                "[WARNING]\n    PrintNextLine action got id \
+                                 that doesn't exist: {}",
+                                id
                             );
                         }
                     }

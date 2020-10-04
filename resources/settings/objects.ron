@@ -56,10 +56,9 @@
         events: {
             OnInteract: [
                 PlaySound("Interact"),
-                SetOutput([
-                    "Huxley has seen better days, but he's a fighter.",
-                    " ", // <- workaround to not scroll text
-                ]),
+                SetOutput(
+                    text: "Huxley has seen better days, but he's a fighter.",
+                ),
             ],
         },
     ),
@@ -85,8 +84,9 @@
         events: {
             OnInteract: [
                 PlaySound("Interact"),
-                PrintNextLine("Inspect"),
-                AddOutput([" "]), // WORKAROUND
+                OutputNextLine(
+                    id: "Inspect",
+                ),
             ],
         },
     ),
@@ -103,11 +103,9 @@
         events: {
             OnInteract: [
                 PlaySound("Interact"),
-                SetOutput([
-                    "This has been here for as long as I remember.",
-                    "The years have left it stained with a thick, yellow tint.",
-                    " ",
-                ]),
+                SetOutput(
+                    text: "This has been here for as long as I remember.\nThe years have left it stained with a thick, yellow tint.",
+                ),
             ],
         },
     ),
@@ -124,10 +122,9 @@
         events: {
             OnInteract: [
                 PlaySound("Interact"),
-                SetOutput([
-                    "Filth.",
-                    " ",
-                ]),
+                SetOutput(
+                    text: "Filth.",
+                ),
             ],
         },
     ),
@@ -153,8 +150,9 @@
         events: {
             OnInteract: [
                 PlaySound("Interact"),
-                PrintNextLine("Inspect"),
-                AddOutput([" "]),
+                OutputNextLine(
+                    id: "Inspect",
+                ),
             ],
         },
     ),
@@ -175,7 +173,7 @@
                 Fade((
                     type: FadeOut,
                     duration_ms: 500,
-                    color: [1.0, 1.0, 1.0],
+                    color: (1.0, 1.0, 1.0),
                 )),
                 StartTimer("NextScene", 1000),
             ],
@@ -229,7 +227,9 @@
             ],
 
             OnTimerFinish("Text"): [
-                PrintNextLine("Ring"),
+                OutputNextLine(
+                    id: "Ring",
+                ),
                 StartTimer("Text", 3000),
             ],
 
@@ -247,7 +247,7 @@
                 StopTimer("Text"),
                 StopTimer("Sound"),
                 PlaySound("Interact"),
-                ClearOutput,
+                ClearOutput(),
             ],
         },
     ),
@@ -302,7 +302,10 @@
                 FaceTowardsObject(Player),
 
                 StartTimer("Step", 1000),
-                AddOutput(["What's poppin mah dude?"]),
+                AddOutput(
+                    text: "What's poppin mah dude?",
+                    scroll: true,
+                ),
 
                 ScreenShake((
                     duration_ms: 500,

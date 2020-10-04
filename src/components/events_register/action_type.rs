@@ -2,6 +2,7 @@ use crate::resources::{AnimationKey, Fade, ScreenShake, SongKey, SoundKey};
 use crate::settings::objects_settings::ObjectType;
 
 #[derive(Deserialize, Clone)]
+#[serde(deny_unknown_fields)]
 pub enum ActionType {
     Echo(String),
     ForeignObjectAction(ObjectType, Vec<ActionType>),
@@ -14,15 +15,36 @@ pub enum ActionType {
     FaceTowardsObject(ObjectType),
     StartTimer(String, u64),
     StopTimer(String),
-    SetOutput(Vec<String>),
-    AddOutput(Vec<String>),
-    ClearOutput,
+    SetOutput {
+        text:        String,
+        #[serde(alias = "target", default = "default_output_target")]
+        target_id:   String,
+        #[serde(alias = "scroll", default)]
+        does_scroll: bool,
+    },
+    AddOutput {
+        text:        String,
+        #[serde(alias = "target", default = "default_output_target")]
+        target_id:   String,
+        #[serde(alias = "scroll", default)]
+        does_scroll: bool,
+    },
+    ClearOutput {
+        #[serde(default = "default_output_target")]
+        target_id: String,
+    },
     ScreenShake(ScreenShake),
     NextScene,
     Fade(Fade),
     PlaySound(SoundKey),
     PlaySong(SongKey),
-    PrintNextLine(String),
+    OutputNextLine {
+        id:          String,
+        #[serde(alias = "target", default = "default_output_target")]
+        target_id:   String,
+        #[serde(alias = "scroll", default)]
+        does_scroll: bool,
+    },
     SetVelocity {
         #[serde(default)]
         x: Option<f32>,
@@ -35,4 +57,8 @@ pub enum ActionType {
         #[serde(default)]
         y: Option<f32>,
     },
+}
+
+fn default_output_target() -> String {
+    String::from("ingame_fade_overlay")
 }

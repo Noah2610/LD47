@@ -1,12 +1,11 @@
 use super::system_prelude::*;
 use amethyst::ui::{UiText, UiTransform};
 use deathframe::amethyst;
-
-const OUTPUT_ID: &str = "ingame_output_label";
+use std::collections::HashMap;
 
 #[derive(Default)]
 pub struct UpdateTextOutputSystem {
-    cache: String,
+    cache: HashMap<String, String>,
 }
 
 impl<'a> System<'a> for UpdateTextOutputSystem {
@@ -20,21 +19,28 @@ impl<'a> System<'a> for UpdateTextOutputSystem {
         &mut self,
         (text_output, ui_transform_store, mut ui_text_store): Self::SystemData,
     ) {
-        let should_update = &self.cache != &text_output.text;
+        for (output_id, text_output) in text_output.outputs.iter() {
+            let should_update = self
+                .cache
+                .get(output_id)
+                .map(|cached| cached != &text_output.text)
+                .unwrap_or(true);
 
-        if should_update {
-            self.cache = text_output.text.clone();
-            if let Some(ui_text) = (&ui_transform_store, &mut ui_text_store)
-                .join()
-                .find_map(|(transform, text)| {
-                    if transform.id.as_str() == OUTPUT_ID {
-                        Some(text)
-                    } else {
-                        None
-                    }
-                })
-            {
-                ui_text.text = text_output.text.clone();
+            if should_update {
+                self.cache
+                    .insert(output_id.to_string(), text_output.text.clone());
+                if let Some(ui_text) = (&ui_transform_store, &mut ui_text_store)
+                    .join()
+                    .find_map(|(transform, text)| {
+                        if transform.id.as_str() == output_id {
+                            Some(text)
+                        } else {
+                            None
+                        }
+                    })
+                {
+                    ui_text.text = text_output.text.clone();
+                }
             }
         }
     }

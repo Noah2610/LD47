@@ -12,18 +12,20 @@ impl<'a> System<'a> for HandleTextOutputScrollingSystem {
     type SystemData = Write<'a, TextOutput>;
 
     fn run(&mut self, mut text_output: Self::SystemData) {
-        if !text_output.staged.is_empty() {
-            if !self.timer.state.is_running() {
-                self.timer.start().unwrap();
-            }
-            self.timer.update().unwrap();
-            if self.timer.state.is_finished() {
-                let new = text_output.staged.remove(0);
-                text_output.text.push_str(new.as_str());
-            }
-        } else {
-            if !self.timer.state.is_stopped() {
-                self.timer.stop().unwrap();
+        for text_output in text_output.outputs.values_mut() {
+            if !text_output.staged.is_empty() {
+                if !self.timer.state.is_running() {
+                    self.timer.start().unwrap();
+                }
+                self.timer.update().unwrap();
+                if self.timer.state.is_finished() {
+                    let new = text_output.staged.remove(0);
+                    text_output.text.push_str(new.as_str());
+                }
+            } else {
+                if !self.timer.state.is_stopped() {
+                    self.timer.stop().unwrap();
+                }
             }
         }
     }
