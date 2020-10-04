@@ -1,9 +1,12 @@
 use crate::settings::prelude::{SceneSettings, ScenesSettings};
+use deathframe::amethyst::ecs::Entity;
+use std::collections::HashSet;
 
 #[derive(Default)]
 pub struct SceneManager {
     pub current_loop:           usize,
     pub should_load_next_scene: bool,
+    pub triggered_init_events:  HashSet<Entity>,
     scenes:                     Vec<SceneSettings>,
     current_scene_idx:          usize,
 }
@@ -17,6 +20,7 @@ impl SceneManager {
 
     pub fn next_scene(&mut self) -> &SceneSettings {
         self.should_load_next_scene = false;
+        self.triggered_init_events = HashSet::new();
         let prev_idx = self.current_scene_idx;
         self.current_scene_idx =
             (self.current_scene_idx + 1) % self.scenes.len();
@@ -32,6 +36,7 @@ impl From<ScenesSettings> for SceneManager {
         Self {
             current_loop:           0,
             should_load_next_scene: false,
+            triggered_init_events:  HashSet::new(),
             scenes:                 settings.scenes,
             current_scene_idx:      0,
         }

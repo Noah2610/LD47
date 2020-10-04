@@ -6,4 +6,5 @@ pub enum EventType {
     OnInteract,
     OnCollision(QueryExpression<CollisionTag>),
     OnTimerFinish(String),
+    Init,
 }

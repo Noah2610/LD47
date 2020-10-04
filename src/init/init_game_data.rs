@@ -139,12 +139,19 @@ pub(super) fn build_game_data<'a, 'b>(
         )?
         .with(
             DispatcherId::Ingame,
+            TriggerInitEventsSystem::default(),
+            "trigger_init_events_system",
+            &[],
+        )?
+        .with(
+            DispatcherId::Ingame,
             HandleEventsActionsSystem::default(),
             "handle_events_actions_system",
             &[
                 "trigger_interaction_events_system",
                 "trigger_collision_events_system",
                 "trigger_timer_events_system",
+                "trigger_init_events_system",
             ],
         )?;
 
