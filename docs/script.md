@@ -114,4 +114,5 @@ Standing somewhere, smoking / taking a break
 ## Locker
 - "The Boss's locker. Its doors are permanently locked. I tremble at the thought of what horrors may lie behind them." 
 
-
+## Door
+- "I wish."
