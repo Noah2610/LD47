@@ -1,0 +1,27 @@
+// src/settings/audio_settings.rs
+#![enable(implicit_some)]
+(
+    bgm: {},
+
+    sfx: {
+        "Alarm": (
+            file: "alarm.wav",
+        ),
+
+        "BossScream1": (
+            file: "boss_scream_1.wav",
+        ),
+
+        "BossScream2": (
+            file: "boss_scream_2.wav",
+        ),
+
+        "BossScream3": (
+            file: "boss_scream_3.wav",
+        ),
+
+        "BossScream4": (
+            file: "boss_scream_4.wav",
+        ),
+    },
+)

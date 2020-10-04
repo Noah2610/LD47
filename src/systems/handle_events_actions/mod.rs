@@ -13,6 +13,8 @@ impl<'a> System<'a> for HandleEventsActionsSystem {
         Write<'a, ScreenShakeRes>,
         Write<'a, FadeRes>,
         Write<'a, SceneManager>,
+        Write<'a, SoundPlayer<SoundKey>>,
+        Write<'a, Songs<SongKey>>,
         WriteStorage<'a, EventsRegister>,
         ReadStorage<'a, Object>,
         WriteStorage<'a, Player>,
@@ -30,6 +32,8 @@ impl<'a> System<'a> for HandleEventsActionsSystem {
             mut screen_shake,
             mut fade_res,
             mut scene_manager,
+            mut sound_player,
+            mut songs,
             mut events_register_store,
             object_store,
             mut player_store,
@@ -161,6 +165,14 @@ impl<'a> System<'a> for HandleEventsActionsSystem {
 
                     ActionType::Fade(fade) => {
                         fade_res.fade = Some(fade);
+                    }
+
+                    ActionType::PlaySound(sound_key) => {
+                        sound_player.add_action(SoundAction::Play(sound_key));
+                    }
+
+                    ActionType::PlaySong(song_key) => {
+                        songs.play(&song_key);
                     }
                 }
             }

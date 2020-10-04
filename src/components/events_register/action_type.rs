@@ -1,4 +1,4 @@
-use crate::resources::{AnimationKey, Fade, ScreenShake};
+use crate::resources::{AnimationKey, Fade, ScreenShake, SongKey, SoundKey};
 use crate::settings::objects_settings::ObjectType;
 
 #[derive(Deserialize, Clone)]
@@ -19,4 +19,6 @@ pub enum ActionType {
     ScreenShake(ScreenShake),
     NextScene,
     Fade(Fade),
+    PlaySound(SoundKey),
+    PlaySong(SongKey),
 }
