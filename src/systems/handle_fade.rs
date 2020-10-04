@@ -28,8 +28,9 @@ impl<'a> System<'a> for HandleFadeSystem {
             if &transform.id == OVERLAY_ID {
                 if let UiImage::SolidColor(color) = image {
                     if let Some(fade) = fade_res.fade.take() {
-                        let fade_step =
-                            FADE_DELAY_MS as f32 / fade.duration_ms as f32;
+                        color[0] = fade.color[0];
+                        color[1] = fade.color[1];
+                        color[2] = fade.color[2];
                         match &fade.fade_type {
                             FadeType::FadeIn => {
                                 color[3] = 1.0;
@@ -38,6 +39,8 @@ impl<'a> System<'a> for HandleFadeSystem {
                                 color[3] = 0.0;
                             }
                         }
+                        let fade_step =
+                            FADE_DELAY_MS as f32 / fade.duration_ms as f32;
                         self.fading = Some(FadingState {
                             fade_type: fade.fade_type,
                             fade_timer: {

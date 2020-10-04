@@ -175,6 +175,7 @@
                 Fade((
                     type: FadeOut,
                     duration_ms: 500,
+                    color: [1.0, 1.0, 1.0],
                 )),
                 StartTimer("NextScene", 1000),
             ],
