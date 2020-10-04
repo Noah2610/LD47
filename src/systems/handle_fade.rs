@@ -4,7 +4,7 @@ use deathframe::amethyst::ui::{UiImage, UiTransform};
 use std::time::Duration;
 
 const OVERLAY_ID: &str = "ingame_fade_overlay";
-const FADE_DELAY_MS: u64 = 100;
+const FADE_DELAY_MS: u64 = 50;
 
 #[derive(Default)]
 pub struct HandleFadeSystem {
