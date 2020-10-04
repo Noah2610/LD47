@@ -28,17 +28,42 @@
         ],
     ),
 
-    "Other": (
-        spritesheet: "player.png",
+    "Boss": (
+        spritesheet: "boss.png",
         components: [
+            Size((
+                w: 64.0,
+                h: 64.0,
+            )),
             Animations({
                 Idle: Cycle([
-                    (0, 500),
-                    (1, 500),
-                    (2, 500),
-                    (3, 500),
+                    (10, 200),
+                    (11, 200),
+                ]),
+                Walk: Cycle([
+                    (20, 100),
+                    (21, 100),
+                    (22, 250),
+                    (23, 100),
+                    (24, 100),
+                    (25, 100),
+                    (26, 100),
+                    (27, 250),
+                    (28, 100),
+                    (29, 100),
                 ]),
             }),
+            Velocity((
+                x: -10.0,
+                y: 0.0,
+            )),
+            Gravity((
+                y: -800.0,
+            )),
+            Hitbox(Size),
+            Solid((
+                tag: Player,
+            )),
             Collidable((
                 tag: Interactable,
             )),
@@ -49,19 +74,25 @@
             OnInteract: [
                 Echo("INTERACT"),
                 FaceTowardsObject(Player),
-                StartTimer("FacePlayer", 500),
+
+                StartTimer("Step", 1000),
+                AddOutput(["What's poppin mah dude?"]),
 
                 ScreenShake((
                     duration_ms: 500,
                     strength: 2.0,
                     shake_delay_ms: 5,
                 )),
-                StartTimer("NextScene", 1000),
+                // StartTimer("NextScene", 1000),
             ],
 
-            OnTimerFinish("FacePlayer"): [
-                AddOutput(["What's poppin mah dude?"]),
-                FaceTowardsObject(Player),
+            OnTimerFinish("Step"): [
+                ScreenShake((
+                    duration_ms: 80,
+                    strength: 4.0,
+                    shake_delay_ms: 20,
+                )),
+                StartTimer("Step", 500),
             ],
 
             OnTimerFinish("NextScene"): [
