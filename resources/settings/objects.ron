@@ -235,6 +235,11 @@
             ],
 
             OnTimerFinish("Sound"): [
+                ScreenShake((
+                    duration_ms: 670,
+                    strength: 1.0,
+                    shake_delay_ms: 5,
+                )),
                 PlaySound("Alarm"),
                 StartTimer("Sound", 1000),
             ],
