@@ -145,6 +145,10 @@ impl<'a> System<'a> for HandleEventsActionsSystem {
                         events_register.timers.insert(timer_name, timer);
                     }
 
+                    ActionType::StopTimer(timer_name) => {
+                        let _ = events_register.timers.remove(&timer_name);
+                    }
+
                     ActionType::SetOutput(lines) => {
                         text_output.set(lines);
                     }

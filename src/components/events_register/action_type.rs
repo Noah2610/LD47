@@ -13,6 +13,7 @@ pub enum ActionType {
     PopAnimation,
     FaceTowardsObject(ObjectType),
     StartTimer(String, u64),
+    StopTimer(String),
     SetOutput(Vec<String>),
     AddOutput(Vec<String>),
     ClearOutput,
