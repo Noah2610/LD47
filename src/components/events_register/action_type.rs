@@ -23,4 +23,16 @@ pub enum ActionType {
     PlaySound(SoundKey),
     PlaySong(SongKey),
     PrintNextLine(String),
+    SetVelocity {
+        #[serde(default)]
+        x: Option<f32>,
+        #[serde(default)]
+        y: Option<f32>,
+    },
+    AddVelocity {
+        #[serde(default)]
+        x: Option<f32>,
+        #[serde(default)]
+        y: Option<f32>,
+    },
 }

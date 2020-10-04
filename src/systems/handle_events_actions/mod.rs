@@ -22,6 +22,7 @@ impl<'a> System<'a> for HandleEventsActionsSystem {
         WriteStorage<'a, AnimationsContainer<AnimationKey>>,
         WriteStorage<'a, Transform>,
         WriteStorage<'a, TextLines>,
+        WriteStorage<'a, Velocity>,
         ReadStorage<'a, Unloaded>,
     );
 
@@ -42,6 +43,7 @@ impl<'a> System<'a> for HandleEventsActionsSystem {
             mut animations_store,
             mut transform_store,
             mut text_lines_store,
+            mut velocity_store,
             unloaded_store,
         ): Self::SystemData,
     ) {
@@ -198,6 +200,30 @@ impl<'a> System<'a> for HandleEventsActionsSystem {
                                  group name that doesn't exist: {}",
                                 group_name
                             );
+                        }
+                    }
+
+                    ActionType::SetVelocity { x, y } => {
+                        let velocity = velocity_store.get_mut(entity).expect(
+                            "SetVelocity action requires Velocity component",
+                        );
+                        if let Some(x) = x {
+                            velocity.x = x;
+                        }
+                        if let Some(y) = y {
+                            velocity.y = y;
+                        }
+                    }
+
+                    ActionType::AddVelocity { x, y } => {
+                        let velocity = velocity_store.get_mut(entity).expect(
+                            "AddVelocity action requires Velocity component",
+                        );
+                        if let Some(x) = x {
+                            velocity.x += x;
+                        }
+                        if let Some(y) = y {
+                            velocity.y += y;
                         }
                     }
                 }
