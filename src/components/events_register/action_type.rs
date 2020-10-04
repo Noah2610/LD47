@@ -60,5 +60,5 @@ pub enum ActionType {
 }
 
 fn default_output_target() -> String {
-    String::from("ingame_fade_overlay")
+    String::from("ingame_output_text")
 }

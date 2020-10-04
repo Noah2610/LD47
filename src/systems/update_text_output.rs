@@ -32,7 +32,7 @@ impl<'a> System<'a> for UpdateTextOutputSystem {
                 if let Some(ui_text) = (&ui_transform_store, &mut ui_text_store)
                     .join()
                     .find_map(|(transform, text)| {
-                        if transform.id.as_str() == output_id {
+                        if &transform.id == output_id {
                             Some(text)
                         } else {
                             None
