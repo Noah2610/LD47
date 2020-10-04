@@ -11,9 +11,19 @@ pub struct Ingame {
 impl<'a, 'b> State<GameData<'a, 'b>, StateEvent> for Ingame {
     fn on_start(&mut self, mut data: StateData<GameData<'a, 'b>>) {
         data.world.insert(TextOutput::default());
+
         self.create_ui(&mut data, resource("ui/ingame.ron").to_str().unwrap());
-        if let Err(e) = load_level(data.world, resource("levels/dev.json")) {
-            panic!("Error loading level: {}", e);
+
+        let level_filename = {
+            let scene_manager = data.world.read_resource::<SceneManager>();
+            let scene = scene_manager.current_scene();
+            scene.level_filename.to_string()
+        };
+        if let Err(e) = load_level(
+            data.world,
+            resource(format!("levels/{}", &level_filename)),
+        ) {
+            panic!("Error loading level {}: {}", level_filename, e);
         }
     }
 
@@ -26,6 +36,26 @@ impl<'a, 'b> State<GameData<'a, 'b>, StateEvent> for Ingame {
         data: StateData<GameData<'a, 'b>>,
     ) -> Trans<GameData<'a, 'b>, StateEvent> {
         data.data.update(data.world, DispatcherId::Ingame).unwrap();
+
+        let next_level_opt = {
+            let mut scene_manager = data.world.write_resource::<SceneManager>();
+            if scene_manager.should_load_next_scene {
+                let scene = scene_manager.next_scene();
+                Some(scene.level_filename.to_string())
+            } else {
+                None
+            }
+        };
+        if let Some(next_level) = next_level_opt {
+            data.world.delete_all();
+            data.world.insert(TextOutput::default());
+            if let Err(e) = load_level(
+                data.world,
+                resource(format!("levels/{}", &next_level)),
+            ) {
+                panic!("Error loading level {}: {}", next_level, e);
+            }
+        }
 
         Trans::None
     }

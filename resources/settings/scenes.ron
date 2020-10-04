@@ -1,0 +1,15 @@
+// src/settings/scenes_settings.rs
+#![enable(implicit_some)]
+(
+    scenes: [
+        (
+            level: "dev.json",
+        ),
+        (
+            level: "dev.json",
+        ),
+        (
+            level: "dev.json",
+        ),
+    ],
+)

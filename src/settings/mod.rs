@@ -3,6 +3,7 @@ pub mod prelude {
     pub use super::entity_components::*;
     pub use super::objects_settings::{ObjectType, ObjectsSettings};
     pub use super::player_settings::PlayerSettings;
+    pub use super::scenes_settings::{SceneSettings, ScenesSettings};
     pub use super::tiles_settings::{TileType, TilesSettings};
     pub use super::Settings;
 }
@@ -12,6 +13,7 @@ pub mod entity_components;
 pub mod hitbox_config;
 pub mod objects_settings;
 pub mod player_settings;
+pub mod scenes_settings;
 pub mod tiles_settings;
 
 use crate::resource;
@@ -25,6 +27,7 @@ use std::fs::File;
 pub struct Settings {
     pub player:  PlayerSettings,
     pub camera:  CameraSettings,
+    pub scenes:  ScenesSettings,
     pub tiles:   TilesSettings,
     pub objects: ObjectsSettings,
 }
@@ -34,6 +37,7 @@ impl Settings {
         Ok(Self {
             player:  load_settings("player.ron")?,
             camera:  load_settings("camera.ron")?,
+            scenes:  load_settings("scenes.ron")?,
             tiles:   load_settings("tiles.ron")?,
             objects: load_settings("objects.ron")?,
         })

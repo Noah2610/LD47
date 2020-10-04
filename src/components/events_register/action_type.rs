@@ -17,4 +17,5 @@ pub enum ActionType {
     AddOutput(Vec<String>),
     ClearOutput,
     ScreenShake(ScreenShake),
+    NextScene,
 }

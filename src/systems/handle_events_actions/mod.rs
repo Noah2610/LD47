@@ -11,6 +11,7 @@ impl<'a> System<'a> for HandleEventsActionsSystem {
         Entities<'a>,
         Write<'a, TextOutput>,
         Write<'a, ScreenShakeRes>,
+        Write<'a, SceneManager>,
         WriteStorage<'a, EventsRegister>,
         ReadStorage<'a, Object>,
         WriteStorage<'a, Player>,
@@ -26,6 +27,7 @@ impl<'a> System<'a> for HandleEventsActionsSystem {
             entities,
             mut text_output,
             mut screen_shake,
+            mut scene_manager,
             mut events_register_store,
             object_store,
             mut player_store,
@@ -149,6 +151,10 @@ impl<'a> System<'a> for HandleEventsActionsSystem {
 
                     ActionType::ScreenShake(shake) => {
                         screen_shake.shake = Some(shake);
+                    }
+
+                    ActionType::NextScene => {
+                        scene_manager.should_load_next_scene = true;
                     }
                 }
             }
