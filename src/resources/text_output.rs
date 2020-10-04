@@ -35,13 +35,4 @@ impl TextOutput {
         self.text.clear();
         self.staged.clear();
     }
-
-    // TODO
-    // fn truncate(&mut self) {
-    //     const MAX: usize = 5;
-    //     let len = self.lines.len();
-    //     if len > MAX {
-    //         self.lines = self.lines[len - MAX ..].to_vec();
-    //     }
-    // }
 }
