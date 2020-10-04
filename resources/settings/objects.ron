@@ -197,10 +197,8 @@
                 "Ring": (
                     lines: [
                         "ring ring",
-                        "ring ring ",
-                        "ring ring  ",
-                        "ring ring   ",
-                        "ring ring    ",
+                        "ring ring",
+                        "ring ring",
                         "ringggg.... ringg....... ring?",
                         "Hello-oh! Anyone home?",
                         "Rise and shine, buddy!",
@@ -231,7 +229,7 @@
 
             OnTimerFinish("Text"): [
                 PrintNextLine("Ring"),
-                StartTimer("Text", 5000),
+                StartTimer("Text", 3000),
             ],
 
             OnTimerFinish("Sound"): [
