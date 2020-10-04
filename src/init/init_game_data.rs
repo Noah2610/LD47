@@ -103,9 +103,15 @@ pub(super) fn build_game_data<'a, 'b>(
         )?
         .with(
             DispatcherId::Ingame,
+            HandleTextOutputScrollingSystem::default(),
+            "handle_text_output_scrolling_system",
+            &[],
+        )?
+        .with(
+            DispatcherId::Ingame,
             UpdateTextOutputSystem::default(),
             "update_text_output_system",
-            &[],
+            &["handle_text_output_scrolling_system"],
         )?
         .with(
             DispatcherId::Ingame,
