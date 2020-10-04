@@ -21,6 +21,7 @@ impl<'a> System<'a> for HandleEventsActionsSystem {
         WriteStorage<'a, Hidden>,
         WriteStorage<'a, AnimationsContainer<AnimationKey>>,
         WriteStorage<'a, Transform>,
+        WriteStorage<'a, TextLines>,
         ReadStorage<'a, Unloaded>,
     );
 
@@ -40,6 +41,7 @@ impl<'a> System<'a> for HandleEventsActionsSystem {
             mut hidden_store,
             mut animations_store,
             mut transform_store,
+            mut text_lines_store,
             unloaded_store,
         ): Self::SystemData,
     ) {
@@ -173,6 +175,26 @@ impl<'a> System<'a> for HandleEventsActionsSystem {
 
                     ActionType::PlaySong(song_key) => {
                         songs.play(&song_key);
+                    }
+
+                    ActionType::PrintNextLine(group_name) => {
+                        let line_opt = text_lines_store
+                            .get_mut(entity)
+                            .expect(
+                                "PrintNextLine action requires TextLinesGroup \
+                                 component",
+                            )
+                            .next_line(group_name.as_str())
+                            .map(ToString::to_string);
+                        if let Some(line) = line_opt {
+                            text_output.set(vec![line]);
+                        } else {
+                            eprintln!(
+                                "[WARNING]\n    PrintNextLine action got \
+                                 group name that doesn't exist: {}",
+                                group_name
+                            );
+                        }
                     }
                 }
             }

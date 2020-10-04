@@ -21,4 +21,5 @@ pub enum ActionType {
     Fade(Fade),
     PlaySound(SoundKey),
     PlaySong(SongKey),
+    PrintNextLine(String),
 }
