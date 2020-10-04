@@ -98,19 +98,6 @@
         ],
 
         events: {
-            // OnSpawn(0): [
-            //     PlayAnimation(Custom("Idle0")),
-            // ],
-            // OnSpawn(1): [
-            //     PlayAnimation(Custom("Idle1")),
-            // ],
-            // OnSpawn(2): [
-            //     PlayAnimation(Custom("Idle2")),
-            // ],
-            // OnSpawn(3): [
-            //     PlayAnimation(Custom("Idle3")),
-            // ],
-
             OnInteract: [
                 Echo("INTERACT WITH ALARM!"),
                 AddOutput(["EARTHQUAKE!"]),
@@ -120,20 +107,35 @@
                     shake_delay_ms: 10,
                 )),
                 Fade((
-                    type: FadeOut,
-                    duration_ms: 2000,
+                    type: FadeIn,
+                    duration_ms: 5000,
                 )),
-                // ForeignObjectAction(Player, [
-                //     Hide,
-                //     SetControllable(false),
-                // ]),
-                // SetPlayerControllable(false),
-                // ShowEntities("AlarmText"),  // `type: "Custom(AlarmText)"`
-                // ShowEntities("AlarmChild"), // `type: "Custom(AlarmChild)"`
-                // Delay(1000, [
-                //     HideEntities("AlarmText"),
-                //     HideEntities("AlarmChild"),
-                // ]),
+
+                StartTimer("Text0", 0),
+            ],
+
+            OnTimerFinish("Text0"): [
+                SetOutput([
+                    "ring ring"
+                ]),
+                StartTimer("Text1", 3000),
+            ],
+            OnTimerFinish("Text1"): [
+                SetOutput([
+                    "ringggg.... ringg....... ring?"
+                ]),
+                StartTimer("Text2", 3000),
+            ],
+            OnTimerFinish("Text2"): [
+                SetOutput([
+                    "Hello-oh! Anyone home?"
+                ]),
+                StartTimer("Text3", 3000),
+            ],
+            OnTimerFinish("Text3"): [
+                SetOutput([
+                    "Rise and shine, buddy!"
+                ]),
             ],
 
             OnCollision(And([IsTag(Player), IsState(Enter)])): [
@@ -142,39 +144,4 @@
             ],
         },
     ),
-
-    // "AlarmChild": (
-    //     spritesheet: "alarm_child.png",
-    //     components: [
-    //         Hidden(()),
-    //     ],
-    // ),
-
-    // "Pic": (
-    //     events: {
-    //         OnInteract: [
-    //             SetOutput([
-    //                 "This is a picture.",
-    //                 "It is very colorful.",
-    //             ]),
-    //             Delay(1000, [
-    //                   ClearOutput,
-    //                   SetOutput(["Cleared"]),
-    //                   PlayAnimation(Custom("MyAnim")),
-    //             ]),
-
-    //             TriggerForeign(Custom("Npc"), [
-    //                 PlayAnimation("PlayerIsCheckingPic"),
-    //             ]),
-    //         ],
-    //     },
-    // ),
-
-    // "Npc": (
-    //     components: [
-    //         Animations({
-    //             Custom("PlayerIsCheckingPic"): [/* ... */],
-    //         }),
-    //     ],
-    // ),
 }
