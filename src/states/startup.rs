@@ -22,6 +22,7 @@ fn insert_resources(world: &mut World) {
     let sprite_sheet_handles = SpriteSheetHandles::<PathBuf>::default();
     world.insert(sprite_sheet_handles);
     world.insert(ScreenShakeRes::default());
+    world.insert(FadeRes::default());
     let scenes_settings = (*world.read_resource::<ScenesSettings>()).clone();
     world.insert(SceneManager::from(scenes_settings));
 }

@@ -1,4 +1,4 @@
-use crate::resources::{AnimationKey, ScreenShake};
+use crate::resources::{AnimationKey, Fade, ScreenShake};
 use crate::settings::objects_settings::ObjectType;
 
 #[derive(Deserialize, Clone)]
@@ -18,4 +18,5 @@ pub enum ActionType {
     ClearOutput,
     ScreenShake(ScreenShake),
     NextScene,
+    Fade(Fade),
 }

@@ -47,28 +47,6 @@ impl<'a, 'b> State<GameData<'a, 'b>, StateEvent> for Ingame {
     ) -> Trans<GameData<'a, 'b>, StateEvent> {
         data.data.update(data.world, DispatcherId::Ingame).unwrap();
 
-        // TODO
-        {
-            use deathframe::amethyst::ecs::{Join, ReadStorage, WriteStorage};
-            use deathframe::amethyst::ui::{UiImage, UiTransform};
-            data.world.exec(
-                |(transform_store, mut image_store): (
-                    ReadStorage<UiTransform>,
-                    WriteStorage<UiImage>,
-                )| {
-                    for (transform, image) in
-                        (&transform_store, &mut image_store).join()
-                    {
-                        if &transform.id == "ingame_fade_overlay" {
-                            if let UiImage::SolidColor(color) = image {
-                                color[3] = (color[3] + 0.01) % 1.01
-                            }
-                        }
-                    }
-                },
-            );
-        }
-
         let next_level_opt = {
             let mut scene_manager = data.world.write_resource::<SceneManager>();
             if scene_manager.should_load_next_scene {

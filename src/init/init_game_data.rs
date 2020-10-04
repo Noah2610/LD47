@@ -115,6 +115,12 @@ pub(super) fn build_game_data<'a, 'b>(
         )?
         .with(
             DispatcherId::Ingame,
+            HandleFadeSystem::default(),
+            "handle_fade_system",
+            &[],
+        )?
+        .with(
+            DispatcherId::Ingame,
             TriggerInteractionEventsSystem::default(),
             "trigger_interaction_events_system",
             &[],

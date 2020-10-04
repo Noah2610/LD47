@@ -119,6 +119,10 @@
                     strength: 4.0,
                     shake_delay_ms: 10,
                 )),
+                Fade((
+                    type: FadeOut,
+                    duration_ms: 2000,
+                )),
                 // ForeignObjectAction(Player, [
                 //     Hide,
                 //     SetControllable(false),
