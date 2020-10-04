@@ -19,7 +19,7 @@
 "..."
 "press me. *now*."
 "PRESS ME. NOW."
-"PRESS ME YOU ****" 
+"PRESS ME YOU ****"
 "PRESS ME YOU ****** *** OR I WILL ******** AND ***** *** YOUR ****** YOU ***** *******"
 "****** **** *** ***** **** ***** *** ***** **** ******* ******"
 ```
@@ -35,14 +35,14 @@
 - Filth on walls: "Filth".
 
 - Shoes: "A pair of comically large loafers. They were passed down to me by my uncle."
-or: "A pair of loafers. They don't quite fit". 
+or: "A pair of loafers. They don't quite fit".
 
-- Painting: 
-"This has been here for as long as I remember. The years have left it stained with a thick, yellow tint." 
+- Painting:
+"This has been here for as long as I remember. The years have left it stained with a thick, yellow tint."
 
-- Bed: 
-"My only friend." 
-"I feel as if the cozy sheets are calling for me" 
+- Bed:
+"My only friend."
+"I feel as if the cozy sheets are calling for me"
 
 # Scene 3:
 
@@ -54,7 +54,7 @@ or: "A pair of loafers. They don't quite fit".
 ```
 "Make me a cup of coffee, will you?"
 "Did you not hear me, <name>? I desire a cup of coffee".
-"Funny, I could swear I just asked for a cup of coffee". 
+"Funny, I could swear I just asked for a cup of coffee".
 "Don't make me repeat myself."
 "Are you deaf, kid? I SAID COFFEE."
 "Coffee. Now."
@@ -96,23 +96,23 @@ Standing somewhere, smoking / taking a break
 - Standing somehwere, smoking / taking a break
 - "Not now <name>, can't you see I'm busy?"
 
-##NPC3:
+## NPC3:
 - Sitting at desk with his back to the camera
 - "Is that you, <name>? Sorry, I'm having some trouble with my vision right now."
-- Talking to him makes him look towards you, revealing a massively swollen eye. 
+- Talking to him makes him look towards you, revealing a massively swollen eye.
 
-##NPC4:
+## NPC4:
 - Sitting at desk
-- "Yo <name>. How's the button pressing going?" 
+- "Yo <name>. How's the button pressing going?"
 
-##Dustbin(s)
+## Dustbin(s)
 - "A dustbin. It's offensively generic."
 
 ## Bloody Dustbin
 - "A dustbin. It's got some Charlie on it."
 
 ## Locker
-- "The Boss's locker. Its doors are permanently locked. I tremble at the thought of what horrors may lie behind them." 
+- "The Boss's locker. Its doors are permanently locked. I tremble at the thought of what horrors may lie behind them."
 
 ## Door
 - "I wish."
