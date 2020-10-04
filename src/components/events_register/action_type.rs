@@ -1,4 +1,4 @@
-use crate::resources::AnimationKey;
+use crate::resources::{AnimationKey, ScreenShake};
 use crate::settings::objects_settings::ObjectType;
 
 #[derive(Deserialize, Clone)]
@@ -16,6 +16,5 @@ pub enum ActionType {
     SetOutput(Vec<String>),
     AddOutput(Vec<String>),
     ClearOutput,
-    // duration-ms, strength
-    ScreenShake(u64, f32),
+    ScreenShake(ScreenShake),
 }
