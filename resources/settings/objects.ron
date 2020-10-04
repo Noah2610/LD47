@@ -155,6 +155,10 @@
         ],
 
         events: {
+            Init: [
+                AddOutput(["Hello alarm"]),
+            ],
+
             OnInteract: [
                 Echo("INTERACT WITH ALARM!"),
                 AddOutput(["EARTHQUAKE!"]),
