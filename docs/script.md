@@ -3,6 +3,8 @@
 ## Phase 1 - Waking up
 
 - Alarm Clock:
+
+```
 "ring ring"
 "ringggg.... ringg....... ring?"
 "Hello-oh! Anyone home?"
@@ -20,8 +22,9 @@
 "PRESS ME YOU ****" 
 "PRESS ME YOU ****** *** OR I WILL ******** AND ***** *** YOUR ****** YOU ***** *******"
 "****** **** *** ***** **** ***** *** ***** **** ******* ******"
+```
 
-## Phase 2 - Awake 
+## Phase 2 - Awake
 
 ### Interactions:
 
@@ -41,15 +44,14 @@ or: "A pair of loafers. They don't quite fit".
 "My only friend." 
 "I feel as if the cozy sheets are calling for me" 
 
-
-
-
 # Scene 3:
 
 ## Coffee Phase:
 
 - Boss:
 
+
+```
 "Make me a cup of coffee, will you?"
 "Did you not hear me, <name>? I desire a cup of coffee".
 "Funny, I could swear I just asked for a cup of coffee". 
@@ -63,12 +65,13 @@ or: "A pair of loafers. They don't quite fit".
 "COFFE. NOW. AAAAARRRGHGH"
 "AAAAAAAAARHRHRHGHGHGGGGGGHHRHR"
 "AAAAAAAAAAAAAAAAAAAAAOLJFNSDLKFNJSLAOLIKSDOLKFJNKSJDNFKJS"
-
+```
 
 ## PC Button Phase:
 
 - Boss:
 
+```
 "Stop slacking off and get back to work. Those buttons on your desk require some pressing!"
 "Those buttons won't press themselves"
 "Why are you looking at me like that, <name>? It's quite simple, you see. You just need to press the goddamn buttons, you see."
@@ -81,6 +84,7 @@ or "It's quite simple, you see. You're the dedicated button presser and there ar
 "THE BUTTONS, <NAME>, PRESS THE BUTTOOOONNNNNS! AAAARRRRGH!!!"
 "AAAAAAAAARSDFRHSDLIFNJSNR"
 "AAAAAAAAAAAAAAOLKUJLKLKLSDLKMFLKSNDFLKJNDSF"
+```
 
 # Interactions:
 
@@ -107,3 +111,6 @@ Standing somewhere, smoking / taking a break
 
 ## Bloody Dustbin
 - "A dustbin. It's got some Charlie on it."
+
+
+

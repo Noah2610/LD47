@@ -54,6 +54,6 @@
   <object id="4" name="Solid" type="Custom(Solid)" x="0" y="0" width="32" height="144"/>
   <object id="5" name="Solid" type="Custom(Solid)" x="224" y="0" width="32" height="144"/>
   <object id="6" name="ALARM" type="Custom(Alarm)" x="80" y="96" width="16" height="16"/>
-  <object id="7" name="OTHER" type="Custom(Other)" x="144" y="80" width="32" height="32"/>
+  <object id="7" name="OTHER" type="Custom(Boss)" x="160" y="0" width="64" height="64"/>
  </objectgroup>
 </map>

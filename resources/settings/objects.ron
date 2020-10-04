@@ -28,17 +28,42 @@
         ],
     ),
 
-    "Other": (
-        spritesheet: "player.png",
+    "Boss": (
+        spritesheet: "boss.png",
         components: [
+            Size((
+                w: 64.0,
+                h: 64.0,
+            )),
             Animations({
                 Idle: Cycle([
-                    (0, 500),
-                    (1, 500),
-                    (2, 500),
-                    (3, 500),
+                    (10, 200),
+                    (11, 200),
+                ]),
+                Walk: Cycle([
+                    (20, 100),
+                    (21, 100),
+                    (22, 250),
+                    (23, 100),
+                    (24, 100),
+                    (25, 100),
+                    (26, 100),
+                    (27, 250),
+                    (28, 100),
+                    (29, 100),
                 ]),
             }),
+            Velocity((
+                x: -10.0,
+                y: 0.0,
+            )),
+            Gravity((
+                y: -800.0,
+            )),
+            Hitbox(Size),
+            Solid((
+                tag: Player,
+            )),
             Collidable((
                 tag: Interactable,
             )),
@@ -49,19 +74,25 @@
             OnInteract: [
                 Echo("INTERACT"),
                 FaceTowardsObject(Player),
-                StartTimer("FacePlayer", 500),
+
+                StartTimer("Step", 1000),
+                AddOutput(["What's poppin mah dude?"]),
 
                 ScreenShake((
                     duration_ms: 500,
                     strength: 2.0,
                     shake_delay_ms: 5,
                 )),
-                StartTimer("NextScene", 1000),
+                // StartTimer("NextScene", 1000),
             ],
 
-            OnTimerFinish("FacePlayer"): [
-                AddOutput(["What's poppin mah dude?"]),
-                FaceTowardsObject(Player),
+            OnTimerFinish("Step"): [
+                ScreenShake((
+                    duration_ms: 80,
+                    strength: 4.0,
+                    shake_delay_ms: 20,
+                )),
+                StartTimer("Step", 500),
             ],
 
             OnTimerFinish("NextScene"): [
@@ -98,19 +129,6 @@
         ],
 
         events: {
-            // OnSpawn(0): [
-            //     PlayAnimation(Custom("Idle0")),
-            // ],
-            // OnSpawn(1): [
-            //     PlayAnimation(Custom("Idle1")),
-            // ],
-            // OnSpawn(2): [
-            //     PlayAnimation(Custom("Idle2")),
-            // ],
-            // OnSpawn(3): [
-            //     PlayAnimation(Custom("Idle3")),
-            // ],
-
             OnInteract: [
                 Echo("INTERACT WITH ALARM!"),
                 AddOutput(["EARTHQUAKE!"]),
@@ -120,20 +138,35 @@
                     shake_delay_ms: 10,
                 )),
                 Fade((
-                    type: FadeOut,
-                    duration_ms: 2000,
+                    type: FadeIn,
+                    duration_ms: 5000,
                 )),
-                // ForeignObjectAction(Player, [
-                //     Hide,
-                //     SetControllable(false),
-                // ]),
-                // SetPlayerControllable(false),
-                // ShowEntities("AlarmText"),  // `type: "Custom(AlarmText)"`
-                // ShowEntities("AlarmChild"), // `type: "Custom(AlarmChild)"`
-                // Delay(1000, [
-                //     HideEntities("AlarmText"),
-                //     HideEntities("AlarmChild"),
-                // ]),
+
+                StartTimer("Text0", 0),
+            ],
+
+            OnTimerFinish("Text0"): [
+                SetOutput([
+                    "ring ring"
+                ]),
+                StartTimer("Text1", 3000),
+            ],
+            OnTimerFinish("Text1"): [
+                SetOutput([
+                    "ringggg.... ringg....... ring?"
+                ]),
+                StartTimer("Text2", 3000),
+            ],
+            OnTimerFinish("Text2"): [
+                SetOutput([
+                    "Hello-oh! Anyone home?"
+                ]),
+                StartTimer("Text3", 3000),
+            ],
+            OnTimerFinish("Text3"): [
+                SetOutput([
+                    "Rise and shine, buddy!"
+                ]),
             ],
 
             OnCollision(And([IsTag(Player), IsState(Enter)])): [
@@ -142,39 +175,4 @@
             ],
         },
     ),
-
-    // "AlarmChild": (
-    //     spritesheet: "alarm_child.png",
-    //     components: [
-    //         Hidden(()),
-    //     ],
-    // ),
-
-    // "Pic": (
-    //     events: {
-    //         OnInteract: [
-    //             SetOutput([
-    //                 "This is a picture.",
-    //                 "It is very colorful.",
-    //             ]),
-    //             Delay(1000, [
-    //                   ClearOutput,
-    //                   SetOutput(["Cleared"]),
-    //                   PlayAnimation(Custom("MyAnim")),
-    //             ]),
-
-    //             TriggerForeign(Custom("Npc"), [
-    //                 PlayAnimation("PlayerIsCheckingPic"),
-    //             ]),
-    //         ],
-    //     },
-    // ),
-
-    // "Npc": (
-    //     components: [
-    //         Animations({
-    //             Custom("PlayerIsCheckingPic"): [/* ... */],
-    //         }),
-    //     ],
-    // ),
 }
