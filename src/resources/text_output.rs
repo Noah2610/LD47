@@ -1,5 +1,3 @@
-use std::vec::IntoIter;
-
 #[derive(Default)]
 pub struct TextOutput {
     pub text:   String,

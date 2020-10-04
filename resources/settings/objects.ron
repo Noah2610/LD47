@@ -231,7 +231,7 @@
 
             OnTimerFinish("Text"): [
                 PrintNextLine("Ring"),
-                StartTimer("Ring", 5000),
+                StartTimer("Text", 5000),
             ],
 
             OnTimerFinish("Sound"): [
