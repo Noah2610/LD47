@@ -805,20 +805,15 @@ I tremble at the thought of what horrors may lie behind them."#,
         ],
     ),
 
-    "BossSplooch": (
-        spritesheet: "scene3/boss_splooch.png",
+    "TableBossShadow": (
+        spritesheet: "scene3/table_boss_shadow.png",
         components: [
             Size((
-                w: 110.0,
-                h: 76.0,
+                w: 68.0,
+                h: 32.0,
             )),
             Animation([(0, 1000)]),
         ],
-        events: {
-            Init: [
-                Hide,
-            ],
-        },
     ),
 
     "Coworker1": (
@@ -968,6 +963,38 @@ I tremble at the thought of what horrors may lie behind them."#,
         },
     ),
 
+    "Clock": (
+        spritesheet: "scene3/clock.png",
+        components: [
+            Size((
+                w: 16.0,
+                h: 16.0,
+            )),
+            Animations({
+                Idle: Cycle([(0, 1000)]),
+                Custom("0"): Cycle([
+                    (0, 1000),
+                ]),
+                Custom("1"): Cycle([
+                    (1, 1000),
+                ]),
+                Custom("2"): Cycle([
+                    (2, 1000),
+                ]),
+                Custom("3"): Cycle([
+                    (3, 1000),
+                ]),
+                Custom("4"): Cycle([
+                    (4, 1000),
+                ]),
+                Custom("5"): Cycle([
+                    (5, 1000),
+                ]),
+            }),
+        ],
+        events: {},
+    ),
+
     "Boss": (
         spritesheet: "scene3/boss.png",
         components: [
@@ -1056,12 +1083,21 @@ I tremble at the thought of what horrors may lie behind them."#,
         events: {
             Init: [
                 SetVariable("reached_desk", false),
+                StartTimer("InitGreet", 1000),
+            ],
+
+            OnTimerFinish("InitGreet"): [
+                FaceTowardsObject(Player),
+                StartTimer("Greet", 1000),
+            ],
+
+            OnTimerFinish("Greet"): [
                 OutputNextLine(
                     id: "Greet",
                     scroll: true,
                 ),
                 PlaySound("BossScream1"),
-                StartTimer("StartMovingToDesk", 1000),
+                StartTimer("StartMovingToDesk", 2000),
             ],
 
             OnTimerFinish("StartMovingToDesk"): [
@@ -1115,13 +1151,17 @@ I tremble at the thought of what horrors may lie behind them."#,
     "BossSplooch": (
         spritesheet: "scene3/boss_splooch.png",
         components: [
+            Size((
+                w: 110.0,
+                h: 76.0,
+            )),
             Animation([(0, 1000)]),
         ],
-        // events: {
-        //     Init: [
-        //         Hide,
-        //     ],
-        // },
+        events: {
+            Init: [
+                Hide,
+            ],
+        },
     ),
 
     // ------------

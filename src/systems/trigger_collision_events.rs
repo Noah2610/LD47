@@ -8,23 +8,14 @@ impl<'a> System<'a> for TriggerCollisionEventsSystem {
     type SystemData = (
         WriteStorage<'a, EventsRegister>,
         ReadStorage<'a, Collider<CollisionTag>>,
-        ReadStorage<'a, Unloaded>,
     );
 
     fn run(
         &mut self,
-        (
-            mut events_register_store,
-            collider_store,
-            unloaded_store,
-        ): Self::SystemData,
+        (mut events_register_store, collider_store): Self::SystemData,
     ) {
-        for (events_register, collider, _) in (
-            &mut events_register_store,
-            &collider_store,
-            !&unloaded_store,
-        )
-            .join()
+        for (events_register, collider) in
+            (&mut events_register_store, &collider_store).join()
         {
             let mut trigger_actions = Vec::new();
 

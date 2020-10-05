@@ -8,16 +8,11 @@ impl<'a> System<'a> for TriggerOnKeyEventsSystem {
     type SystemData = (
         Read<'a, InputManager<IngameBindings>>,
         WriteStorage<'a, EventsRegister>,
-        ReadStorage<'a, Unloaded>,
     );
 
     fn run(
         &mut self,
-        (
-            input_manager,
-            mut events_register_store,
-            unloaded_store,
-        ): Self::SystemData,
+        (input_manager, mut events_register_store): Self::SystemData,
     ) {
         for action_state in
             &[ActionState::Down, ActionState::Up, ActionState::Pressed]
@@ -31,9 +26,7 @@ impl<'a> System<'a> for TriggerOnKeyEventsSystem {
                     }
                     _ => unreachable!(),
                 };
-                for (events_register, _) in
-                    (&mut events_register_store, !&unloaded_store).join()
-                {
+                for events_register in (&mut events_register_store).join() {
                     events_register.trigger_event(&event);
                 }
             });

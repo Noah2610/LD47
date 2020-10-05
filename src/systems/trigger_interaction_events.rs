@@ -13,7 +13,6 @@ impl<'a> System<'a> for TriggerInteractionEventsSystem {
         ReadStorage<'a, Interactable>,
         ReadStorage<'a, Collider<CollisionTag>>,
         WriteStorage<'a, EventsRegister>,
-        ReadStorage<'a, Unloaded>,
     );
 
     fn run(
@@ -25,7 +24,6 @@ impl<'a> System<'a> for TriggerInteractionEventsSystem {
             interactable_store,
             collider_store,
             mut events_register_store,
-            unloaded_store,
         ): Self::SystemData,
     ) {
         for (player, player_collider) in
@@ -43,11 +41,10 @@ impl<'a> System<'a> for TriggerInteractionEventsSystem {
                     .exp(&query_exp)
                     .run()
                 {
-                    for (entity, interactable, events_register, _) in (
+                    for (entity, interactable, events_register) in (
                         &entities,
                         &interactable_store,
                         &mut events_register_store,
-                        !&unloaded_store,
                     )
                         .join()
                     {

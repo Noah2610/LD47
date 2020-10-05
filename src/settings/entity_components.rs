@@ -26,8 +26,6 @@ pub enum EntityComponent {
     Animations(AnimationsContainer<AnimationKey>),
     BaseFriction(BaseFriction),
     Hitbox(HitboxConfig),
-    Loadable(Loadable),
-    Loader(Loader),
     Collider(Collider<CollisionTag>),
     Collidable(Collidable<CollisionTag>),
     Solid(Solid<SolidTag>),
@@ -66,8 +64,6 @@ pub fn add_components_to_entity(
             Comp::Hitbox(hitbox) => {
                 hitbox.add_hitbox_to_entity(builder, size_opt.as_ref())
             }
-            Comp::Loadable(loadable) => builder.with(loadable),
-            Comp::Loader(loader) => builder.with(loader),
             Comp::Collider(collider) => builder.with(collider),
             Comp::Collidable(collidable) => builder.with(collidable),
             Comp::Solid(solid) => builder.with(solid),

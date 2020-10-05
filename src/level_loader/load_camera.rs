@@ -39,7 +39,6 @@ pub(super) fn build_camera(
 
     world
         .create_entity()
-        .with(Loader::new(size.w, size.h))
         .with(Follow::new(player))
         .with(Confined::from(Rect {
             top:    level_size.h,
