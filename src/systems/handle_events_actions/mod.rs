@@ -56,8 +56,6 @@ impl<'a> System<'a> for HandleEventsActionsSystem {
         for (entity, events_register, _) in
             (&entities, &mut events_register_store, !&unloaded_store).join()
         {
-            let mut trigger_actions = Vec::new();
-
             for action in events_register.triggered_actions.drain(..) {
                 match action {
                     ActionType::Echo(msg) => println!("> {}", msg),
@@ -401,10 +399,6 @@ impl<'a> System<'a> for HandleEventsActionsSystem {
                             .add_action(if_action);
                     }
                 }
-            }
-
-            for trigger_action in trigger_actions {
-                events_register.add_action(trigger_action);
             }
         }
 
