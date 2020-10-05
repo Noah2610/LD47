@@ -272,6 +272,7 @@
             Init: [
                 SetVariable("text_idx", 0),
                 SetVariable("intense_shake", false),
+                SetVariable("alarm_fight", false),
                 PlayAnimation(Custom("Ring")),
                 StartTimer("Text", 500),
                 StartTimer("Sound", 500),
@@ -388,6 +389,17 @@
             ],
 
             OnTimerFinish("StartFight"): [
+                SetVariable("alarm_fight", true),
+                ForeignObjectAction(Custom("BgFragment1"), [StartTimer("StartFight", 0)]),
+                ForeignObjectAction(Custom("BgFragment2"), [StartTimer("StartFight", 0)]),
+                ForeignObjectAction(Custom("BgFragment3"), [StartTimer("StartFight", 0)]),
+                ForeignObjectAction(Custom("BgFragment4"), [StartTimer("StartFight", 0)]),
+                ForeignObjectAction(Custom("BgFragment5"), [StartTimer("StartFight", 0)]),
+                ForeignObjectAction(Custom("BgFragment6"), [StartTimer("StartFight", 0)]),
+                ForeignObjectAction(Custom("BgFragment7"), [StartTimer("StartFight", 0)]),
+                ForeignObjectAction(Custom("BgFragment8"), [StartTimer("StartFight", 0)]),
+                ForeignObjectAction(Custom("BgFragment9"), [StartTimer("StartFight", 0)]),
+                ForeignObjectAction(Custom("BgFragment10"), [StartTimer("StartFight", 0)]),
                 SetOutput(
                     text: "YOU SHOULD HAVE LISTENED!!!",
                     scroll: true,
@@ -733,15 +745,14 @@ I tremble at the thought of what horrors may lie behind them."#,
             Velocity(( x: 0.0, y: 0.0 )),
         ],
         events: {
-            Init: [
-                If((
-                    if: Equal(Val(true), Val(false)), // TODO alarm boss trigger
-                    then: [
-                        SetVelocity(
-                            x: -60.0,
-                        ),
-                    ],
-                )),
+            OnTimerFinish("StartFight"): [
+                SetVelocity(
+                    x: -60.0,
+                ),
+                StartTimer("Delete", 10000),
+            ],
+            OnTimerFinish("Delete"): [
+                DeleteEntity,
             ],
         },
     ),
@@ -751,15 +762,14 @@ I tremble at the thought of what horrors may lie behind them."#,
             Velocity(( x: 0.0, y: 0.0 )),
         ],
         events: {
-            Init: [
-                If((
-                    if: Equal(Val(true), Val(false)), // TODO alarm boss trigger
-                    then: [
-                        SetVelocity(
-                            y: -60.0,
-                        ),
-                    ],
-                )),
+            OnTimerFinish("StartFight"): [
+                SetVelocity(
+                    y: -60.0,
+                ),
+                StartTimer("Delete", 10000),
+            ],
+            OnTimerFinish("Delete"): [
+                DeleteEntity,
             ],
         },
     ),
@@ -769,15 +779,14 @@ I tremble at the thought of what horrors may lie behind them."#,
             Velocity(( x: 0.0, y: 0.0 )),
         ],
         events: {
-            Init: [
-                If((
-                    if: Equal(Val(true), Val(false)), // TODO alarm boss trigger
-                    then: [
-                        SetVelocity(
-                            x: -60.0,
-                        ),
-                    ],
-                )),
+            OnTimerFinish("StartFight"): [
+                SetVelocity(
+                    x: -60.0,
+                ),
+                StartTimer("Delete", 10000),
+            ],
+            OnTimerFinish("Delete"): [
+                DeleteEntity,
             ],
         },
     ),
@@ -787,15 +796,14 @@ I tremble at the thought of what horrors may lie behind them."#,
             Velocity(( x: 0.0, y: 0.0 )),
         ],
         events: {
-            Init: [
-                If((
-                    if: Equal(Val(true), Val(false)), // TODO alarm boss trigger
-                    then: [
-                        SetVelocity(
-                            y: 60.0,
-                        ),
-                    ],
-                )),
+            OnTimerFinish("StartFight"): [
+                SetVelocity(
+                    y: 60.0,
+                ),
+                StartTimer("Delete", 10000),
+            ],
+            OnTimerFinish("Delete"): [
+                DeleteEntity,
             ],
         },
     ),
@@ -805,15 +813,14 @@ I tremble at the thought of what horrors may lie behind them."#,
             Velocity(( x: 0.0, y: 0.0 )),
         ],
         events: {
-            Init: [
-                If((
-                    if: Equal(Val(true), Val(false)), // TODO alarm boss trigger
-                    then: [
-                        SetVelocity(
-                            y: -60.0,
-                        ),
-                    ],
-                )),
+            OnTimerFinish("StartFight"): [
+                SetVelocity(
+                    y: -60.0,
+                ),
+                StartTimer("Delete", 10000),
+            ],
+            OnTimerFinish("Delete"): [
+                DeleteEntity,
             ],
         },
     ),
@@ -823,15 +830,14 @@ I tremble at the thought of what horrors may lie behind them."#,
             Velocity(( x: 0.0, y: 0.0 )),
         ],
         events: {
-            Init: [
-                If((
-                    if: Equal(Val(true), Val(false)), // TODO alarm boss trigger
-                    then: [
-                        SetVelocity(
-                            x: -60.0,
-                        ),
-                    ],
-                )),
+            OnTimerFinish("StartFight"): [
+                SetVelocity(
+                    x: -60.0,
+                ),
+                StartTimer("Delete", 10000),
+            ],
+            OnTimerFinish("Delete"): [
+                DeleteEntity,
             ],
         },
     ),
@@ -841,15 +847,14 @@ I tremble at the thought of what horrors may lie behind them."#,
             Velocity(( x: 0.0, y: 0.0 )),
         ],
         events: {
-            Init: [
-                If((
-                    if: Equal(Val(true), Val(false)), // TODO alarm boss trigger
-                    then: [
-                        SetVelocity(
-                            y: 60.0,
-                        ),
-                    ],
-                )),
+            OnTimerFinish("StartFight"): [
+                SetVelocity(
+                    y: 60.0,
+                ),
+                StartTimer("Delete", 10000),
+            ],
+            OnTimerFinish("Delete"): [
+                DeleteEntity,
             ],
         },
     ),
@@ -859,15 +864,14 @@ I tremble at the thought of what horrors may lie behind them."#,
             Velocity(( x: 0.0, y: 0.0 )),
         ],
         events: {
-            Init: [
-                If((
-                    if: Equal(Val(true), Val(false)), // TODO alarm boss trigger
-                    then: [
-                        SetVelocity(
-                            x: 60.0,
-                        ),
-                    ],
-                )),
+            OnTimerFinish("StartFight"): [
+                SetVelocity(
+                    x: 60.0,
+                ),
+                StartTimer("Delete", 10000),
+            ],
+            OnTimerFinish("Delete"): [
+                DeleteEntity,
             ],
         },
     ),
@@ -877,15 +881,14 @@ I tremble at the thought of what horrors may lie behind them."#,
             Velocity(( x: 0.0, y: 0.0 )),
         ],
         events: {
-            Init: [
-                If((
-                    if: Equal(Val(true), Val(false)), // TODO alarm boss trigger
-                    then: [
-                        SetVelocity(
-                            y: 60.0,
-                        ),
-                    ],
-                )),
+            OnTimerFinish("StartFight"): [
+                SetVelocity(
+                    y: 60.0,
+                ),
+                StartTimer("Delete", 10000),
+            ],
+            OnTimerFinish("Delete"): [
+                DeleteEntity,
             ],
         },
     ),
@@ -895,15 +898,14 @@ I tremble at the thought of what horrors may lie behind them."#,
             Velocity(( x: 0.0, y: 0.0 )),
         ],
         events: {
-            Init: [
-                If((
-                    if: Equal(Val(true), Val(false)), // TODO alarm boss trigger
-                    then: [
-                        SetVelocity(
-                            x: 60.0,
-                        ),
-                    ],
-                )),
+            OnTimerFinish("StartFight"): [
+                SetVelocity(
+                    x: 60.0,
+                ),
+                StartTimer("Delete", 10000),
+            ],
+            OnTimerFinish("Delete"): [
+                DeleteEntity,
             ],
         },
     ),

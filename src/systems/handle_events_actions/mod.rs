@@ -15,6 +15,7 @@ impl<'a> System<'a> for HandleEventsActionsSystem {
         Write<'a, SceneManager>,
         Write<'a, SoundPlayer<SoundKey>>,
         Write<'a, Songs<SongKey>>,
+        Write<'a, ObjectSpawner>,
         WriteStorage<'a, EventsRegister>,
         ReadStorage<'a, Object>,
         WriteStorage<'a, Player>,
@@ -38,6 +39,7 @@ impl<'a> System<'a> for HandleEventsActionsSystem {
             mut scene_manager,
             mut sound_player,
             mut songs,
+            mut object_spawner,
             mut events_register_store,
             object_store,
             mut player_store,
@@ -401,6 +403,20 @@ impl<'a> System<'a> for HandleEventsActionsSystem {
 
                     ActionType::DeleteEntity => {
                         let _ = entities.delete(entity);
+                    }
+
+                    ActionType::SpawnObject(mut object_data) => {
+                        let entity_pos = {
+                            let transform = transform_store.get(entity).expect(
+                                "SpawnObject action requires Transform \
+                                 component",
+                            );
+                            let trans = transform.translation();
+                            (trans.x, trans.y)
+                        };
+                        object_data.position.0 += entity_pos.0;
+                        object_data.position.1 += entity_pos.1;
+                        object_spawner.to_spawn.push(object_data);
                     }
                 }
             }

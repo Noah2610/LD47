@@ -1,5 +1,12 @@
 use crate::components::prelude::{IfAction, VariableValue};
-use crate::resources::{AnimationKey, Fade, ScreenShake, SongKey, SoundKey};
+use crate::resources::{
+    AnimationKey,
+    Fade,
+    ObjectSpawnData,
+    ScreenShake,
+    SongKey,
+    SoundKey,
+};
 use crate::settings::objects_settings::ObjectType;
 
 #[derive(Deserialize, Clone)]
@@ -65,6 +72,7 @@ pub enum ActionType {
     OpDivVariable(String, VariableValue),
     If(IfAction),
     DeleteEntity,
+    SpawnObject(ObjectSpawnData),
 }
 
 fn default_output_target() -> String {

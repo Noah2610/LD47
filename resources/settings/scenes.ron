@@ -10,9 +10,9 @@
         (
             level: "scene_1.json",
         ),
-        (
-            level: "dev.json",
-        ),
+        // (
+        //     level: "dev.json",
+        // ),
         (
             level: "scene_3.json",
         ),
