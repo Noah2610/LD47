@@ -4,7 +4,7 @@
   <export target="../../resources/levels/scene_1.json" format="ld47-export"/>
  </editorsettings>
  <tileset firstgid="1" source="../tsx/scene1bg.tsx"/>
- <layer id="1" name="ignored" width="16" height="9">
+ <layer id="1" name="ignored" width="16" height="9" locked="1">
   <properties>
    <property name="_ignore" type="bool" value="true"/>
   </properties>
@@ -20,7 +20,7 @@
 129,130,131,132,133,134,135,136,137,138,139,140,141,142,143,144
 </data>
  </layer>
- <objectgroup id="4" name="bg">
+ <objectgroup id="4" name="bg" visible="0" locked="1">
   <properties>
    <property name="z" type="float" value="-1"/>
   </properties>
@@ -35,24 +35,24 @@
   <object id="24" type="Custom(BgFragment9)" x="206" y="34" width="50" height="110"/>
   <object id="25" type="Custom(BgFragment10)" x="132" y="108" width="74" height="36"/>
  </objectgroup>
- <objectgroup id="5" name="collision" visible="0">
+ <objectgroup id="5" name="collision">
   <object id="5" type="Custom(Solid)" x="0" y="96" width="256" height="48"/>
   <object id="6" type="Custom(Solid)" x="0" y="0" width="32" height="96"/>
   <object id="7" type="Custom(Solid)" x="228" y="0" width="28" height="96"/>
   <object id="9" name="Painting" type="Custom(Painting)" x="132" y="67" width="10" height="14"/>
   <object id="10" name="Shoes" type="Custom(Shoes)" x="150.091" y="87.8182" width="6.81818" height="8.18182"/>
   <object id="11" name="Filth" type="Custom(Filth)" x="108.636" y="64" width="10.5455" height="16"/>
-  <object id="13" name="Alarm" type="Custom(Alarm)" x="80" y="64" width="16" height="32"/>
+  <object id="13" name="Alarm" type="Custom(Alarm)" x="78" y="36" width="32" height="48"/>
   <object id="14" name="Door" type="Custom(Door)" x="173.875" y="64" width="11.375" height="32"/>
   <object id="15" name="Bed" type="Custom(Bed)" x="32" y="64" width="32" height="32"/>
  </objectgroup>
- <objectgroup id="3" name="objects" visible="0">
+ <objectgroup id="3" name="objects">
   <properties>
    <property name="z" type="float" value="0.5"/>
   </properties>
   <object id="8" name="Plant" type="Custom(Plant)" x="199" y="64" width="24" height="32"/>
  </objectgroup>
- <objectgroup id="2" name="player" visible="0">
+ <objectgroup id="2" name="player">
   <properties>
    <property name="z" type="float" value="1"/>
   </properties>

@@ -21,16 +21,6 @@
     // SCENE 1
     // -------
 
-    "Scene1Bg": (
-        spritesheet: "scene1/bg.png",
-        components: [
-            Size((
-                w: 256.0,
-                h: 144.0,
-            )),
-        ],
-    ),
-
     "Plant": (
         spritesheet: "scene1/plant.png",
         components: [
@@ -171,6 +161,9 @@
                                 ),
                             ],
                         ),
+                        ForeignObjectAction(Custom("Alarm"), [
+                            StartTimer("StopAlarm", 0),
+                        ]),
                     ],
                 )),
             ],
@@ -217,16 +210,38 @@
     ),
 
     "Alarm": (
+        spritesheet: "alarm.png",
         components: [
-            // Size(()) // TODO!
+            Size((
+                w: 32.0,
+                h: 48.0,
+            )),
             Collidable((
                 tag: Interactable,
             )),
-            Hitbox(Size),
+            Hitbox(Custom([
+                (
+                    top:    0.0,
+                    bottom: 24.0,
+                    left:   -16.0,
+                    right:  4.0,
+                ),
+            ])),
+            Animations({
+                Idle: Cycle([
+                    (0, 1000),
+                ]),
+                Custom("Ring"): Cycle([
+                    (48, 500),
+                    (49, 500),
+                ]),
+            }),
             Interactable(()),
             TextLines({
                 "Ring": (
                     lines: [
+                        "ring ring",
+                        "ring ring",
                         "ring ring",
                         "ring ring",
                         "ring ring",
@@ -239,7 +254,8 @@
                         "Press me. That's how clocks work, you know?",
                         "You DO know, right? ",
                         "Press me. That's how clocks work, in case you forgot.",
-                        "Obey me, mortal, or suffer the consequences.", // -> "*Press me buddy :)"
+                        "Obey me, mortal, or suffer the consequences.",
+                        "*Press me buddy :)",
                         "...",
                         "press me. *now*.",
                         "PRESS ME. NOW.",
@@ -254,15 +270,40 @@
 
         events: {
             Init: [
+                SetVariable("text_idx", 0),
+                PlayAnimation(Custom("Ring")),
                 StartTimer("Text", 500),
                 StartTimer("Sound", 500),
             ],
 
             OnTimerFinish("Text"): [
-                OutputNextLine(
-                    id: "Ring",
-                ),
-                StartTimer("Text", 3000),
+                OutputNextLine(id: "Ring"),
+                If((
+                    if: LessThan(Var("text_idx"), Val(5)),
+                    then: [
+                        StartTimer("Text", 2000),
+                    ],
+                    else: [
+                        If((
+                            if: LessThan(Var("text_idx"), Val(14)),
+                            then: [
+                                StartTimer("Text", 4000),
+                            ],
+                            else: [
+                                If((
+                                    if: Equal(Var("text_idx"), Val(14)),
+                                    then: [
+                                        StartTimer("Text", 1200),
+                                    ],
+                                    else: [
+                                        StartTimer("Text", 4000),
+                                    ],
+                                )),
+                            ],
+                        )),
+                    ],
+                )),
+                OpAddVariable("text_idx", 1),
             ],
 
             OnTimerFinish("Sound"): [
@@ -275,7 +316,8 @@
                 StartTimer("Sound", 1000),
             ],
 
-            OnInteract: [
+            OnTimerFinish("StopAlarm"): [
+                PlayAnimation(Idle),
                 StopTimer("Text"),
                 StopTimer("Sound"),
                 PlaySound("Interact"),
