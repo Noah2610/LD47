@@ -4,7 +4,7 @@ use super::EntityComponents;
 use crate::components::prelude::EventsRegister;
 use std::collections::HashMap;
 
-#[derive(Deserialize, Clone, PartialEq, Eq, Hash)]
+#[derive(Deserialize, Clone, PartialEq, Eq, Hash, Debug)]
 pub enum ObjectType {
     Player,
     Custom(String),

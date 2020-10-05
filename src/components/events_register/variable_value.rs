@@ -6,6 +6,7 @@ pub enum VariableValue {
     Bool(bool),
     Num(i32),
     Str(String),
+    Null,
 }
 
 impl PartialEq for VariableValue {
@@ -14,6 +15,7 @@ impl PartialEq for VariableValue {
             (Self::Bool(a), Self::Bool(b)) => a == b,
             (Self::Num(a), Self::Num(b)) => a == b,
             (Self::Str(a), Self::Str(b)) => a == b,
+            (Self::Null, Self::Null) => true,
             (a, b) => {
                 eprintln!(
                     "[WARNING VariableValue::partial_eq]\n    Can't compare \
@@ -32,6 +34,7 @@ impl PartialOrd for VariableValue {
             (Self::Bool(a), Self::Bool(b)) => a.partial_cmp(b),
             (Self::Num(a), Self::Num(b)) => a.partial_cmp(b),
             (Self::Str(a), Self::Str(b)) => a.partial_cmp(b),
+            (Self::Null, Self::Null) => None,
             (a, b) => {
                 eprintln!(
                     "[WARNING VariableValue::partial_cmp]\n    Can't compare \

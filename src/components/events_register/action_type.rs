@@ -1,4 +1,4 @@
-use super::prelude::VariableValue;
+use super::prelude::{IfCondition, VariableValue};
 use crate::resources::{AnimationKey, Fade, ScreenShake, SongKey, SoundKey};
 use crate::settings::objects_settings::ObjectType;
 
@@ -59,6 +59,14 @@ pub enum ActionType {
         y: Option<f32>,
     },
     SetVariable(String, VariableValue),
+    If {
+        #[serde(alias = "if")]
+        condition: IfCondition,
+        #[serde(alias = "then")]
+        success:   Box<ActionType>,
+        #[serde(alias = "else", default)]
+        failure:   Option<Box<ActionType>>,
+    },
 }
 
 fn default_output_target() -> String {

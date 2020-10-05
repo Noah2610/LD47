@@ -9,6 +9,7 @@ pub struct HandleEventsActionsSystem;
 impl<'a> System<'a> for HandleEventsActionsSystem {
     type SystemData = (
         Entities<'a>,
+        IfStorages<'a>,
         Write<'a, TextOutput>,
         Write<'a, ScreenShakeRes>,
         Write<'a, FadeRes>,
@@ -30,6 +31,7 @@ impl<'a> System<'a> for HandleEventsActionsSystem {
         &mut self,
         (
             entities,
+            if_stores,
             mut text_output,
             mut screen_shake,
             mut fade_res,
@@ -52,6 +54,8 @@ impl<'a> System<'a> for HandleEventsActionsSystem {
         for (entity, events_register, _) in
             (&entities, &mut events_register_store, !&unloaded_store).join()
         {
+            let mut trigger_actions = Vec::new();
+
             for action in events_register.triggered_actions.drain(..) {
                 match action {
                     ActionType::Echo(msg) => println!("> {}", msg),
@@ -244,7 +248,25 @@ impl<'a> System<'a> for HandleEventsActionsSystem {
                     ActionType::SetVariable(name, value) => {
                         events_register.variables.insert(name, value);
                     }
+
+                    ActionType::If {
+                        condition,
+                        success,
+                        failure,
+                    } => {
+                        if condition.passes(entity, &if_stores) {
+                            trigger_actions.push(*success);
+                        } else {
+                            if let Some(failure) = failure {
+                                trigger_actions.push(*failure);
+                            }
+                        }
+                    }
                 }
+            }
+
+            for trigger_action in trigger_actions {
+                events_register.add_action(trigger_action);
             }
         }
 
