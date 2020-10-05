@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.4" tiledversion="1.4.2" orientation="orthogonal" renderorder="right-down" width="16" height="9" tilewidth="16" tileheight="16" infinite="0" nextlayerid="6" nextobjectid="16">
+<map version="1.4" tiledversion="1.4.2" orientation="orthogonal" renderorder="right-down" width="16" height="9" tilewidth="16" tileheight="16" infinite="0" nextlayerid="6" nextobjectid="26">
  <editorsettings>
   <export target="../../resources/levels/scene_1.json" format="ld47-export"/>
  </editorsettings>
@@ -20,13 +20,22 @@
 129,130,131,132,133,134,135,136,137,138,139,140,141,142,143,144
 </data>
  </layer>
- <objectgroup id="4" name="bg" visible="0">
+ <objectgroup id="4" name="bg">
   <properties>
    <property name="z" type="float" value="-1"/>
   </properties>
-  <object id="2" type="Custom(Scene1Bg)" x="0" y="0" width="256" height="144"/>
+  <object id="2" type="Custom(BgFragment1)" x="0" y="0" width="54" height="34"/>
+  <object id="16" type="Custom(BgFragment2)" x="0" y="72" width="42" height="72"/>
+  <object id="17" type="Custom(BgFragment3)" x="0" y="34" width="86" height="38"/>
+  <object id="18" type="Custom(BgFragment4)" x="54" y="0" width="96" height="34"/>
+  <object id="20" type="Custom(BgFragment5)" x="86" y="34" width="46" height="110"/>
+  <object id="21" type="Custom(BgFragment6)" x="132" y="34" width="74" height="74"/>
+  <object id="22" type="Custom(BgFragment7)" x="42" y="72" width="44" height="72"/>
+  <object id="23" type="Custom(BgFragment8)" x="150" y="0" width="106" height="34"/>
+  <object id="24" type="Custom(BgFragment9)" x="206" y="34" width="50" height="110"/>
+  <object id="25" type="Custom(BgFragment10)" x="132" y="108" width="74" height="36"/>
  </objectgroup>
- <objectgroup id="5" name="collision">
+ <objectgroup id="5" name="collision" visible="0">
   <object id="5" type="Custom(Solid)" x="0" y="96" width="256" height="48"/>
   <object id="6" type="Custom(Solid)" x="0" y="0" width="32" height="96"/>
   <object id="7" type="Custom(Solid)" x="228" y="0" width="28" height="96"/>
@@ -37,13 +46,13 @@
   <object id="14" name="Door" type="Custom(Door)" x="173.875" y="64" width="11.375" height="32"/>
   <object id="15" name="Bed" type="Custom(Bed)" x="32" y="64" width="32" height="32"/>
  </objectgroup>
- <objectgroup id="3" name="objects">
+ <objectgroup id="3" name="objects" visible="0">
   <properties>
    <property name="z" type="float" value="0.5"/>
   </properties>
   <object id="8" name="Plant" type="Custom(Plant)" x="199" y="64" width="24" height="32"/>
  </objectgroup>
- <objectgroup id="2" name="player">
+ <objectgroup id="2" name="player" visible="0">
   <properties>
    <property name="z" type="float" value="1"/>
   </properties>

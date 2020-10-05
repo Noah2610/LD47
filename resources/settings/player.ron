@@ -46,5 +46,27 @@
     ],
 
     // Need to have this be set for other entities to trigger player actions.
-    events: {},
+    events: {
+        Init: [
+            If((
+                if: Equal(CurrentScene, Val(0)),
+                then: [
+                    SetVariable("is_controllable", false),
+                    SetControllable(false),
+                    SetOutput(
+                        text: "Press SPACE to get up.",
+                        target: "ingame_output_text_get_up",
+                        scroll: true,
+                    ),
+                ],
+                else: [
+                    SetVariable("is_controllable", true),
+                ],
+            )),
+            Fade((
+                type: FadeIn,
+                duration_ms: 500,
+            )),
+        ],
+    },
 )

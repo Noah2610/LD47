@@ -27,9 +27,10 @@ Container(
                 percent:        true,
                 opaque:         false,
             ),
-            image: SolidColor(0.0, 0.0, 0.0, 0.0),
+            image: SolidColor(0.0, 0.0, 0.0, 1.0),
         ),
 
+        // DEFAULT TEXT OUTPUT
         Label(
             transform: (
                 id:             "ingame_output_text",
@@ -49,6 +50,30 @@ Container(
                 color:     (0.9, 0.9, 0.9, 1.0),
                 font:      File("resources/fonts/undefined-medium.ttf", ("TTF", ())),
                 align:     TopLeft,
+                line_mode: Wrap,
+            ),
+        ),
+
+        // GET UP PROMPT TEXT OUTPUT
+        Label(
+            transform: (
+                id:             "ingame_output_text_get_up",
+                x:              -375.0,
+                y:              10.0,
+                z:              1.0,
+                width:          250.0,
+                height:         100.0,
+                anchor:         Middle,
+                mouse_reactive: false,
+                percent:        false,
+                opaque:         false,
+            ),
+            text: (
+                text:      "",
+                font_size: 16.0,
+                color:     (0.9, 0.9, 0.9, 1.0),
+                font:      File("resources/fonts/undefined-medium.ttf", ("TTF", ())),
+                align:     Middle,
                 line_mode: Wrap,
             ),
         ),

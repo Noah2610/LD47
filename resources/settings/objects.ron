@@ -149,10 +149,30 @@
 
         events: {
             OnInteract: [
-                PlaySound("Interact"),
-                OutputNextLine(
-                    id: "Inspect",
-                ),
+                If((
+                    if: Equal(
+                        ForeignObjectValue(Player, Var("is_controllable")),
+                        Val(true),
+                    ),
+                    then: [
+                        PlaySound("Interact"),
+                        OutputNextLine(
+                            id: "Inspect",
+                        ),
+                    ],
+                    else: [
+                        ForeignObjectAction(
+                            Player,
+                            [
+                                SetControllable(true),
+                                SetVariable("is_controllable", true),
+                                ClearOutput(
+                                    target: "ingame_output_text_get_up",
+                                ),
+                            ],
+                        ),
+                    ],
+                )),
             ],
         },
     ),
@@ -589,5 +609,190 @@ I tremble at the thought of what horrors may lie behind them."#,
                 tag: BossTableHitbox,
             )),
         ],
+    ),
+
+    // ------------
+    // BG FRAGMENTS
+    // ------------
+
+    "BgFragment1": (
+        spritesheet: "scene1/bg_fragments/bgf1.png",
+        components: [
+            Velocity(( x: 0.0, y: 0.0 )),
+        ],
+        events: {
+            Init: [
+                If((
+                    if: Equal(Val(true), Val(false)), // TODO alarm boss trigger
+                    then: [
+                        SetVelocity(
+                            x: -60.0,
+                        ),
+                    ],
+                )),
+            ],
+        },
+    ),
+    "BgFragment2": (
+        spritesheet: "scene1/bg_fragments/bgf2.png",
+        components: [
+            Velocity(( x: 0.0, y: 0.0 )),
+        ],
+        events: {
+            Init: [
+                If((
+                    if: Equal(Val(true), Val(false)), // TODO alarm boss trigger
+                    then: [
+                        SetVelocity(
+                            y: -60.0,
+                        ),
+                    ],
+                )),
+            ],
+        },
+    ),
+    "BgFragment3": (
+        spritesheet: "scene1/bg_fragments/bgf3.png",
+        components: [
+            Velocity(( x: 0.0, y: 0.0 )),
+        ],
+        events: {
+            Init: [
+                If((
+                    if: Equal(Val(true), Val(false)), // TODO alarm boss trigger
+                    then: [
+                        SetVelocity(
+                            x: -60.0,
+                        ),
+                    ],
+                )),
+            ],
+        },
+    ),
+    "BgFragment4": (
+        spritesheet: "scene1/bg_fragments/bgf4.png",
+        components: [
+            Velocity(( x: 0.0, y: 0.0 )),
+        ],
+        events: {
+            Init: [
+                If((
+                    if: Equal(Val(true), Val(false)), // TODO alarm boss trigger
+                    then: [
+                        SetVelocity(
+                            y: 60.0,
+                        ),
+                    ],
+                )),
+            ],
+        },
+    ),
+    "BgFragment5": (
+        spritesheet: "scene1/bg_fragments/bgf5.png",
+        components: [
+            Velocity(( x: 0.0, y: 0.0 )),
+        ],
+        events: {
+            Init: [
+                If((
+                    if: Equal(Val(true), Val(false)), // TODO alarm boss trigger
+                    then: [
+                        SetVelocity(
+                            y: -60.0,
+                        ),
+                    ],
+                )),
+            ],
+        },
+    ),
+    "BgFragment6": (
+        spritesheet: "scene1/bg_fragments/bgf6.png",
+        components: [
+            Velocity(( x: 0.0, y: 0.0 )),
+        ],
+        events: {
+            Init: [
+                If((
+                    if: Equal(Val(true), Val(false)), // TODO alarm boss trigger
+                    then: [
+                        SetVelocity(
+                            x: -60.0,
+                        ),
+                    ],
+                )),
+            ],
+        },
+    ),
+    "BgFragment7": (
+        spritesheet: "scene1/bg_fragments/bgf7.png",
+        components: [
+            Velocity(( x: 0.0, y: 0.0 )),
+        ],
+        events: {
+            Init: [
+                If((
+                    if: Equal(Val(true), Val(false)), // TODO alarm boss trigger
+                    then: [
+                        SetVelocity(
+                            y: 60.0,
+                        ),
+                    ],
+                )),
+            ],
+        },
+    ),
+    "BgFragment8": (
+        spritesheet: "scene1/bg_fragments/bgf8.png",
+        components: [
+            Velocity(( x: 0.0, y: 0.0 )),
+        ],
+        events: {
+            Init: [
+                If((
+                    if: Equal(Val(true), Val(false)), // TODO alarm boss trigger
+                    then: [
+                        SetVelocity(
+                            x: 60.0,
+                        ),
+                    ],
+                )),
+            ],
+        },
+    ),
+    "BgFragment9": (
+        spritesheet: "scene1/bg_fragments/bgf9.png",
+        components: [
+            Velocity(( x: 0.0, y: 0.0 )),
+        ],
+        events: {
+            Init: [
+                If((
+                    if: Equal(Val(true), Val(false)), // TODO alarm boss trigger
+                    then: [
+                        SetVelocity(
+                            y: 60.0,
+                        ),
+                    ],
+                )),
+            ],
+        },
+    ),
+    "BgFragment10": (
+        spritesheet: "scene1/bg_fragments/bgf10.png",
+        components: [
+            Velocity(( x: 0.0, y: 0.0 )),
+        ],
+        events: {
+            Init: [
+                If((
+                    if: Equal(Val(true), Val(false)), // TODO alarm boss trigger
+                    then: [
+                        SetVelocity(
+                            x: 60.0,
+                        ),
+                    ],
+                )),
+            ],
+        },
     ),
 }
