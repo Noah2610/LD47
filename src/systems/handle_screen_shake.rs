@@ -56,7 +56,13 @@ impl<'a> System<'a> for HandleScreenShakeSystem {
                         timer
                     },
                     strength:      shake.strength,
-                    camera_coords: camera_ortho.world_coordinates.clone(),
+                    camera_coords: self
+                        .shaking
+                        .take()
+                        .map(|shaking| shaking.camera_coords)
+                        .unwrap_or_else(|| {
+                            camera_ortho.world_coordinates.clone()
+                        }),
                 });
             }
 
