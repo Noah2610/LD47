@@ -328,6 +328,8 @@ I tremble at the thought of what horrors may lie behind them."#,
     ),
 
     "Whiteboard": (
+        spritesheet: "scene3/whiteboard.png",
+
         components: [
             Size((
                 w: 56.0,
