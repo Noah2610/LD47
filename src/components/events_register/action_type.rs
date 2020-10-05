@@ -64,6 +64,7 @@ pub enum ActionType {
     OpMulVariable(String, VariableValue),
     OpDivVariable(String, VariableValue),
     If(IfAction),
+    DeleteEntity,
 }
 
 fn default_output_target() -> String {

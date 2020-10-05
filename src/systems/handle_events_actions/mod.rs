@@ -398,6 +398,10 @@ impl<'a> System<'a> for HandleEventsActionsSystem {
                             .expect("If action requires IfActions component")
                             .add_action(if_action);
                     }
+
+                    ActionType::DeleteEntity => {
+                        let _ = entities.delete(entity);
+                    }
                 }
             }
         }
