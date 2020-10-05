@@ -349,6 +349,95 @@ I tremble at the thought of what horrors may lie behind them."#,
         },
     ),
 
+    "TableBg": (
+        spritesheet: "scene3/table_bg.png",
+        components: [
+            Size((
+                w: 48.0,
+                h: 48.0,
+            )),
+            Animation([
+                (0, 3000),
+                (1, 3000),
+                (2, 3000),
+                (3, 3000),
+            ]),
+        ],
+    ),
+
+    "TableFg": (
+        spritesheet: "scene3/table_fg.png",
+        components: [
+            Size((
+                w: 48.0,
+                h: 48.0,
+            )),
+            Animation([(0, 1000)]),
+        ],
+    ),
+
+    "Coworker1": (
+        spritesheet: "scene3/coworker_1.png",
+        components: [
+            Size((
+                w: 32.0,
+                h: 32.0,
+            )),
+            Animations({
+                Idle: Cycle([
+                    (0, 250),
+                    (1, 250),
+                ]),
+                Custom("Talk"): Once([
+                    (0, 100),
+                    (1, 100),
+                    (0, 100),
+                    (1, 100),
+                    (0, 100),
+                    (1, 100),
+                    (0, 100),
+                    (1, 100),
+                ]),
+                Custom("HeadScratch"): Once([
+                    (10, 250),
+                    (11, 250),
+                    (12, 250),
+                    (13, 250),
+                    (14, 250),
+                    (15, 250),
+                    (16, 250),
+                    (17, 250),
+                    (18, 250),
+                ]),
+            }),
+            Hitbox(Custom([
+                (
+                    top:    16.0,
+                    bottom: -16.0,
+                    left:   -10.0,
+                    right:  10.0,
+                ),
+            ])),
+            Collidable((
+                tag: Interactable,
+            )),
+            Interactable(()),
+        ],
+
+        events: {
+            OnInteract: [
+                PlaySound("Interact"),
+                PlaySound("BossScream1"),
+                PushAnimation(Custom("Talk")),
+                SetOutput(
+                    text: "The boss is having one of his episodes again.\nEarlier he threw a dustbin at Charlie.",
+                    scroll: true,
+                ),
+                FaceTowardsObject(Player),
+            ],
+        },
+    ),
+
     "OfficeDoor": (),
 
     "Boss": (
