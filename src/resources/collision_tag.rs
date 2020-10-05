@@ -7,6 +7,9 @@ pub enum CollisionTag {
     Interactable,
     Boss,
     BossTableHitbox,
+    AlarmBoss,
+    PlayerBullet,
+    AlarmBullet,
     /// Boss collides with this entity.
     BossCollidesWithSelf,
     /// This entity collides with boss.
@@ -31,6 +34,8 @@ impl CTag for CollisionTag {
             (Tag::Boss, Tag::BossTableHitbox) => true,
             (Tag::Boss, Tag::BossCollidesWithSelf) => true,
             (Tag::SelfCollidesWithBoss, Tag::Boss) => true,
+            (Tag::AlarmBoss, Tag::PlayerBullet) => true,
+            (Tag::Player, Tag::AlarmBullet) => true,
             _ => false,
         }
     }

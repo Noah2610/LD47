@@ -406,16 +406,19 @@ impl<'a> System<'a> for HandleEventsActionsSystem {
                     }
 
                     ActionType::SpawnObject(mut object_data) => {
-                        let entity_pos = {
-                            let transform = transform_store.get(entity).expect(
-                                "SpawnObject action requires Transform \
-                                 component",
-                            );
-                            let trans = transform.translation();
-                            (trans.x, trans.y)
-                        };
-                        object_data.position.0 += entity_pos.0;
-                        object_data.position.1 += entity_pos.1;
+                        if !object_data.is_absolute {
+                            let entity_pos = {
+                                let transform =
+                                    transform_store.get(entity).expect(
+                                        "SpawnObject action requires \
+                                         Transform component",
+                                    );
+                                let trans = transform.translation();
+                                (trans.x, trans.y)
+                            };
+                            object_data.position.0 += entity_pos.0;
+                            object_data.position.1 += entity_pos.1;
+                        }
                         object_spawner.to_spawn.push(object_data);
                     }
                 }

@@ -8,8 +8,10 @@ pub struct ObjectSpawner {
 #[derive(Deserialize, Clone)]
 #[serde(deny_unknown_fields)]
 pub struct ObjectSpawnData {
-    pub object:   ObjectType,
-    #[serde(rename = "offset")]
-    pub position: (f32, f32, f32),
-    pub size:     (f32, f32),
+    pub object:      ObjectType,
+    #[serde(alias = "offset")]
+    pub position:    (f32, f32, f32),
+    pub size:        (f32, f32),
+    #[serde(default)]
+    pub is_absolute: bool,
 }
