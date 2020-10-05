@@ -816,6 +816,7 @@ I tremble at the thought of what horrors may lie behind them."#,
         ],
         events: {
             Init: [
+                Echo("SPLOOCHJ"),
                 Hide,
             ],
         },
@@ -966,6 +967,38 @@ I tremble at the thought of what horrors may lie behind them."#,
                 NextScene,
             ],
         },
+    ),
+
+    "Clock": (
+        spritesheet: "scene3/clock.png",
+        components: [
+            Size((
+                w: 16.0,
+                h: 16.0,
+            )),
+            Animations({
+                Idle: Cycle([(0, 1000)]),
+                Custom("0"): Cycle([
+                    (0, 1000),
+                ]),
+                Custom("1"): Cycle([
+                    (1, 1000),
+                ]),
+                Custom("2"): Cycle([
+                    (2, 1000),
+                ]),
+                Custom("3"): Cycle([
+                    (3, 1000),
+                ]),
+                Custom("4"): Cycle([
+                    (4, 1000),
+                ]),
+                Custom("5"): Cycle([
+                    (5, 1000),
+                ]),
+            }),
+        ],
+        events: {},
     ),
 
     "Boss": (
