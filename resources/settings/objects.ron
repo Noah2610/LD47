@@ -275,27 +275,14 @@
         ],
 
         events: {
-            Init: [
-                SetVariable("can_exit", false),
-            ],
-
             OnInteract: [
-                If((
-                    if: Equal(Var("can_exit"), Val(true)),
-                    then: [
-                        PlaySound("SceneTransition"),
-                        ForeignObjectAction(Player, [SetControllable(false)]),
-                        Fade((
-                            type: FadeOut,
-                            duration_ms: 500,
-                        )),
-                        StartTimer("NextScene", 1000),
-                    ],
-                    else: [
-                        SetVariable("can_exit", true),
-                        Echo("Can't leave yet!"),
-                    ],
+                PlaySound("SceneTransition"),
+                ForeignObjectAction(Player, [SetControllable(false)]),
+                Fade((
+                    type: FadeOut,
+                    duration_ms: 500,
                 )),
+                StartTimer("NextScene", 1000),
             ],
 
             OnTimerFinish("NextScene"): [
@@ -371,8 +358,6 @@
                 PlayAnimation(Custom("Ring")),
                 StartTimer("Text", 500),
                 StartTimer("Sound", 500),
-
-                StartTimer("StartFight", 1000),
             ],
 
             OnTimerFinish("Text"): [
@@ -705,9 +690,6 @@
                 SetOutput(
                     text: "A dustbin.\nIt's offensively generic.",
                 ),
-                ForeignObjectAction(Custom("Coworker1"), [
-                    PushAnimation(Custom("HeadScratch")),
-                ]),
             ],
         },
     ),
@@ -801,6 +783,33 @@ I tremble at the thought of what horrors may lie behind them."#,
         ],
     ),
 
+    "TableBoss": (
+        spritesheet: "scene3/table_boss.png",
+        components: [
+            Size((
+                w: 68.0,
+                h: 32.0,
+            )),
+            Animation([(0, 1000)]),
+        ],
+    ),
+
+    "BossSplooch": (
+        spritesheet: "scene3/boss_splooch.png",
+        components: [
+            Size((
+                w: 110.0,
+                h: 76.0,
+            )),
+            Animation([(0, 1000)]),
+        ],
+        events: {
+            Init: [
+                Hide
+            ],
+        },
+    ),
+
     "Coworker1": (
         spritesheet: "scene3/coworker_1.png",
         components: [
@@ -861,6 +870,65 @@ I tremble at the thought of what horrors may lie behind them."#,
                 FaceTowardsObject(Player),
             ],
         },
+    ),
+
+    "CharlieDynamic": (
+        spritesheet: "scene3/charlie_dynamic.png",
+        components: [
+            Size((
+                w: 32.0,
+                h: 48.0,
+            )),
+            Animations({
+                Idle: Cycle([
+                    (0, 1000),
+                ]),
+                Custom("Talk"): Once([
+                    (4, 100),
+                    (5, 100),
+                    (6, 100),
+                    (7, 2000),
+                    (6, 100),
+                    (5, 100),
+                    (4, 100),
+                ]),
+            }),
+            Hitbox(Custom([
+                (
+                    top:    16.0,
+                    bottom: -24.0,
+                    left:   -8.0,
+                    right:  8.0,
+                ),
+            ])),
+            Collidable((
+                tag: Interactable,
+            )),
+            Interactable(()),
+        ],
+
+        events: {
+            OnInteract: [
+                PlaySound("Interact"),
+                FaceTowardsObject(Player),
+                PushAnimation(Custom("Talk")),
+                SetOutput(
+                    text: "Is that you, <name>?\nSorry, I'm having some trouble with my vision right now.",
+                    scroll: true,
+                ),
+            ],
+        },
+    ),
+
+    "CharlieStatic": (
+        spritesheet: "scene3/charlie_static.png",
+        components: [
+            Size((
+                w: 32.0,
+                h: 48.0,
+            )),
+            Animation([(0, 1000)]),
+        ],
     ),
 
     "OfficeDoor": (
