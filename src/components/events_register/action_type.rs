@@ -59,6 +59,10 @@ pub enum ActionType {
         y: Option<f32>,
     },
     SetVariable(String, VariableValue),
+    OpAddVariable(String, VariableValue),
+    OpSubVariable(String, VariableValue),
+    OpMulVariable(String, VariableValue),
+    OpDivVariable(String, VariableValue),
     If(IfAction),
 }
 

@@ -258,6 +258,142 @@ impl<'a> System<'a> for HandleEventsActionsSystem {
                             .insert(name, value);
                     }
 
+                    ActionType::OpAddVariable(name, incr) => {
+                        if let VariableValue::Num(incr) = incr {
+                            if let Some(val) = variables_register_store
+                                .get_mut(entity)
+                                .expect(
+                                    "OpAddVariable action requires \
+                                     VariablesRegister component",
+                                )
+                                .variables
+                                .get_mut(&name)
+                            {
+                                if let VariableValue::Num(val) = val {
+                                    *val += incr;
+                                } else {
+                                    eprintln!(
+                                        "[WARNING]\n    OpAddVariable action \
+                                         needs number variable value"
+                                    );
+                                }
+                            } else {
+                                eprintln!(
+                                    "[WARNING]\n    OpAddVariable variable {} \
+                                     doesn't exist",
+                                    name
+                                );
+                            }
+                        } else {
+                            eprintln!(
+                                "[WARNING]\n    OpAddVariable action needs \
+                                 number increment value"
+                            );
+                        }
+                    }
+
+                    ActionType::OpSubVariable(name, incr) => {
+                        if let VariableValue::Num(incr) = incr {
+                            if let Some(val) = variables_register_store
+                                .get_mut(entity)
+                                .expect(
+                                    "OpSubVariable action requires \
+                                     VariablesRegister component",
+                                )
+                                .variables
+                                .get_mut(&name)
+                            {
+                                if let VariableValue::Num(val) = val {
+                                    *val -= incr;
+                                } else {
+                                    eprintln!(
+                                        "[WARNING]\n    OpSubVariable action \
+                                         needs number variable value"
+                                    );
+                                }
+                            } else {
+                                eprintln!(
+                                    "[WARNING]\n    OpSubVariable variable {} \
+                                     doesn't exist",
+                                    name
+                                );
+                            }
+                        } else {
+                            eprintln!(
+                                "[WARNING]\n    OpSubVariable action needs \
+                                 number increment value"
+                            );
+                        }
+                    }
+
+                    ActionType::OpMulVariable(name, incr) => {
+                        if let VariableValue::Num(incr) = incr {
+                            if let Some(val) = variables_register_store
+                                .get_mut(entity)
+                                .expect(
+                                    "OpMulVariable action requires \
+                                     VariablesRegister component",
+                                )
+                                .variables
+                                .get_mut(&name)
+                            {
+                                if let VariableValue::Num(val) = val {
+                                    *val *= incr;
+                                } else {
+                                    eprintln!(
+                                        "[WARNING]\n    OpMulVariable action \
+                                         needs number variable value"
+                                    );
+                                }
+                            } else {
+                                eprintln!(
+                                    "[WARNING]\n    OpMulVariable variable {} \
+                                     doesn't exist",
+                                    name
+                                );
+                            }
+                        } else {
+                            eprintln!(
+                                "[WARNING]\n    OpMulVariable action needs \
+                                 number increment value"
+                            );
+                        }
+                    }
+
+                    ActionType::OpDivVariable(name, incr) => {
+                        if let VariableValue::Num(incr) = incr {
+                            if let Some(val) = variables_register_store
+                                .get_mut(entity)
+                                .expect(
+                                    "OpDivVariable action requires \
+                                     VariablesRegister component",
+                                )
+                                .variables
+                                .get_mut(&name)
+                            {
+                                if let VariableValue::Num(val) = val {
+                                    *val /= incr;
+                                } else {
+                                    eprintln!(
+                                        "[WARNING]\n    OpDivVariable action \
+                                         needs number variable value"
+                                    );
+                                }
+                            } else {
+                                eprintln!(
+                                    "[WARNING]\n    OpDivVariable variable {} \
+                                     doesn't exist",
+                                    name
+                                );
+                            }
+                        } else {
+                            eprintln!(
+                                "[WARNING]\n    OpDivVariable action needs \
+                                 number increment value"
+                            );
+                        }
+                    }
+
                     ActionType::If(if_action) => {
                         if_actions_store
                             .get_mut(entity)

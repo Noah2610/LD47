@@ -21,6 +21,11 @@ use deathframe::amethyst::ecs::{
 #[derive(Deserialize, Clone)]
 pub enum IfCondition {
     Equal(IfValue, IfValue),
+    LessThan(IfValue, IfValue),
+    GreaterThan(IfValue, IfValue),
+    Not(Box<IfCondition>),
+    And(Vec<IfCondition>),
+    Or(Vec<IfCondition>),
 }
 
 impl IfCondition {
@@ -28,6 +33,19 @@ impl IfCondition {
         match self {
             Self::Equal(a, b) => {
                 a.value(entity, stores) == b.value(entity, stores)
+            }
+            Self::LessThan(a, b) => {
+                a.value(entity, stores) < b.value(entity, stores)
+            }
+            Self::GreaterThan(a, b) => {
+                a.value(entity, stores) > b.value(entity, stores)
+            }
+            Self::Not(cond) => !cond.passes(entity, stores),
+            Self::And(conds) => {
+                conds.iter().all(|cond| cond.passes(entity, stores))
+            }
+            Self::Or(conds) => {
+                conds.iter().any(|cond| cond.passes(entity, stores))
             }
         }
     }
