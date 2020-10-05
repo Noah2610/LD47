@@ -54,6 +54,7 @@
                 if: Equal(CurrentScene, Val(0)),
                 then: [
                     SetVariable("is_controllable", false),
+                    Hide,
                     SetControllable(false),
                     SetOutput(
                         text: "Press SPACE to get up.",
@@ -69,6 +70,12 @@
                 type: FadeIn,
                 duration_ms: 500,
             )),
+        ],
+
+        OnTimerFinish("StartFight"): [
+            SetVariable("in_alarm_fight", true),
+            Show,
+            SetControllable(true),
         ],
 
         OnKeyDown(Interact): [

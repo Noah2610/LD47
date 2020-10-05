@@ -49,7 +49,7 @@
             )),
             Velocity((
                 x: 0.0,
-                y: -10.0,
+                y: -100.0,
             )),
             Animation([
                 (0, 100),
@@ -166,7 +166,20 @@
     ),
 
     "Bed": (
+        spritesheet: "bed.png",
         components: [
+            Size((
+                w: 42.0,
+                h: 32.0,
+            )),
+            Animations({
+                Idle: Cycle([
+                    (1, 1000),
+                ]),
+                Custom("Sleep"): Cycle([
+                    (0, 1000)
+                ]),
+            }),
             Collidable((
                 tag: Interactable,
             )),
@@ -184,6 +197,10 @@
         ],
 
         events: {
+            Init: [
+                PlayAnimation(Custom("Sleep")),
+            ],
+
             OnInteract: [
                 If((
                     if: Equal(
@@ -197,10 +214,12 @@
                         ),
                     ],
                     else: [
+                        PlayAnimation(Idle),
                         ForeignObjectAction(
                             Player,
                             [
                                 SetControllable(true),
+                                Show,
                                 SetVariable("is_controllable", true),
                                 ClearOutput(
                                     target: "ingame_output_text_get_up",
@@ -457,8 +476,7 @@
 
             OnTimerFinish("InitFight"): [
                 ForeignObjectAction(Player, [
-                    SetVariable("in_alarm_fight", true),
-                    SetControllable(true),
+                    StartTimer("StartFight", 0),
                 ]),
                 ForeignObjectAction(Custom("Bed"), [DeleteEntity]),
                 ForeignObjectAction(Custom("Painting"), [DeleteEntity]),
@@ -556,6 +574,8 @@
         events: {
             Init: [
                 SetVariable("health_countdown", 5),
+                StopSong(MainBgm),
+                PlaySong(BossFight),
                 PushAnimation(Custom("Spawn")),
                 StartTimer("Init", 3200),
             ],
@@ -565,10 +585,20 @@
                 SetVelocity(x: 50.0, y: 100.0),
                 StartTimer("KillY", 300),
                 StartTimer("InitSwitchDir", 3000),
+                StartTimer("Shoot", 1000),
             ],
 
             OnTimerFinish("KillY"): [
                 SetVelocity(y: 0.0),
+            ],
+
+            OnTimerFinish("Shoot"): [
+                SpawnObject((
+                    object: Custom("AlarmBullet"),
+                    offset: (0.0, -10.0, 1.0),
+                    size: (8.0, 8.0),
+                )),
+                StartTimer("Shoot", 1000),
             ],
 
             OnTimerFinish("InitSwitchDir"): [

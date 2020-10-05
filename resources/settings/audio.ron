@@ -6,6 +6,10 @@
             file: "mainbgm.wav",
             should_loop: true,
         ),
+        BossFight: (
+            file: "bossfight.wav",
+            should_loop: true,
+        ),
     },
 
     sfx: {
