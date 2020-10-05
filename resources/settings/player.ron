@@ -90,13 +90,20 @@
         ],
 
         OnTimerFinish("Shoot"): [
-            Echo("SHOT"),
             SpawnObject((
                 object: Custom("PlayerBullet"),
                 offset: (0.0, 10.0, 1.0),
                 size: (8.0, 8.0),
             )),
             StartTimer("Shoot", 500),
+        ],
+
+        OnCollision(And([IsTag(AlarmBullet), IsState(Enter)])): [
+            ScreenShake((
+                duration_ms: 1000,
+                strength: 4.0,
+                shake_delay_ms: 10,
+            )),
         ],
     },
 )

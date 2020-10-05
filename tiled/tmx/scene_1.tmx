@@ -42,7 +42,7 @@
   <object id="9" name="Painting" type="Custom(Painting)" x="132" y="67" width="10" height="14"/>
   <object id="10" name="Shoes" type="Custom(Shoes)" x="150.091" y="87.8182" width="6.81818" height="8.18182"/>
   <object id="11" name="Filth" type="Custom(Filth)" x="108.636" y="64" width="10.5455" height="16"/>
-  <object id="13" name="Alarm" type="Custom(Alarm)" x="78" y="36" width="32" height="48"/>
+  <object id="13" name="Alarm" type="Custom(Alarm)" x="78" y="36" width="20" height="48"/>
   <object id="14" name="Door" type="Custom(Door)" x="173.875" y="64" width="11.375" height="32"/>
   <object id="15" name="Bed" type="Custom(Bed)" x="32" y="64" width="32" height="32"/>
  </objectgroup>
