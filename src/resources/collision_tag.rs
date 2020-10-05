@@ -35,7 +35,9 @@ impl CTag for CollisionTag {
             (Tag::Boss, Tag::BossCollidesWithSelf) => true,
             (Tag::SelfCollidesWithBoss, Tag::Boss) => true,
             (Tag::AlarmBoss, Tag::PlayerBullet) => true,
+            (Tag::PlayerBullet, Tag::AlarmBoss) => true,
             (Tag::Player, Tag::AlarmBullet) => true,
+            (Tag::AlarmBullet, Tag::Player) => true,
             _ => false,
         }
     }

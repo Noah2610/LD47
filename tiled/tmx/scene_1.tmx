@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.4" tiledversion="1.4.2" orientation="orthogonal" renderorder="right-down" width="16" height="9" tilewidth="16" tileheight="16" infinite="0" nextlayerid="6" nextobjectid="26">
+<map version="1.4" tiledversion="1.4.2" orientation="orthogonal" renderorder="right-down" width="16" height="9" tilewidth="16" tileheight="16" infinite="0" nextlayerid="6" nextobjectid="29">
  <editorsettings>
   <export target="../../resources/levels/scene_1.json" format="ld47-export"/>
  </editorsettings>
@@ -45,6 +45,9 @@
   <object id="13" name="Alarm" type="Custom(Alarm)" x="78" y="36" width="20" height="48"/>
   <object id="14" name="Door" type="Custom(Door)" x="173.875" y="64" width="11.375" height="32"/>
   <object id="15" name="Bed" type="Custom(Bed)" x="32" y="64" width="32" height="32"/>
+  <object id="26" type="Custom(SolidFight)" x="0" y="136" width="256" height="8"/>
+  <object id="27" type="Custom(SolidFight)" x="0" y="0" width="8" height="144"/>
+  <object id="28" type="Custom(SolidFight)" x="248" y="0" width="8" height="144"/>
  </objectgroup>
  <objectgroup id="3" name="objects">
   <properties>

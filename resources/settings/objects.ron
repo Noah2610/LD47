@@ -2,11 +2,19 @@
 #![enable(implicit_some)]
 {
     "Solid": (
-        spritesheet: "tilesets/colors.png",
         components: [
-            Animations({
-                Idle: Cycle([(3, 1000)]),
-            }),
+            Collidable((
+                tag: Solid,
+            )),
+            Solid((
+                tag: Solid,
+            )),
+            Hitbox(Size),
+        ],
+    ),
+
+    "SolidFight": (
+        components: [
             Collidable((
                 tag: Solid,
             )),
@@ -36,7 +44,18 @@
             Collidable((
                 tag: PlayerBullet,
             )),
+            Collider((
+                tag: PlayerBullet,
+            )),
             Hitbox(Size),
+        ],
+        events: [
+            OnCollision(And(IsTag(AlarmBoss), IsState(Enter))): [
+                StartTimer("Delete", 10),
+            ],
+            OnTimerFinish("Delete"): [
+                DeleteEntity,
+            ],
         ],
     ),
 
@@ -59,7 +78,18 @@
             Collidable((
                 tag: AlarmBullet,
             )),
+            Collider((
+                tag: AlarmBullet,
+            )),
             Hitbox(Size),
+        ],
+        events: [
+            OnCollision(And(IsTag(Player), IsState(Enter))): [
+                StartTimer("Delete", 10),
+            ],
+            OnTimerFinish("Delete"): [
+                DeleteEntity,
+            ],
         ],
     ),
 
@@ -483,7 +513,8 @@
                 ForeignObjectAction(Custom("Shoes"), [DeleteEntity]),
                 ForeignObjectAction(Custom("Door"), [DeleteEntity]),
                 ForeignObjectAction(Custom("Plant"), [DeleteEntity]),
-                ForeignObjectAction(Custom("Filth"), [DeleteEntity]),
+                ForeignObjectAction(Custom("Filth"),[DeleteEntity]),
+                ForeignObjectAction(Custom("Solid"),[DeleteEntity]),
                 ForeignObjectAction(Custom("BgFragment1"), [StartTimer("StartFight", 0)]),
                 ForeignObjectAction(Custom("BgFragment2"), [StartTimer("StartFight", 0)]),
                 ForeignObjectAction(Custom("BgFragment3"), [StartTimer("StartFight", 0)]),
