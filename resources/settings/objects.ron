@@ -319,8 +319,7 @@
             OnInteract: [
                 PlaySound("Interact"),
                 SetOutput(
-                    text: r#"\
-The Boss's locker.
+                    text: r#"The Boss's locker.
 Its doors are permanently locked.
 I tremble at the thought of what horrors may lie behind them."#,
                 ),
