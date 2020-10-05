@@ -17,6 +17,44 @@
         ],
     ),
 
+    "PlayerBullet": (
+        spritesheet: "bullets.png",
+        components: [
+            Size((
+                w: 8.0,
+                h: 8.0,
+            )),
+            Velocity((
+                x: 0.0,
+                y: 10.0,
+            )),
+            Animation([
+                (3, 100),
+                (4, 100),
+                (5, 100),
+            ]),
+        ],
+    ),
+
+    "AlarmBullet": (
+        spritesheet: "bullets.png",
+        components: [
+            Size((
+                w: 8.0,
+                h: 8.0,
+            )),
+            Velocity((
+                x: 0.0,
+                y: -10.0,
+            )),
+            Animation([
+                (0, 100),
+                (1, 100),
+                (2, 100),
+            ]),
+        ],
+    ),
+
     // -------
     // SCENE 1
     // -------
@@ -276,6 +314,8 @@
                 PlayAnimation(Custom("Ring")),
                 StartTimer("Text", 500),
                 StartTimer("Sound", 500),
+
+                StartTimer("StartFight", 1000),
             ],
 
             OnTimerFinish("Text"): [
@@ -390,6 +430,7 @@
 
             OnTimerFinish("StartFight"): [
                 SetVariable("alarm_fight", true),
+                ForeignObjectAction(Player, [SetVariable("in_alarm_fight", true)]),
                 ForeignObjectAction(Custom("BgFragment1"), [StartTimer("StartFight", 0)]),
                 ForeignObjectAction(Custom("BgFragment2"), [StartTimer("StartFight", 0)]),
                 ForeignObjectAction(Custom("BgFragment3"), [StartTimer("StartFight", 0)]),
