@@ -172,7 +172,7 @@
             ],
 
             OnInteract: [
-                If(
+                If((
                     if: Equal(Var("can_exit"), Val(true)),
                     then: [
                         PlaySound("SceneTransition"),
@@ -184,9 +184,10 @@
                         StartTimer("NextScene", 1000),
                     ],
                     else: [
+                        SetVariable("can_exit", true),
                         Echo("Can't leave yet!"),
                     ],
-                ),
+                )),
             ],
 
             OnTimerFinish("NextScene"): [
