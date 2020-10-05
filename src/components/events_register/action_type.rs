@@ -46,6 +46,7 @@ pub enum ActionType {
     Fade(Fade),
     PlaySound(SoundKey),
     PlaySong(SongKey),
+    StopSong(SongKey),
     OutputNextLine {
         id:          String,
         #[serde(alias = "target", default = "default_output_target")]

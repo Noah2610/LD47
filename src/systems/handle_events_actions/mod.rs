@@ -199,6 +199,10 @@ impl<'a> System<'a> for HandleEventsActionsSystem {
                         songs.play(&song_key);
                     }
 
+                    ActionType::StopSong(song_key) => {
+                        songs.stop(&song_key);
+                    }
+
                     ActionType::OutputNextLine {
                         id,
                         target_id,
