@@ -3,9 +3,9 @@
 (
     scenes: [
         // DEBUG
-        (
-            level: "scene_3.json",
-        ),
+        // (
+        //     level: "scene_3.json",
+        // ),
 
         (
             level: "scene_1.json",

@@ -173,7 +173,6 @@
                 Fade((
                     type: FadeOut,
                     duration_ms: 500,
-                    color: (1.0, 1.0, 1.0),
                 )),
                 StartTimer("NextScene", 1000),
             ],
@@ -441,7 +440,31 @@ I tremble at the thought of what horrors may lie behind them."#,
         },
     ),
 
-    "OfficeDoor": (),
+    "OfficeDoor": (
+        components: [
+            Collidable((
+                tag: Interactable,
+            )),
+            Interactable(()),
+            Hitbox(Size),
+        ],
+
+        events: {
+            OnInteract: [
+                PlaySound("SceneTransition"),
+                ForeignObjectAction(Player, [SetControllable(false)]),
+                Fade((
+                    type: FadeOut,
+                    duration_ms: 500,
+                )),
+                StartTimer("NextScene", 1000),
+            ],
+
+            OnTimerFinish("NextScene"): [
+                NextScene,
+            ],
+        },
+    ),
 
     "Boss": (
         spritesheet: "scene3/boss.png",
