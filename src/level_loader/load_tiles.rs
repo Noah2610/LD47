@@ -54,8 +54,7 @@ pub(super) fn load_tiles(
             .with(tile_size.clone())
             .with(sprite_render)
             .with(Transparent)
-            .with(ScaleOnce::default())
-            .with(Loadable::default());
+            .with(ScaleOnce::default());
 
         if let Some(components) = tile_settings.components {
             entity_builder = add_components_to_entity(

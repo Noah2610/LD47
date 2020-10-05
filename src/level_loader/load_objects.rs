@@ -72,7 +72,6 @@ pub fn load_object(
                 .with(Transparent)
                 .with(Object::from(object.object_type))
                 .with(ScaleOnce::default())
-                .with(Loadable::default())
                 .with(VariablesRegister::default())
                 .with(IfActions::default());
 
