@@ -34,8 +34,7 @@ impl<'a> System<'a> for TriggerInteractionEventsSystem {
             if player.in_control {
                 let query_exp = {
                     use deathframe::physics::query::exp::prelude_variants::*;
-                    // IsTag(CollisionTag::Interactable)
-                    And(Vec::new())
+                    IsTag(CollisionTag::Interactable)
                 };
 
                 if input_manager.is_down(IngameAction::Interact) {
