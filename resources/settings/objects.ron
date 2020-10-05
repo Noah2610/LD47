@@ -204,9 +204,9 @@
                         "Goodmorning sunshine! Time to greet another beautiful day!",
                         "<name>? I'm right here, buddy.",
                         "Press me :)",
-                        "Press me. Thats how clocks work, you know?",
+                        "Press me. That's how clocks work, you know?",
                         "You DO know, right? ",
-                        "Press me. Thats how clocks work, in case you forgot.",
+                        "Press me. That's how clocks work, in case you forgot.",
                         "Obey me, mortal, or suffer the consequences.", // -> "*Press me buddy :)"
                         "...",
                         "press me. *now*.",
@@ -254,8 +254,104 @@
 
     // ---
 
+    // -------
+    // SCENE 3
+    // -------
+
+    "Scene3Bg": (
+        spritesheet: "scene3/bg.png",
+        components: [
+            Size((
+                w: 512.0,
+                h: 144.0,
+            )),
+        ],
+    ),
+
+    "Dustbin": (
+        components: [
+            Collidable((
+                tag: Interactable,
+            )),
+            Interactable(()),
+            Hitbox(Size),
+        ],
+
+        events: {
+            OnInteract: [
+                PlaySound("Interact"),
+                SetOutput(
+                    text: "A dustbin.\nIt's offensively generic.",
+                ),
+            ],
+        },
+    ),
+
+    "DustbinBloody": (
+        components: [
+            Collidable((
+                tag: Interactable,
+            )),
+            Interactable(()),
+            Hitbox(Size),
+        ],
+
+        events: {
+            OnInteract: [
+                PlaySound("Interact"),
+                SetOutput(
+                    text: "A dustbin.\nIt's got some Charlie on it.",
+                ),
+            ],
+        },
+    ),
+
+    "Locker": (
+        components: [
+            Collidable((
+                tag: Interactable,
+            )),
+            Interactable(()),
+            Hitbox(Size),
+        ],
+
+        events: {
+            OnInteract: [
+                PlaySound("Interact"),
+                SetOutput(
+                    text: r#"\
+The Boss's locker.
+Its doors are permanently locked.
+I tremble at the thought of what horrors may lie behind them."#,
+                ),
+            ],
+        },
+    ),
+
+    "Whiteboard": (
+        components: [
+            Size((
+                w: 56.0,
+                h: 32.0,
+            )),
+            Animation([(1, 1000)]),
+            InLoop(0, [Animation([(0, 1000)])])
+        ],
+
+        events: {
+            OnInteract: [
+                PlaySound("Interact"),
+                SetOutput(
+                    text: ""
+                ),
+            ],
+        },
+    ),
+
+    "OfficeDoor": (),
+
     "Boss": (
-        spritesheet: "boss.png",
+        spritesheet: "scene3/boss.png",
         components: [
             Size((
                 w: 64.0,

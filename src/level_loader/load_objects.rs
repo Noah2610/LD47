@@ -12,6 +12,7 @@ use std::path::PathBuf;
 pub(super) fn load_objects(
     world: &mut World,
     objects: Vec<ObjectData>,
+    level_size: Size,
 ) -> amethyst::Result<()> {
     let current_loop = world.read_resource::<SceneManager>().current_loop;
     let objects_settings =
@@ -20,7 +21,7 @@ pub(super) fn load_objects(
     for object in objects {
         match &object.object_type {
             ObjectType::Player => {
-                load_player::load_player(world, object)?;
+                load_player::load_player(world, object, level_size.clone())?;
             }
 
             ObjectType::Custom(object_ident) => {

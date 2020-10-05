@@ -1,4 +1,5 @@
 use super::data::*;
+use super::load_camera;
 use crate::components::prelude::*;
 use crate::resource;
 use crate::resources::*;
@@ -11,6 +12,7 @@ use std::path::PathBuf;
 pub(super) fn load_player(
     world: &mut World,
     object: ObjectData,
+    level_size: Size,
 ) -> amethyst::Result<()> {
     let current_loop = world.read_resource::<SceneManager>().current_loop;
     let player_settings = (*world.read_resource::<PlayerSettings>()).clone();
@@ -65,7 +67,8 @@ pub(super) fn load_player(
         entity_builder = entity_builder.with(events_register);
     }
 
-    entity_builder.build();
+    let player = entity_builder.build();
+    load_camera::build_camera(world, level_size, player)?;
 
     Ok(())
 }

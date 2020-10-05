@@ -1,11 +1,13 @@
 use crate::components::prelude::*;
 use crate::settings::prelude::CameraSettings;
-use amethyst::ecs::{Builder, World, WorldExt};
+use amethyst::ecs::{Builder, Entity, World, WorldExt};
 use deathframe::amethyst;
+use deathframe::core::geo::prelude::Rect;
 
 pub(super) fn build_camera(
     world: &mut World,
     level_size: Size,
+    player: Entity,
 ) -> amethyst::Result<()> {
     use amethyst::renderer::Camera;
     use amethyst::utils::ortho_camera::{
@@ -38,6 +40,13 @@ pub(super) fn build_camera(
     world
         .create_entity()
         .with(Loader::new(size.w, size.h))
+        .with(Follow::new(player))
+        .with(Confined::from(Rect {
+            top:    level_size.h,
+            bottom: 0.0,
+            left:   0.0,
+            right:  level_size.w,
+        }))
         .with(transform)
         .with(size)
         .with(camera)

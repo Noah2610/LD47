@@ -50,11 +50,9 @@
    <property name="z" type="float" value="1"/>
   </properties>
   <object id="1" name="Player" type="Player" x="32" y="48" width="32" height="32"/>
-  <object id="2" name="Solid" type="Custom(Solid)" x="0" y="122" width="256" height="22"/>
+  <object id="2" name="Solid" type="Custom(Solid)" x="0" y="96" width="256" height="48"/>
   <object id="4" name="Solid" type="Custom(Solid)" x="0" y="0" width="32" height="144"/>
   <object id="5" name="Solid" type="Custom(Solid)" x="224" y="0" width="32" height="144"/>
-  <object id="6" name="ALARM" type="Custom(Alarm)" x="80" y="96" width="16" height="16"/>
-  <object id="7" name="OTHER" type="Custom(Boss)" x="160" y="0" width="64" height="64"/>
-  <object id="8" name="PLANT" type="Custom(Plant)" x="107" y="89.5" width="32" height="32"/>
+  <object id="7" name="Door" type="Custom(Door)" x="171" y="32" width="17" height="64"/>
  </objectgroup>
 </map>

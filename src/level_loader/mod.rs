@@ -23,8 +23,7 @@ pub fn load_level(
         Size::new(level_data.level.tile_size.w, level_data.level.tile_size.h);
 
     load_tiles::load_tiles(world, level_data.tiles, tile_size)?;
-    load_objects::load_objects(world, level_data.objects)?;
-    load_camera::build_camera(world, level_size)?;
+    load_objects::load_objects(world, level_data.objects, level_size)?;
 
     Ok(())
 }
