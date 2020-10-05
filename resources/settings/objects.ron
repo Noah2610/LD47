@@ -949,12 +949,17 @@ I tremble at the thought of what horrors may lie behind them."#,
         events: {
             Init: [
                 SetVariable("can_leave", false),
+                SetVariable("did_enter", false),
             ],
 
             OnInteract: [
                 If((
-                    if: Equal(Var("can_leave"), Val(true)),
+                    if: And([
+                        Equal(Var("can_leave"), Val(true)),
+                        Equal(Var("did_enter"), Val(false)),
+                    ]),
                     then: [
+                        SetVariable("did_enter", true),
                         PlaySound("SceneTransition"),
                         ForeignObjectAction(Player, [SetControllable(false)]),
                         Fade((
@@ -1109,7 +1114,8 @@ I tremble at the thought of what horrors may lie behind them."#,
                     lines: [
                         "Stop slacking off and get back to work.\nThose buttons on your desk require some pressing!",
                         "Those buttons won't press themselves",
-                        "It's quite simple, you see.\nYou're the dedicated button presser and there are some buttons that require pressing.",
+                        "It's quite simple, you see...",
+                        "You're the dedicated button presser and there are some buttons that need pressing.",
                         "\"Overqualified?\" What's that supposed to mean, smart-ass?",
                         "The buttons Turtle-Man, THE BUTTONS!",
                         "Stop ignoring your boss and press. The. BUTTONS.",
@@ -1131,11 +1137,10 @@ I tremble at the thought of what horrors may lie behind them."#,
                         "Coffee. Now.",
                         "Where. Is. My. COFFEE?!",
                         "DO YOU NEED ME TO SPELL IT OUT FOR YOU? C - O - F....",
-                        "COFFEE! COFFEE!",
+                        "COFFEE. COFFEE.",
                         "Coffee... Coffee....... COFFEEEEEEEEEEEE!",
-                        "COFFE. NOW. AAAAARRRGHGH",
+                        "COFFEE. NOW. AAAAARRRGHGH",
                         "AAAAAAAAARHRHRHGHGHGGGGGGHHRHR",
-                        "AAAAAAAAAAAAAAAAAAAAAOLJFNSDLKFNJSLAOLIKSDOLKFJNKSJDNFKJS",
                     ],
                     behavior: Sequence(loop: false),
                 ),
@@ -1158,6 +1163,7 @@ I tremble at the thought of what horrors may lie behind them."#,
 
         events: {
             Init: [
+                SetVariable("text_idx", 0),
                 SetVariable("reached_desk", false),
                 SetVariable("current_task", Null),
                 SetVariable("task_loops", 0),
@@ -1196,6 +1202,7 @@ I tremble at the thought of what horrors may lie behind them."#,
                         Equal(Var("current_task"), Val(Null)),
                     ]),
                     then: [
+                        SetVariable("text_idx", 0),
                         SetVariable("current_task", "Button"),
                         OutputNextLine(
                             id: "Button",
@@ -1208,18 +1215,21 @@ I tremble at the thought of what horrors may lie behind them."#,
             ],
 
             OnTimerFinish("Button"): [
+                OpAddVariable("text_idx", 1),
                 OutputNextLine(
                     id: "Button",
                     scroll: true,
                 ),
                 PlaySound("BossScream2"),
                 StartTimer("Button", 4000),
+                StartTimer("CheckFail", 100),
             ],
 
             OnTimerFinish("ButtonPressed"): [
                 If((
                     if: Equal(Var("current_task"), Val("Button")),
                     then: [
+                        SetVariable("text_idx", 0),
                         SetVariable("current_task", "Coffee"),
                         OutputNextLine(
                             id: "TaskComplete",
@@ -1234,18 +1244,21 @@ I tremble at the thought of what horrors may lie behind them."#,
             ],
 
             OnTimerFinish("Coffee"): [
+                OpAddVariable("text_idx", 1),
                 OutputNextLine(
                     id: "Coffee",
                     scroll: true,
                 ),
                 PlaySound("BossScream2"),
                 StartTimer("Coffee", 4000),
+                StartTimer("CheckFail", 100),
             ],
 
             OnTimerFinish("CoffeeMake"): [
                 If((
                     if: Equal(Var("current_task"), Val("Coffee")),
                     then: [
+                        SetVariable("text_idx", 0),
                         SetVariable("current_task", "Button"),
                         OutputNextLine(
                             id: "TaskComplete",
@@ -1259,6 +1272,28 @@ I tremble at the thought of what horrors may lie behind them."#,
                         StartTimer("CheckComplete", 100),
                     ],
                 )),
+            ],
+
+            OnTimerFinish("CheckFail"): [
+                If((
+                    if: GreaterThan(Var("text_idx"), Val(11)),
+                    then: [
+                        StopTimer("Button"),
+                        StopTimer("Coffee"),
+                        Hide,
+                        StopSong(MainBgm),
+                        PlaySong(HappyTrack),
+                        PlaySound("BossScream4"),
+                        ForeignObjectAction(Custom("BossSplooch"), [
+                            Show,
+                        ]),
+                        StartTimer("Delete", 100),
+                    ],
+                )),
+            ],
+
+            OnTimerFinish("Delete"): [
+                DeleteEntity,
             ],
 
             OnTimerFinish("CheckComplete"): [
