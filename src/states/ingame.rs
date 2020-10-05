@@ -35,6 +35,10 @@ impl<'a, 'b> State<GameData<'a, 'b>, StateEvent> for Ingame {
         ) {
             panic!("Error loading level {}: {}", level_filename, e);
         }
+
+        data.world
+            .write_resource::<Songs<SongKey>>()
+            .play(&SongKey::MainBgm);
     }
 
     fn on_stop(&mut self, mut data: StateData<GameData<'a, 'b>>) {

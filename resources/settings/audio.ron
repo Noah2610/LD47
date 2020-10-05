@@ -1,7 +1,12 @@
 // src/settings/audio_settings.rs
 #![enable(implicit_some)]
 (
-    bgm: {},
+    bgm: {
+        MainBgm: (
+            file: "mainbgm.wav",
+            should_loop: true,
+        ),
+    },
 
     sfx: {
         "Alarm": (
