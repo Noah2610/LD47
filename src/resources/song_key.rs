@@ -3,4 +3,5 @@ pub enum SongKey {
     MainBgm,
     BusEngine,
     BossFight,
+    HappyTrack,
 }

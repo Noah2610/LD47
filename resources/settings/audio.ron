@@ -10,6 +10,10 @@
             file: "bossfight.wav",
             should_loop: true,
         ),
+        HappyTrack: (
+            file: "happytrack.wav",
+            should_loop: true,
+        ),
     },
 
     sfx: {
