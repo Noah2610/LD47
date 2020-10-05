@@ -54,7 +54,9 @@ pub(super) fn load_player(
         .with(Object::from(object.object_type))
         .with(ScaleOnce::default())
         .with(Player::default())
-        .with(Velocity::default());
+        .with(Velocity::default())
+        .with(VariablesRegister::default())
+        .with(IfActions::default());
 
     entity_builder = add_components_to_entity(
         entity_builder,

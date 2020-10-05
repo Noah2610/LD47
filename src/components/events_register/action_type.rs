@@ -1,4 +1,4 @@
-use super::prelude::{IfCondition, VariableValue};
+use crate::components::prelude::{IfCondition, VariableValue};
 use crate::resources::{AnimationKey, Fade, ScreenShake, SongKey, SoundKey};
 use crate::settings::objects_settings::ObjectType;
 

@@ -173,7 +173,7 @@
 
             OnInteract: [
                 If(
-                    if: Equal(Var("can_exit", Val(true))),
+                    if: Equal(Var("can_exit"), Val(true)),
                     then: [
                         PlaySound("SceneTransition"),
                         ForeignObjectAction(Player, [SetControllable(false)]),

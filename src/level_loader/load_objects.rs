@@ -76,7 +76,9 @@ pub(super) fn load_objects(
                     .with(Transparent)
                     .with(Object::from(object.object_type))
                     .with(ScaleOnce::default())
-                    .with(Loadable::default());
+                    .with(Loadable::default())
+                    .with(VariablesRegister::default())
+                    .with(IfActions::default());
 
                 if let Some(sprite_render) = sprite_render_opt {
                     entity_builder = entity_builder.with(sprite_render);

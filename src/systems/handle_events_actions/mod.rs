@@ -9,7 +9,6 @@ pub struct HandleEventsActionsSystem;
 impl<'a> System<'a> for HandleEventsActionsSystem {
     type SystemData = (
         Entities<'a>,
-        IfStorages<'a>,
         Write<'a, TextOutput>,
         Write<'a, ScreenShakeRes>,
         Write<'a, FadeRes>,
@@ -24,6 +23,7 @@ impl<'a> System<'a> for HandleEventsActionsSystem {
         WriteStorage<'a, Transform>,
         WriteStorage<'a, TextLines>,
         WriteStorage<'a, Velocity>,
+        WriteStorage<'a, VariablesRegister>,
         ReadStorage<'a, Unloaded>,
     );
 
@@ -31,7 +31,6 @@ impl<'a> System<'a> for HandleEventsActionsSystem {
         &mut self,
         (
             entities,
-            if_stores,
             mut text_output,
             mut screen_shake,
             mut fade_res,
@@ -46,6 +45,7 @@ impl<'a> System<'a> for HandleEventsActionsSystem {
             mut transform_store,
             mut text_lines_store,
             mut velocity_store,
+            mut variables_register_store,
             unloaded_store,
         ): Self::SystemData,
     ) {
@@ -246,7 +246,14 @@ impl<'a> System<'a> for HandleEventsActionsSystem {
                     }
 
                     ActionType::SetVariable(name, value) => {
-                        events_register.variables.insert(name, value);
+                        variables_register_store
+                            .get_mut(entity)
+                            .expect(
+                                "SetVariable action requires \
+                                 VariablesRegister component",
+                            )
+                            .variables
+                            .insert(name, value);
                     }
 
                     ActionType::If {
@@ -254,13 +261,16 @@ impl<'a> System<'a> for HandleEventsActionsSystem {
                         mut success,
                         failure,
                     } => {
-                        if condition.passes(entity, &if_stores) {
-                            trigger_actions.append(&mut success);
-                        } else {
-                            if let Some(mut failure) = failure {
-                                trigger_actions.append(&mut failure);
-                            }
-                        }
+                        unimplemented!()
+                        // let if_stores: IfStorages<'a> =
+                        //     IfStorages { entities: entities };
+                        // if condition.passes(entity, &if_stores) {
+                        //     trigger_actions.append(&mut success);
+                        // } else {
+                        //     if let Some(mut failure) = failure {
+                        //         trigger_actions.append(&mut failure);
+                        //     }
+                        // }
                     }
                 }
             }

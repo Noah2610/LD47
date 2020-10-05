@@ -4,7 +4,6 @@ pub mod prelude {
     pub use super::IfValue;
 }
 
-use super::prelude::VariableValue;
 use crate::components::prelude::*;
 use crate::resources::SceneManager;
 use crate::settings::objects_settings::ObjectType;
@@ -47,9 +46,9 @@ impl IfValue {
         match self {
             Self::Val(val) => val.clone(),
             Self::Var(var_name) => stores
-                .events_register
+                .variables_register
                 .get(entity)
-                .expect("IfValue::Var requires EventsRegister component")
+                .expect("IfValue::Var requires VariablesRegister component")
                 .variables
                 .get(var_name)
                 .cloned()
@@ -85,8 +84,8 @@ impl IfValue {
 
 #[derive(SystemData)]
 pub struct IfStorages<'a> {
-    entities:        Entities<'a>,
-    scene_manager:   Read<'a, SceneManager>,
-    events_register: ReadStorage<'a, EventsRegister>,
-    objects:         ReadStorage<'a, Object>,
+    entities:           Entities<'a>,
+    scene_manager:      Read<'a, SceneManager>,
+    variables_register: ReadStorage<'a, VariablesRegister>,
+    objects:            ReadStorage<'a, Object>,
 }
