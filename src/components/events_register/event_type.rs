@@ -1,3 +1,4 @@
+use crate::input::prelude::IngameAction;
 use crate::resources::CollisionTag;
 use deathframe::physics::query::prelude::QueryExpression;
 
@@ -7,4 +8,7 @@ pub enum EventType {
     OnCollision(QueryExpression<CollisionTag>),
     OnTimerFinish(String),
     Init,
+    OnKeyDown(IngameAction),
+    OnKeyUp(IngameAction),
+    OnKeyPressed(IngameAction),
 }

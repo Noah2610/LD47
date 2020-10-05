@@ -153,6 +153,12 @@ pub(super) fn build_game_data<'a, 'b>(
         )?
         .with(
             DispatcherId::Ingame,
+            TriggerOnKeyEventsSystem::default(),
+            "trigger_on_key_events_system",
+            &[],
+        )?
+        .with(
+            DispatcherId::Ingame,
             HandleEventsActionsSystem::default(),
             "handle_events_actions_system",
             &[
@@ -160,6 +166,7 @@ pub(super) fn build_game_data<'a, 'b>(
                 "trigger_collision_events_system",
                 "trigger_timer_events_system",
                 "trigger_init_events_system",
+                "trigger_on_key_events_system",
             ],
         )?
         .with(
