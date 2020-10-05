@@ -116,3 +116,11 @@ Standing somewhere, smoking / taking a break
 
 ## Door
 - "I wish."
+
+
+boss transition dialogue
+
+
+Excellent!
+That's it for today. Now get out of here. 
+
