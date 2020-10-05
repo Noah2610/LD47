@@ -7,8 +7,8 @@ pub struct SceneManager {
     pub current_loop:           usize,
     pub should_load_next_scene: bool,
     pub triggered_init_events:  HashSet<Entity>,
+    pub current_scene_idx:      usize,
     scenes:                     Vec<SceneSettings>,
-    current_scene_idx:          usize,
 }
 
 impl SceneManager {
@@ -37,8 +37,8 @@ impl From<ScenesSettings> for SceneManager {
             current_loop:           0,
             should_load_next_scene: false,
             triggered_init_events:  HashSet::new(),
-            scenes:                 settings.scenes,
             current_scene_idx:      0,
+            scenes:                 settings.scenes,
         }
     }
 }

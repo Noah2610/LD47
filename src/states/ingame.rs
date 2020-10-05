@@ -2,15 +2,20 @@ use super::menu_prelude::*;
 use super::state_prelude::*;
 use crate::level_loader::load_level;
 use crate::resource;
+use deathframe::amethyst::assets::ProgressCounter;
 
 #[derive(Default)]
 pub struct Ingame {
-    ui_data: UiData,
+    loaded_first_level: bool,
+    ui_data:            UiData,
+    ui_progress:        Option<ProgressCounter>,
 }
 
 impl Ingame {
     fn load_ui(&mut self, data: &mut StateData<GameData>) {
-        self.create_ui(data, resource("ui/ingame.ron").to_str().unwrap());
+        self.ui_progress = Some(
+            self.create_ui(data, resource("ui/ingame.ron").to_str().unwrap()),
+        );
     }
 
     fn unload_ui(&mut self, data: &mut StateData<GameData>) {
@@ -23,22 +28,6 @@ impl<'a, 'b> State<GameData<'a, 'b>, StateEvent> for Ingame {
         data.world.insert(TextOutput::default());
 
         self.load_ui(&mut data);
-
-        let level_filename = {
-            let scene_manager = data.world.read_resource::<SceneManager>();
-            let scene = scene_manager.current_scene();
-            scene.level_filename.to_string()
-        };
-        if let Err(e) = load_level(
-            data.world,
-            resource(format!("levels/{}", &level_filename)),
-        ) {
-            panic!("Error loading level {}: {}", level_filename, e);
-        }
-
-        data.world
-            .write_resource::<Songs<SongKey>>()
-            .play(&SongKey::MainBgm);
     }
 
     fn on_stop(&mut self, mut data: StateData<GameData<'a, 'b>>) {
@@ -51,25 +40,51 @@ impl<'a, 'b> State<GameData<'a, 'b>, StateEvent> for Ingame {
     ) -> Trans<GameData<'a, 'b>, StateEvent> {
         data.data.update(data.world, DispatcherId::Ingame).unwrap();
 
-        let next_level_opt = {
-            let mut scene_manager = data.world.write_resource::<SceneManager>();
-            if scene_manager.should_load_next_scene {
-                let scene = scene_manager.next_scene();
-                Some(scene.level_filename.to_string())
-            } else {
-                None
+        if self.loaded_first_level {
+            let next_level_opt = {
+                let mut scene_manager =
+                    data.world.write_resource::<SceneManager>();
+                if scene_manager.should_load_next_scene {
+                    let scene = scene_manager.next_scene();
+                    Some(scene.level_filename.to_string())
+                } else {
+                    None
+                }
+            };
+            if let Some(next_level) = next_level_opt {
+                self.unload_ui(&mut data);
+                data.world.delete_all();
+                data.world.insert(TextOutput::default());
+                self.load_ui(&mut data);
+                if let Err(e) = load_level(
+                    data.world,
+                    resource(format!("levels/{}", &next_level)),
+                ) {
+                    panic!("Error loading level {}: {}", next_level, e);
+                }
             }
-        };
-        if let Some(next_level) = next_level_opt {
-            self.unload_ui(&mut data);
-            data.world.delete_all();
-            data.world.insert(TextOutput::default());
-            self.load_ui(&mut data);
-            if let Err(e) = load_level(
-                data.world,
-                resource(format!("levels/{}", &next_level)),
-            ) {
-                panic!("Error loading level {}: {}", next_level, e);
+        } else {
+            if let Some(ui_progress) = self.ui_progress.as_ref() {
+                if ui_progress.is_complete() {
+                    self.loaded_first_level = true;
+
+                    let level_filename = {
+                        let scene_manager =
+                            data.world.read_resource::<SceneManager>();
+                        let scene = scene_manager.current_scene();
+                        scene.level_filename.to_string()
+                    };
+                    if let Err(e) = load_level(
+                        data.world,
+                        resource(format!("levels/{}", &level_filename)),
+                    ) {
+                        panic!("Error loading level {}: {}", level_filename, e);
+                    }
+
+                    data.world
+                        .write_resource::<Songs<SongKey>>()
+                        .play(&SongKey::MainBgm);
+                }
             }
         }
 

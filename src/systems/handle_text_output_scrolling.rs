@@ -1,22 +1,32 @@
 use super::system_prelude::*;
 use climer::Timer;
+use std::collections::HashMap;
 use std::time::Duration;
 
 pub struct HandleTextOutputScrollingSystem {
-    timer: Timer,
+    timers:          HashMap<String, Timer>,
+    scroll_delay_ms: u64,
 }
 
 impl<'a> System<'a> for HandleTextOutputScrollingSystem {
     type SystemData = (Write<'a, TextOutput>, Write<'a, SoundPlayer<SoundKey>>);
 
     fn run(&mut self, (mut text_output, mut sound_player): Self::SystemData) {
-        for text_output in text_output.outputs.values_mut() {
+        for (output_id, text_output) in text_output.outputs.iter_mut() {
+            let scroll_delay_ms = self.scroll_delay_ms;
+            let timer =
+                self.timers.entry(output_id.to_string()).or_insert_with(|| {
+                    Timer::new(
+                        Some(Duration::from_millis(scroll_delay_ms).into()),
+                        None,
+                    )
+                });
             if !text_output.staged.is_empty() {
-                if !self.timer.state.is_running() {
-                    self.timer.start().unwrap();
+                if !timer.state.is_running() {
+                    timer.start().unwrap();
                 }
-                self.timer.update().unwrap();
-                if self.timer.state.is_finished() {
+                timer.update().unwrap();
+                if timer.state.is_finished() {
                     sound_player.add_action(SoundAction::Play(
                         "TextScroll".to_string(),
                     ));
@@ -24,8 +34,8 @@ impl<'a> System<'a> for HandleTextOutputScrollingSystem {
                     text_output.text.push_str(new.as_str());
                 }
             } else {
-                if !self.timer.state.is_stopped() {
-                    self.timer.stop().unwrap();
+                if !timer.state.is_stopped() {
+                    timer.stop().unwrap();
                 }
             }
         }
@@ -35,10 +45,8 @@ impl<'a> System<'a> for HandleTextOutputScrollingSystem {
 impl HandleTextOutputScrollingSystem {
     pub fn new(scroll_delay_ms: u64) -> Self {
         Self {
-            timer: Timer::new(
-                Some(Duration::from_millis(scroll_delay_ms).into()),
-                None,
-            ),
+            timers: HashMap::new(),
+            scroll_delay_ms,
         }
     }
 }

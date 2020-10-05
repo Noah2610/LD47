@@ -39,6 +39,7 @@ pub enum IfValue {
     Var(String),
     ForeignObjectValue(ObjectType, Box<IfValue>),
     CurrentLoop,
+    CurrentScene,
 }
 
 impl IfValue {
@@ -78,6 +79,9 @@ impl IfValue {
             Self::CurrentLoop => {
                 VariableValue::Num(stores.scene_manager.current_loop as i32)
             }
+            Self::CurrentScene => VariableValue::Num(
+                stores.scene_manager.current_scene_idx as i32,
+            ),
         }
     }
 }

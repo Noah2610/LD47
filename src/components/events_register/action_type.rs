@@ -31,7 +31,7 @@ pub enum ActionType {
         does_scroll: bool,
     },
     ClearOutput {
-        #[serde(default = "default_output_target")]
+        #[serde(alias = "target", default = "default_output_target")]
         target_id: String,
     },
     ScreenShake(ScreenShake),
