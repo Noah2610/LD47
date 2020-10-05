@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.4" tiledversion="1.4.2" orientation="orthogonal" renderorder="right-down" width="32" height="9" tilewidth="16" tileheight="16" infinite="0" nextlayerid="10" nextobjectid="35">
+<map version="1.4" tiledversion="1.4.2" orientation="orthogonal" renderorder="right-down" width="32" height="9" tilewidth="16" tileheight="16" infinite="0" nextlayerid="14" nextobjectid="36">
  <editorsettings>
   <export target="../../resources/levels/scene_3.json" format="ld47-export"/>
  </editorsettings>
@@ -31,6 +31,12 @@
   <object id="5" type="Custom(Solid)" x="0" y="0" width="30" height="96"/>
   <object id="6" type="Custom(Solid)" x="485" y="0" width="27" height="96"/>
  </objectgroup>
+ <objectgroup id="13" name="boss_desk_shadow">
+  <properties>
+   <property name="z" type="float" value="0"/>
+  </properties>
+  <object id="35" name="Boss Desk Shadow" type="Custom(TableBossShadow)" x="230" y="57" width="68" height="32"/>
+ </objectgroup>
  <objectgroup id="4" name="objects">
   <properties>
    <property name="z" type="float" value="0.5"/>
@@ -42,24 +48,39 @@
   <object id="15" name="Door" type="Custom(OfficeDoor)" x="38" y="50" width="21" height="38"/>
   <object id="17" name="Whiteboard" type="Custom(Whiteboard)" x="339" y="32" width="56" height="32"/>
   <object id="20" name="Table BG" type="Custom(TableBg)" x="438" y="41" width="48" height="48"/>
-  <object id="23" name="Boss" type="Custom(Boss)" x="66" y="23" width="64" height="64"/>
   <object id="24" name="Boss Desk Hitbox" type="Custom(BossTableHitbox)" x="298" y="41" width="2" height="48"/>
-  <object id="25" name="Boss Desk" type="Custom(TableBoss)" x="230" y="57" width="68" height="32"/>
-  <object id="28" name="Charlie Dynamic" type="Custom(CharlieDynamic)" x="135" y="41" width="32" height="48"/>
   <object id="29" name="Table BG" type="Custom(TableBg)" x="124" y="41" width="48" height="48"/>
   <object id="33" name="Clock" type="Custom(Clock)" x="304" y="28" width="16" height="16"/>
  </objectgroup>
- <objectgroup id="9" name="splooch">
+ <objectgroup id="9" name="splooch" visible="0">
   <properties>
    <property name="z" type="float" value="0.6"/>
   </properties>
   <object id="32" name="Splooch" type="Custom(BossSplooch)" x="209" y="15" width="110" height="76"/>
+ </objectgroup>
+ <objectgroup id="10" name="charlie_dynamic" visible="0">
+  <properties>
+   <property name="z" type="float" value="0.7"/>
+  </properties>
+  <object id="28" name="Charlie Dynamic" type="Custom(CharlieDynamic)" x="135" y="41" width="32" height="48"/>
  </objectgroup>
  <objectgroup id="8" name="charlie_static" visible="0">
   <properties>
    <property name="z" type="float" value="0.75"/>
   </properties>
   <object id="31" name="Charlie Static" type="Custom(CharlieStatic)" x="135" y="41" width="32" height="48"/>
+ </objectgroup>
+ <objectgroup id="11" name="boss">
+  <properties>
+   <property name="z" type="float" value="0.9"/>
+  </properties>
+  <object id="23" name="Boss" type="Custom(Boss)" x="66" y="23" width="64" height="64"/>
+ </objectgroup>
+ <objectgroup id="12" name="boss_desk" visible="0">
+  <properties>
+   <property name="z" type="float" value="0.95"/>
+  </properties>
+  <object id="25" name="Boss Desk" type="Custom(TableBoss)" x="230" y="57" width="68" height="32"/>
  </objectgroup>
  <objectgroup id="3" name="player">
   <properties>
