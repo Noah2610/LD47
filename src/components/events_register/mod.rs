@@ -1,11 +1,13 @@
 pub mod prelude {
     pub use super::action_type::ActionType;
     pub use super::event_type::EventType;
+    pub use super::variable_value::VariableValue;
     pub use super::EventsRegister;
 }
 
 mod action_type;
 mod event_type;
+mod variable_value;
 
 use super::component_prelude::*;
 use climer::Timer;
@@ -19,6 +21,8 @@ pub struct EventsRegister {
     pub events:            EventsActionsMap,
     #[serde(skip)]
     pub timers:            HashMap<String, Timer>,
+    #[serde(skip)]
+    pub variables:         HashMap<String, VariableValue>,
     #[serde(skip)]
     pub triggered_actions: Vec<ActionType>,
 }
@@ -36,6 +40,7 @@ impl From<EventsActionsMap> for EventsRegister {
         Self {
             events,
             timers: HashMap::new(),
+            variables: HashMap::new(),
             triggered_actions: Vec::new(),
         }
     }

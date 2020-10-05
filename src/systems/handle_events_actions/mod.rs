@@ -240,6 +240,10 @@ impl<'a> System<'a> for HandleEventsActionsSystem {
                             velocity.y += y;
                         }
                     }
+
+                    ActionType::SetVariable(name, value) => {
+                        events_register.variables.insert(name, value);
+                    }
                 }
             }
         }

@@ -1,3 +1,4 @@
+use super::prelude::VariableValue;
 use crate::resources::{AnimationKey, Fade, ScreenShake, SongKey, SoundKey};
 use crate::settings::objects_settings::ObjectType;
 
@@ -57,6 +58,7 @@ pub enum ActionType {
         #[serde(default)]
         y: Option<f32>,
     },
+    SetVariable(String, VariableValue),
 }
 
 fn default_output_target() -> String {
