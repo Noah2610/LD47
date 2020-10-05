@@ -59,6 +59,6 @@
   <properties>
    <property name="z" type="float" value="1"/>
   </properties>
-  <object id="1" name="Player" type="Player" x="48" y="48" width="16" height="32"/>
+  <object id="1" name="Player" type="Player" x="32" y="48" width="32" height="32"/>
  </objectgroup>
 </map>

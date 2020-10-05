@@ -49,14 +49,14 @@
             )),
             Hitbox(Size),
         ],
-        events: [
-            OnCollision(And(IsTag(AlarmBoss), IsState(Enter))): [
+        events: {
+            OnCollision(And([IsTag(AlarmBoss), IsState(Enter)])): [
                 StartTimer("Delete", 10),
             ],
             OnTimerFinish("Delete"): [
                 DeleteEntity,
             ],
-        ],
+        },
     ),
 
     "AlarmBullet": (
@@ -83,14 +83,14 @@
             )),
             Hitbox(Size),
         ],
-        events: [
-            OnCollision(And(IsTag(Player), IsState(Enter))): [
+        events: {
+            OnCollision(And([IsTag(Player), IsState(Enter)])): [
                 StartTimer("Delete", 10),
             ],
             OnTimerFinish("Delete"): [
                 DeleteEntity,
             ],
-        ],
+        },
     ),
 
     // -------
