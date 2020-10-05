@@ -90,11 +90,13 @@
         ],
 
         OnTimerFinish("Shoot"): [
+            Echo("SHOT"),
             SpawnObject((
                 object: Custom("PlayerBullet"),
-                offset: (0.0, 0.0, 10.0),
+                offset: (0.0, 10.0, 1.0),
                 size: (8.0, 8.0),
             )),
+            StartTimer("Shoot", 500),
         ],
     },
 )
