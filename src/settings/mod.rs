@@ -2,6 +2,7 @@ pub mod prelude {
     pub use super::audio_settings::AudioSettings;
     pub use super::camera_settings::CameraSettings;
     pub use super::entity_components::*;
+    pub use super::general_settings::GeneralSettings;
     pub use super::objects_settings::{ObjectType, ObjectsSettings};
     pub use super::player_settings::PlayerSettings;
     pub use super::scenes_settings::{SceneSettings, ScenesSettings};
@@ -12,6 +13,7 @@ pub mod prelude {
 pub mod audio_settings;
 pub mod camera_settings;
 pub mod entity_components;
+pub mod general_settings;
 pub mod hitbox_config;
 pub mod objects_settings;
 pub mod player_settings;
@@ -27,6 +29,7 @@ use std::fs::File;
 #[derive(Deserialize)]
 #[serde(deny_unknown_fields)]
 pub struct Settings {
+    pub general: GeneralSettings,
     pub player:  PlayerSettings,
     pub camera:  CameraSettings,
     pub scenes:  ScenesSettings,
@@ -38,6 +41,7 @@ pub struct Settings {
 impl Settings {
     pub fn load() -> amethyst::Result<Self> {
         Ok(Self {
+            general: load_settings("general.ron")?,
             player:  load_settings("player.ron")?,
             camera:  load_settings("camera.ron")?,
             scenes:  load_settings("scenes.ron")?,

@@ -5,7 +5,7 @@ use crate::states::aliases::{CustomData, GameDataBuilder};
 use deathframe::amethyst;
 
 pub(super) fn build_game_data<'a, 'b>(
-    _settings: &Settings,
+    settings: &Settings,
 ) -> amethyst::Result<GameDataBuilder<'a, 'b>> {
     use crate::input::prelude::*;
     use crate::systems::prelude::*;
@@ -103,7 +103,9 @@ pub(super) fn build_game_data<'a, 'b>(
         )?
         .with(
             DispatcherId::Ingame,
-            HandleTextOutputScrollingSystem::default(),
+            HandleTextOutputScrollingSystem::new(
+                settings.general.text_scroll_delay_ms,
+            ),
             "handle_text_output_scrolling_system",
             &[],
         )?

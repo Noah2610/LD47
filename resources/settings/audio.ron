@@ -56,5 +56,10 @@
         "Telephone": (
             file: "telephone.wav",
         ),
+
+        "TextScroll": (
+            // TODO
+            file: "interact.wav",
+        ),
     },
 )

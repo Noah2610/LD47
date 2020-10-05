@@ -16,6 +16,7 @@ pub fn run() -> amethyst::Result<()> {
     let game_data = init_game_data::build_game_data(&settings)?;
 
     let Settings {
+        general: general_settings,
         player: player_settings,
         camera: camera_settings,
         scenes: scenes_settings,
@@ -27,6 +28,7 @@ pub fn run() -> amethyst::Result<()> {
     let mut game: amethyst::CoreApplication<GameData> =
         ApplicationBuilder::new(application_root_dir()?, Startup::default())?
             .with_frame_limit_config(frame_rate_limit_config()?)
+            .with_resource(general_settings)
             .with_resource(player_settings)
             .with_resource(camera_settings)
             .with_resource(scenes_settings)
