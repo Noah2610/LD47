@@ -48,7 +48,7 @@ Container(
                 font_size: 32.0,
                 color:     (0.9, 0.9, 0.9, 1.0),
                 font:      File("resources/fonts/undefined-medium.ttf", ("TTF", ())),
-                align:     Middle,
+                align:     TopLeft,
                 line_mode: Wrap,
             ),
         ),
