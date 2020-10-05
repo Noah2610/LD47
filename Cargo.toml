@@ -37,7 +37,7 @@ debug = ["deathframe/debug"]
 opt-level        = 1
 debug            = true
 debug-assertions = true
-codegen-units    = 1
+codegen-units    = 256
 incremental      = true
 overflow-checks  = true
 
@@ -45,6 +45,6 @@ overflow-checks  = true
 opt-level        = 3
 debug            = false
 debug-assertions = false
-codegen-units    = 256
+codegen-units    = 1
 incremental      = true
 overflow-checks  = false
