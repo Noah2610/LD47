@@ -5,16 +5,10 @@ use std::collections::HashSet;
 pub struct TriggerTimerEventsSystem;
 
 impl<'a> System<'a> for TriggerTimerEventsSystem {
-    type SystemData =
-        (WriteStorage<'a, EventsRegister>, ReadStorage<'a, Unloaded>);
+    type SystemData = WriteStorage<'a, EventsRegister>;
 
-    fn run(
-        &mut self,
-        (mut events_register_store, unloaded_store): Self::SystemData,
-    ) {
-        for (events_register, _) in
-            (&mut events_register_store, !&unloaded_store).join()
-        {
+    fn run(&mut self, mut events_register_store: Self::SystemData) {
+        for events_register in (&mut events_register_store).join() {
             let mut finished_timers = HashSet::new();
             for (timer_name, timer) in &mut events_register.timers {
                 timer.update().unwrap();

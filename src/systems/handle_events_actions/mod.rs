@@ -26,7 +26,6 @@ impl<'a> System<'a> for HandleEventsActionsSystem {
         WriteStorage<'a, Velocity>,
         WriteStorage<'a, VariablesRegister>,
         WriteStorage<'a, IfActions>,
-        ReadStorage<'a, Unloaded>,
     );
 
     fn run(
@@ -50,13 +49,12 @@ impl<'a> System<'a> for HandleEventsActionsSystem {
             mut velocity_store,
             mut variables_register_store,
             mut if_actions_store,
-            unloaded_store,
         ): Self::SystemData,
     ) {
         let mut trigger_foreign_actions = HashMap::new();
 
-        for (entity, events_register, _) in
-            (&entities, &mut events_register_store, !&unloaded_store).join()
+        for (entity, events_register) in
+            (&entities, &mut events_register_store).join()
         {
             for action in events_register.triggered_actions.drain(..) {
                 match action {
