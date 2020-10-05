@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.4" tiledversion="1.4.2" orientation="orthogonal" renderorder="right-down" width="32" height="9" tilewidth="16" tileheight="16" infinite="0" nextlayerid="14" nextobjectid="36">
+<map version="1.4" tiledversion="1.4.2" orientation="orthogonal" renderorder="right-down" width="32" height="9" tilewidth="16" tileheight="16" infinite="0" nextlayerid="14" nextobjectid="38">
  <editorsettings>
   <export target="../../resources/levels/scene_3.json" format="ld47-export"/>
  </editorsettings>
@@ -51,6 +51,8 @@
   <object id="24" name="Boss Desk Hitbox" type="Custom(BossTableHitbox)" x="298" y="41" width="2" height="48"/>
   <object id="29" name="Table BG" type="Custom(TableBg)" x="124" y="41" width="48" height="48"/>
   <object id="33" name="Clock" type="Custom(Clock)" x="304" y="28" width="16" height="16"/>
+  <object id="36" name="Button" type="Custom(Button)" x="362" y="66" width="11" height="10"/>
+  <object id="37" name="Cofee" type="Custom(CoffeeMaker)" x="309" y="48" width="6" height="41"/>
  </objectgroup>
  <objectgroup id="9" name="splooch" visible="0">
   <properties>

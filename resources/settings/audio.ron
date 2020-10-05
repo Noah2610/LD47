@@ -62,8 +62,11 @@
         ),
 
         "TextScroll": (
-            // TODO
             file: "interact.wav",
+        ),
+
+        "ButtonPress": (
+            file: "button_press.wav",
         ),
     },
 )

@@ -947,14 +947,26 @@ I tremble at the thought of what horrors may lie behind them."#,
         ],
 
         events: {
+            Init: [
+                SetVariable("can_leave", false),
+            ],
+
             OnInteract: [
-                PlaySound("SceneTransition"),
-                ForeignObjectAction(Player, [SetControllable(false)]),
-                Fade((
-                    type: FadeOut,
-                    duration_ms: 500,
-                )),
-                StartTimer("NextScene", 1000),
+                If((
+                    if: Equal(Var("can_leave"), Val(true)),
+                    then: [
+                        PlaySound("SceneTransition"),
+                        ForeignObjectAction(Player, [SetControllable(false)]),
+                        Fade((
+                            type: FadeOut,
+                            duration_ms: 500,
+                        )),
+                        StartTimer("NextScene", 1000),
+                    ],
+                    else: [
+                        SetOutput(text: "I wish."),
+                    ],
+                ))
             ],
 
             OnTimerFinish("NextScene"): [
@@ -992,7 +1004,58 @@ I tremble at the thought of what horrors may lie behind them."#,
                 ]),
             }),
         ],
-        events: {},
+        events: {
+            Init: [
+                SetVariable("anim", 0),
+            ],
+
+            OnTimerFinish("NextAnim"): [
+                OpAddVariable("anim", 1),
+                If((
+                    if: Equal(Var("anim"), Val(0)),
+                    then: [
+                        PlayAnimation(Custom("0")),
+                    ],
+                )),
+                If((
+                    if: Equal(Var("anim"), Val(1)),
+                    then: [
+                        PlayAnimation(Custom("1")),
+                    ],
+                )),
+                If((
+                    if: Equal(Var("anim"), Val(2)),
+                    then: [
+                        PlayAnimation(Custom("2")),
+                    ],
+                )),
+                If((
+                    if: Equal(Var("anim"), Val(3)),
+                    then: [
+                        PlayAnimation(Custom("3")),
+                    ],
+                )),
+                If((
+                    if: Equal(Var("anim"), Val(4)),
+                    then: [
+                        PlayAnimation(Custom("4")),
+                    ],
+                )),
+                If((
+                    if: Equal(Var("anim"), Val(5)),
+                    then: [
+                        PlayAnimation(Custom("5")),
+                    ],
+                )),
+                If((
+                    if: GreaterThan(Var("anim"), Val(5)),
+                    then: [
+                        SetVariable("anim", 0),
+                        PlayAnimation(Custom("0")),
+                    ],
+                )),
+            ],
+        },
     ),
 
     "Boss": (
@@ -1038,7 +1101,7 @@ I tremble at the thought of what horrors may lie behind them."#,
             TextLines({
                 "Greet": (
                     lines: [
-                        "You're finally here.\nGet your ass over here!",
+                        "You're late.\nNow get to work!",
                     ],
                     behavior: Sequence(loop: false),
                 ),
@@ -1076,6 +1139,19 @@ I tremble at the thought of what horrors may lie behind them."#,
                     ],
                     behavior: Sequence(loop: false),
                 ),
+                "TaskComplete": (
+                    lines: [
+                        "Excellent.",
+                        "Good enough.",
+                    ],
+                    behavior: Random,
+                ),
+                "DayComplete": (
+                    lines: [
+                        "That's it for today.\nNow get out of here.",
+                    ],
+                    behavior: Random,
+                ),
             }),
             Velocity((x: 0.0, y: 0.0)),
         ],
@@ -1083,6 +1159,9 @@ I tremble at the thought of what horrors may lie behind them."#,
         events: {
             Init: [
                 SetVariable("reached_desk", false),
+                SetVariable("current_task", Null),
+                SetVariable("task_loops", 0),
+                SetVariable("day_complete", false),
                 StartTimer("InitGreet", 1000),
             ],
 
@@ -1111,11 +1190,18 @@ I tremble at the thought of what horrors may lie behind them."#,
 
             OnCollision(IsTag(Player)): [
                 If((
-                    if: Equal(Var("reached_desk"), Val(true)),
+                    if: And([
+                        Equal(Var("reached_desk"), Val(true)),
+                        Equal(Var("day_complete"), Val(false)),
+                        Equal(Var("current_task"), Val(Null)),
+                    ]),
                     then: [
+                        SetVariable("current_task", "Button"),
                         OutputNextLine(
                             id: "Button",
+                            scroll: true,
                         ),
+                        PlaySound("BossScream2"),
                         StartTimer("Button", 8000),
                     ],
                 )),
@@ -1124,8 +1210,27 @@ I tremble at the thought of what horrors may lie behind them."#,
             OnTimerFinish("Button"): [
                 OutputNextLine(
                     id: "Button",
+                    scroll: true,
                 ),
+                PlaySound("BossScream2"),
                 StartTimer("Button", 4000),
+            ],
+
+            OnTimerFinish("ButtonPress"): [
+                If((
+                    if: Equal(Var("current_task"), Val("Coffee")),
+                    then: [
+                        SetVariable("current_task", "Coffee"),
+                        OutputNextLine(
+                            id: "TaskComplete",
+                            scroll: true,
+                        ),
+                        PlaySound("BossScream2"),
+                        StopTimer("Button"),
+                        StartTimer("Coffee", 2000),
+                        ForeignObjectAction(Custom("Clock"), [StartTimer("NextAnim", 0)]),
+                    ],
+                )),
             ],
 
             OnTimerFinish("Coffee"): [
@@ -1134,7 +1239,46 @@ I tremble at the thought of what horrors may lie behind them."#,
                     scroll: true,
                 ),
                 PlaySound("BossScream2"),
-                StartTimer("Coffee", 3000),
+                StartTimer("Coffee", 4000),
+            ],
+
+            OnTimerFinish("CoffeeMake"): [
+                If((
+                    if: Equal(Var("current_task"), Val("Coffee")),
+                    then: [
+                        SetVariable("current_task", "Button"),
+                        OutputNextLine(
+                            id: "TaskComplete",
+                            scroll: true,
+                        ),
+                        PlaySound("BossScream2"),
+                        StopTimer("Coffee"),
+                        StartTimer("Button", 2000),
+                        ForeignObjectAction(Custom("Clock"), [StartTimer("NextAnim", 0)]),
+                        OpAddVariable("task_loops", 1),
+                        StartTimer("CheckComplete", 100),
+                    ],
+                )),
+            ],
+
+            OnTimerFinish("CheckComplete"): [
+                If((
+                    if: GreaterThan(Var("task_loops"), Val(4)),
+                    then: [
+                        StopTimer("Button"),
+                        StopTimer("Coffee"),
+                        StartTimer("DayComplete", 1000),
+                    ],
+                )),
+            ],
+
+            OnTimerFinish("DayComplete"): [
+                OutputNextLine(
+                    id: "DayComplete",
+                    scroll: true,
+                ),
+                PlaySound("BossScream2"),
+                ForeignObjectAction(Custom("OfficeDoor"), [SetVariable("can_leave", true)]),
             ],
         },
     ),
@@ -1160,6 +1304,48 @@ I tremble at the thought of what horrors may lie behind them."#,
         events: {
             Init: [
                 Hide,
+            ],
+        },
+    ),
+
+    "Button": (
+        components: [
+            Hitbox(Size),
+            Collidable((
+                tag: Interactable,
+            )),
+            Interactable(()),
+        ],
+        events: {
+            OnInteract: [
+                PlaySound("ButtonPress"),
+                ForeignObjectAction(
+                    Custom("Boss"),
+                    [
+                        StartTimer("PressedButton", 0),
+                    ],
+                ),
+            ],
+        },
+    ),
+
+    "CoffeeMaker": (
+        components: [
+            Hitbox(Size),
+            Collidable((
+                tag: Interactable,
+            )),
+            Interactable(()),
+        ],
+        events: {
+            OnInteract: [
+                PlaySound("CoffeeMaker"),
+                ForeignObjectAction(
+                    Custom("Boss"),
+                    [
+                        StartTimer("CoffeeMake", 11000),
+                    ],
+                ),
             ],
         },
     ),
