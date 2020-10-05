@@ -283,6 +283,9 @@
                 SetOutput(
                     text: "A dustbin.\nIt's offensively generic.",
                 ),
+                ForeignObjectAction(Custom("Coworker1"), [
+                    PushAnimation(Custom("HeadScratch")),
+                ]),
             ],
         },
     ),
