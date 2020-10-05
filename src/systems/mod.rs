@@ -1,6 +1,7 @@
 mod control_player;
 mod handle_events_actions;
 mod handle_fade;
+mod handle_if_actions;
 mod handle_screen_shake;
 mod handle_text_output_scrolling;
 mod trigger_collision_events;
@@ -14,6 +15,7 @@ pub mod prelude {
     pub use super::control_player::ControlPlayerSystem;
     pub use super::handle_events_actions::HandleEventsActionsSystem;
     pub use super::handle_fade::HandleFadeSystem;
+    pub use super::handle_if_actions::HandleIfActionsSystem;
     pub use super::handle_screen_shake::HandleScreenShakeSystem;
     pub use super::handle_text_output_scrolling::HandleTextOutputScrollingSystem;
     pub use super::trigger_collision_events::TriggerCollisionEventsSystem;

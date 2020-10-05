@@ -161,6 +161,12 @@ pub(super) fn build_game_data<'a, 'b>(
                 "trigger_timer_events_system",
                 "trigger_init_events_system",
             ],
+        )?
+        .with(
+            DispatcherId::Ingame,
+            HandleIfActionsSystem::default(),
+            "handle_if_actions_system",
+            &["handle_events_actions_system"],
         )?;
 
     Ok(custom_game_data)

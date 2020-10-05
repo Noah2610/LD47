@@ -24,6 +24,7 @@ impl<'a> System<'a> for HandleEventsActionsSystem {
         WriteStorage<'a, TextLines>,
         WriteStorage<'a, Velocity>,
         WriteStorage<'a, VariablesRegister>,
+        WriteStorage<'a, IfActions>,
         ReadStorage<'a, Unloaded>,
     );
 
@@ -46,6 +47,7 @@ impl<'a> System<'a> for HandleEventsActionsSystem {
             mut text_lines_store,
             mut velocity_store,
             mut variables_register_store,
+            mut if_actions_store,
             unloaded_store,
         ): Self::SystemData,
     ) {
@@ -256,21 +258,11 @@ impl<'a> System<'a> for HandleEventsActionsSystem {
                             .insert(name, value);
                     }
 
-                    ActionType::If {
-                        condition,
-                        mut success,
-                        failure,
-                    } => {
-                        unimplemented!()
-                        // let if_stores: IfStorages<'a> =
-                        //     IfStorages { entities: entities };
-                        // if condition.passes(entity, &if_stores) {
-                        //     trigger_actions.append(&mut success);
-                        // } else {
-                        //     if let Some(mut failure) = failure {
-                        //         trigger_actions.append(&mut failure);
-                        //     }
-                        // }
+                    ActionType::If(if_action) => {
+                        if_actions_store
+                            .get_mut(entity)
+                            .expect("If action requires IfActions component")
+                            .add_action(if_action);
                     }
                 }
             }
