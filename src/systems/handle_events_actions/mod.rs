@@ -251,14 +251,14 @@ impl<'a> System<'a> for HandleEventsActionsSystem {
 
                     ActionType::If {
                         condition,
-                        success,
+                        mut success,
                         failure,
                     } => {
                         if condition.passes(entity, &if_stores) {
-                            trigger_actions.push(*success);
+                            trigger_actions.append(&mut success);
                         } else {
-                            if let Some(failure) = failure {
-                                trigger_actions.push(*failure);
+                            if let Some(mut failure) = failure {
+                                trigger_actions.append(&mut failure);
                             }
                         }
                     }

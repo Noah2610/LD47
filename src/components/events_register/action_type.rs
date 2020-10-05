@@ -63,9 +63,9 @@ pub enum ActionType {
         #[serde(alias = "if")]
         condition: IfCondition,
         #[serde(alias = "then")]
-        success:   Box<ActionType>,
+        success:   Vec<ActionType>,
         #[serde(alias = "else", default)]
-        failure:   Option<Box<ActionType>>,
+        failure:   Option<Vec<ActionType>>,
     },
 }
 
