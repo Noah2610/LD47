@@ -36,6 +36,7 @@ impl IfCondition {
 
 #[derive(Deserialize, Clone)]
 pub enum IfValue {
+    Val(VariableValue),
     Var(String),
     ForeignObjectValue(ObjectType, Box<IfValue>),
     CurrentLoop,
@@ -44,6 +45,7 @@ pub enum IfValue {
 impl IfValue {
     fn value(&self, entity: Entity, stores: &IfStorages) -> VariableValue {
         match self {
+            Self::Val(val) => val.clone(),
             Self::Var(var_name) => stores
                 .events_register
                 .get(entity)

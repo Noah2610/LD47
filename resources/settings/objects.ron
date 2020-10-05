@@ -167,14 +167,26 @@
         ],
 
         events: {
+            Init: [
+                SetVariable("can_exit", false),
+            ],
+
             OnInteract: [
-                PlaySound("SceneTransition"),
-                ForeignObjectAction(Player, [SetControllable(false)]),
-                Fade((
-                    type: FadeOut,
-                    duration_ms: 500,
-                )),
-                StartTimer("NextScene", 1000),
+                If(
+                    if: Equal(Var("can_exit", Val(true))),
+                    then: [
+                        PlaySound("SceneTransition"),
+                        ForeignObjectAction(Player, [SetControllable(false)]),
+                        Fade((
+                            type: FadeOut,
+                            duration_ms: 500,
+                        )),
+                        StartTimer("NextScene", 1000),
+                    ],
+                    else: [
+                        Echo("Can't leave yet!"),
+                    ],
+                ),
             ],
 
             OnTimerFinish("NextScene"): [
