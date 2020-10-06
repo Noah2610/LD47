@@ -1231,6 +1231,7 @@ I tremble at the thought of what horrors may lie behind them."#,
                     then: [
                         SetVariable("text_idx", 0),
                         SetVariable("current_task", "Coffee"),
+                        ResetOutputLines( id: "Button" ),
                         OutputNextLine(
                             id: "TaskComplete",
                             scroll: true,
@@ -1260,6 +1261,7 @@ I tremble at the thought of what horrors may lie behind them."#,
                     then: [
                         SetVariable("text_idx", 0),
                         SetVariable("current_task", "Button"),
+                        ResetOutputLines( id: "Coffee" ),
                         OutputNextLine(
                             id: "TaskComplete",
                             scroll: true,
