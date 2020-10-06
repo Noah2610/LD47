@@ -225,6 +225,16 @@ impl<'a> System<'a> for HandleEventsActionsSystem {
                         }
                     }
 
+                    ActionType::ResetOutputLines { id } => {
+                        let line_opt = text_lines_store
+                            .get_mut(entity)
+                            .expect(
+                                "ResetOutputLines action requires \
+                                 TextLinesGroup component",
+                            )
+                            .reset(id.as_str());
+                    }
+
                     ActionType::SetVelocity { x, y } => {
                         let velocity = velocity_store.get_mut(entity).expect(
                             "SetVelocity action requires Velocity component",

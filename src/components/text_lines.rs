@@ -15,6 +15,10 @@ impl TextLines {
             .get_mut(group_name)
             .map(TextLinesGroup::next_line)
     }
+
+    pub fn reset(&mut self, group_name: &str) {
+        self.groups.get_mut(group_name).map(TextLinesGroup::reset);
+    }
 }
 
 impl From<HashMap<String, TextLinesGroup>> for TextLines {
@@ -56,6 +60,13 @@ impl TextLinesGroup {
                 }
                 self.lines[cur_idx].as_str()
             }
+        }
+    }
+
+    fn reset(&mut self) {
+        if let TextLinesBehavior::Sequence { line_idx, .. } = &mut self.behavior
+        {
+            *line_idx = 0;
         }
     }
 }

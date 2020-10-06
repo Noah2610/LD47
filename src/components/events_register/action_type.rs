@@ -54,6 +54,9 @@ pub enum ActionType {
         #[serde(alias = "scroll", default)]
         does_scroll: bool,
     },
+    ResetOutputLines {
+        id: String,
+    },
     SetVelocity {
         #[serde(default)]
         x: Option<f32>,
