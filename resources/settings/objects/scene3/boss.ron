@@ -24,6 +24,14 @@
                     (28, 100),
                     (29, 100),
                 ]),
+                Custom("Shout"): Once([
+                    (30, 150),
+                    (31, 150),
+                    (30, 150),
+                    (31, 150),
+                    (30, 150),
+                    (31, 150),
+                ]),
             }),
             Gravity((
                 y: -800.0,
@@ -100,11 +108,11 @@
 
         events: {
             Init: [
-                SetVariable("text_idx", 0),
                 SetVariable("reached_desk", false),
-                SetVariable("current_task", Null),
+                SetVariable("current_task", ""),
                 SetVariable("task_loops", 0),
                 SetVariable("day_complete", false),
+                ForeignObjectAction(Player, [SetControllable(false)]),
                 StartTimer("InitGreet", 1000),
             ],
 
@@ -118,7 +126,8 @@
                     id: "Greet",
                     scroll: true,
                 ),
-                PlaySound("BossScream1"),
+                StartTimer("Speek", 0),
+                ForeignObjectAction(Player, [SetControllable(true)]),
                 StartTimer("StartMovingToDesk", 2000),
             ],
 
@@ -136,89 +145,96 @@
                     if: And([
                         Equal(Var("reached_desk"), Val(true)),
                         Equal(Var("day_complete"), Val(false)),
-                        Equal(Var("current_task"), Val(Null)),
+                        Equal(Var("current_task"), Val("")),
                     ]),
                     then: [
-                        SetVariable("text_idx", 0),
                         SetVariable("current_task", "Button"),
                         OutputNextLine(
                             id: "Button",
                             scroll: true,
                         ),
-                        PlaySound("BossScream2"),
+                        StartTimer("Speek", 0),
                         StartTimer("Button", 8000),
                     ],
                 ))),
             ],
 
-            OnTimerFinish("Button"): [
-                OpAddVariable("text_idx", 1),
-                OutputNextLine(
-                    id: "Button",
-                    scroll: true,
-                ),
-                PlaySound("BossScream2"),
-                StartTimer("Button", 4000),
-                StartTimer("CheckFail", 100),
+            OnTimerFinish("DemandTask"): [
+                If(If((
+                    if: Not(Equal(Var("current_task"), Val(""))),
+                    then: [
+                        If(IfElseChain((
+                            branches: [
+                                (
+                                    if: Equal(Var("current_task"), Val("Button")),
+                                    then: [
+                                        OutputNextLine(
+                                            id: "Button",
+                                            scroll: true,
+                                        ),
+                                    ],
+                                ),
+                                (
+                                    if: Equal(Var("current_task"), Val("Coffee")),
+                                    then: [
+                                        OutputNextLine(
+                                            id: "Coffee",
+                                            scroll: true,
+                                        ),
+                                    ],
+                                ),
+                            ],
+                        ))),
+                        StartTimer("Speek", 0),
+                        StartTimer("CheckFail", 0),
+                        StartTimer("DemandTask", 4000),
+                    ],
+                ))),
             ],
 
             OnTimerFinish("ButtonPressed"): [
                 If(If((
                     if: Equal(Var("current_task"), Val("Button")),
                     then: [
-                        SetVariable("text_idx", 0),
                         SetVariable("current_task", "Coffee"),
                         ResetOutputLines( id: "Button" ),
                         OutputNextLine(
                             id: "TaskComplete",
                             scroll: true,
                         ),
-                        PlaySound("BossScream2"),
-                        StopTimer("Button"),
-                        StartTimer("Coffee", 2000),
-                        ForeignObjectAction(Custom("Clock"), [StartTimer("NextAnim", 0)]),
+                        StartTimer("Speek", 0),
+                        StartTimer("DemandTask", 2000),
                     ],
                 ))),
-            ],
-
-            OnTimerFinish("Coffee"): [
-                OpAddVariable("text_idx", 1),
-                OutputNextLine(
-                    id: "Coffee",
-                    scroll: true,
-                ),
-                PlaySound("BossScream2"),
-                StartTimer("Coffee", 4000),
-                StartTimer("CheckFail", 100),
             ],
 
             OnTimerFinish("CoffeeMake"): [
                 If(If((
                     if: Equal(Var("current_task"), Val("Coffee")),
                     then: [
-                        SetVariable("text_idx", 0),
                         SetVariable("current_task", "Button"),
                         ResetOutputLines( id: "Coffee" ),
                         OutputNextLine(
                             id: "TaskComplete",
                             scroll: true,
                         ),
-                        PlaySound("BossScream2"),
-                        StopTimer("Coffee"),
-                        StartTimer("Button", 2000),
+                        StartTimer("Speek", 0),
+                        StartTimer("DemandTask", 2000),
                         ForeignObjectAction(Custom("Clock"), [StartTimer("NextAnim", 0)]),
                         OpAddVariable("task_loops", 1),
-                        StartTimer("CheckComplete", 100),
+                        StartTimer("CheckComplete", 0),
                     ],
                 ))),
             ],
 
             OnTimerFinish("CheckFail"): [
                 If(If((
-                    if: GreaterThan(Var("text_idx"), Val(11)),
+                    if: Or([
+                        GreaterThan(TextLinesIdx("Button"), Val(11)),
+                        GreaterThan(TextLinesIdx("Coffee"), Val(11)),
+                    ]),
                     then: [
-                        StopTimer("Button"),
-                        StopTimer("Coffee"),
+                        StopTimer("DemandTask"),
                         Hide,
                         StopSong(MainBgm),
                         PlaySong(HappyTrack),
@@ -237,23 +253,32 @@
 
             OnTimerFinish("CheckComplete"): [
                 If(If((
-                    if: GreaterThan(Var("task_loops"), Val(4)),
+                    if: GreaterThan(Var("task_loops"), Val(2)),
                     then: [
-                        StopTimer("Button"),
-                        StopTimer("Coffee"),
-                        StartTimer("DayComplete", 1000),
+                        StopTimer("DemandTask"),
+                        StartTimer("DayComplete", 2000),
                     ],
                 ))),
             ],
 
             OnTimerFinish("DayComplete"): [
                 SetVariable("day_complete", true),
+                SetVariable("current_task", ""),
                 OutputNextLine(
                     id: "DayComplete",
                     scroll: true,
                 ),
-                PlaySound("BossScream2"),
+                StartTimer("Speek", 0),
                 ForeignObjectAction(Custom("OfficeDoor"), [SetVariable("can_leave", true)]),
+            ],
+
+            OnTimerFinish("Speek"): [
+                PushAnimation(Custom("Shout")),
+                RandomAction([
+                    [PlaySound("BossScream1")],
+                    [PlaySound("BossScream2")],
+                ]),
+                FaceTowardsObject(Player),
             ],
         },
     ),
