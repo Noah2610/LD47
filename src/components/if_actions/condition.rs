@@ -58,10 +58,13 @@ pub enum IfValue {
     ForeignObjectValue(ObjectType, Box<IfValue>),
     CurrentLoop,
     CurrentScene,
+    TextLinesIdx(String),
 }
 
 impl IfValue {
     fn value(&self, entity: Entity, stores: &IfStorages) -> VariableValue {
+        use self::VariableValue as Value;
+
         match self {
             Self::Val(val) => val.clone(),
             Self::Var(var_name) => stores
@@ -71,7 +74,7 @@ impl IfValue {
                 .variables
                 .get(var_name)
                 .cloned()
-                .unwrap_or(VariableValue::Null),
+                .unwrap_or(Value::Null),
             Self::ForeignObjectValue(foreign_object_type, foreign_value) => {
                 let foreign_entity = (&stores.entities, &stores.objects)
                     .join()
@@ -91,15 +94,29 @@ impl IfValue {
                          object entity: {:?}",
                         foreign_object_type
                     );
-                    VariableValue::Null
+                    Value::Null
                 }
             }
             Self::CurrentLoop => {
-                VariableValue::Num(stores.scene_manager.current_loop as i32)
+                Value::Num(stores.scene_manager.current_loop as i32)
             }
-            Self::CurrentScene => VariableValue::Num(
-                stores.scene_manager.current_scene_idx as i32,
-            ),
+            Self::CurrentScene => {
+                Value::Num(stores.scene_manager.current_scene_idx as i32)
+            }
+            Self::TextLinesIdx(name) => stores
+                .text_lines
+                .get(entity)
+                .expect("IfValue::TextLineIdx requires TextLines component")
+                .line_idx(name)
+                .map(|idx| Value::Num(idx as i32))
+                .unwrap_or_else(|| {
+                    eprintln!(
+                        "[WARNING IfValue::TextLineIdx]\n    Given text lines \
+                         name doesn't exist: {}",
+                        name
+                    );
+                    Value::Null
+                }),
         }
     }
 }
@@ -110,4 +127,5 @@ pub struct IfStorages<'a> {
     scene_manager:      Read<'a, SceneManager>,
     variables_register: ReadStorage<'a, VariablesRegister>,
     objects:            ReadStorage<'a, Object>,
+    text_lines:         ReadStorage<'a, TextLines>,
 }
