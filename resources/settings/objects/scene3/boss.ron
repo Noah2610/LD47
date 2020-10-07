@@ -155,15 +155,26 @@
 
             OnInteract: [
                 If(If((
-                    if: Equal(Var("day_complete"), Val(true)),
+                    if: Equal(Var("reached_desk"), Val(true)),
                     then: [
-                        OutputNextLine(id: "InspectDayComplete"),
-                    ],
-                    else: [
-                        OutputNextLine(id: "InspectWorking"),
+                        If(If((
+                            if: Equal(Var("day_complete"), Val(true)),
+                            then: [
+                                OutputNextLine(
+                                    id: "InspectDayComplete",
+                                    scroll: true,
+                                ),
+                            ],
+                            else: [
+                                OutputNextLine(
+                                    id: "InspectWorking",
+                                    scroll: true,
+                                ),
+                            ],
+                        ))),
+                        StartTimer("Speek", 0),
                     ],
                 ))),
-                StartTimer("Speek", 0),
             ],
 
             OnTimerFinish("InitGreet"): [
