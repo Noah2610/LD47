@@ -33,22 +33,15 @@
 
         events: {
             Init: [
+                SetVariable("player_sleeping", true),
                 PlayAnimation(Custom("Sleep")),
             ],
 
-            OnInteract: [
+            OnKeyDown(Interact): [
                 If(If((
-                    if: Equal(
-                        ForeignObjectValue(Player, Var("is_controllable")),
-                        Val(true),
-                    ),
+                    if: Equal(Var("player_sleeping"), Val(true)),
                     then: [
-                        PlaySound("Interact"),
-                        OutputNextLine(
-                            id: "Inspect",
-                        ),
-                    ],
-                    else: [
+                        SetVariable("player_sleeping", false),
                         PlayAnimation(Idle),
                         ForeignObjectAction(
                             Player,
@@ -64,6 +57,24 @@
                         ForeignObjectAction(Custom("Alarm"), [
                             StartTimer("StopAlarm", 0),
                         ]),
+                    ],
+                ))),
+            ],
+
+            OnInteract: [
+                PlaySound("Interact"),
+                OutputNextLine(
+                    id: "Inspect",
+                ),
+
+                If(If((
+                    if: Equal(
+                        ForeignObjectValue(Player, Var("is_controllable")),
+                        Val(true),
+                    ),
+                    then: [
+                    ],
+                    else: [
                     ],
                 ))),
             ],
