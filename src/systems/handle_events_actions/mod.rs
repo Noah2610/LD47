@@ -1,5 +1,6 @@
 use super::system_prelude::*;
 use climer::Timer;
+use rand::Rng;
 use std::collections::HashMap;
 use std::time::Duration;
 
@@ -51,11 +52,15 @@ impl<'a> System<'a> for HandleEventsActionsSystem {
             mut if_actions_store,
         ): Self::SystemData,
     ) {
+        let mut rng = rand::thread_rng();
+
         let mut trigger_foreign_actions = HashMap::new();
 
         for (entity, events_register) in
             (&entities, &mut events_register_store).join()
         {
+            let mut trigger_actions = Vec::new();
+
             for action in events_register.triggered_actions.drain(..) {
                 match action {
                     ActionType::Echo(msg) => println!("> {}", msg),
@@ -433,8 +438,15 @@ impl<'a> System<'a> for HandleEventsActionsSystem {
                         }
                         object_spawner.to_spawn.push(object_data);
                     }
+
+                    ActionType::RandomAction(mut actions) => {
+                        let idx = rng.gen_range(0, actions.len());
+                        trigger_actions.append(&mut actions[idx]);
+                    }
                 }
             }
+
+            events_register.mut_actions().append(&mut trigger_actions);
         }
 
         for (object_type, actions) in trigger_foreign_actions {

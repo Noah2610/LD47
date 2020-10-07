@@ -77,6 +77,7 @@ pub enum ActionType {
     If(IfAction),
     DeleteEntity,
     SpawnObject(ObjectSpawnData),
+    RandomAction(Vec<Vec<ActionType>>),
 }
 
 fn default_output_target() -> String {
