@@ -8,15 +8,21 @@
                 w: 56.0,
                 h: 32.0,
             )),
-            Animation([(1, 1000)]),
-            InLoop(0, [Animation([(0, 1000)])])
+            Animation([(6, 1000)]),
+            InLoop(0, [Animation([(0, 1000)])]), // "Press!"
+            InLoop(1, [Animation([(1, 1000)])]), // "Piss!"
+            InLoop(2, [Animation([(2, 1000)])]), // hangman 0
+            InLoop(3, [Animation([(3, 1000)])]), // hangman 1
+            InLoop(4, [Animation([(4, 1000)])]), // hangman 2
+            InLoop(5, [Animation([(5, 1000)])]), // dick
+            InLoop(6, [Animation([(6, 1000)])]), // "Overtime!"
         ],
 
         events: {
             OnInteract: [
                 PlaySound("Interact"),
                 SetOutput(
-                    text: ""
+                    text: "",
                 ),
             ],
         },
