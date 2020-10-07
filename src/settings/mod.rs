@@ -21,6 +21,7 @@ pub mod scenes_settings;
 pub mod tiles_settings;
 
 use crate::resource;
+use amethyst::window::DisplayConfig;
 use deathframe::amethyst;
 use deathframe::components::prelude::Merge;
 use prelude::*;
@@ -31,25 +32,27 @@ use std::path::PathBuf;
 #[derive(Deserialize)]
 #[serde(deny_unknown_fields)]
 pub struct Settings {
-    pub general: GeneralSettings,
-    pub player:  PlayerSettings,
-    pub camera:  CameraSettings,
-    pub scenes:  ScenesSettings,
-    pub tiles:   TilesSettings,
-    pub objects: ObjectsSettings,
-    pub audio:   AudioSettings,
+    pub general:        GeneralSettings,
+    pub player:         PlayerSettings,
+    pub camera:         CameraSettings,
+    pub scenes:         ScenesSettings,
+    pub tiles:          TilesSettings,
+    pub objects:        ObjectsSettings,
+    pub audio:          AudioSettings,
+    pub display_config: DisplayConfig,
 }
 
 impl Settings {
     pub fn load() -> amethyst::Result<Self> {
         Ok(Self {
-            general: load_settings("general.ron")?,
-            player:  load_settings("player.ron")?,
-            camera:  load_settings("camera.ron")?,
-            scenes:  load_settings("scenes.ron")?,
-            tiles:   load_settings("tiles.ron")?,
-            objects: load_settings_dir("objects")?,
-            audio:   load_settings("audio.ron")?,
+            general:        load_settings("settings/general.ron")?,
+            player:         load_settings("settings/player.ron")?,
+            camera:         load_settings("settings/camera.ron")?,
+            scenes:         load_settings("settings/scenes.ron")?,
+            tiles:          load_settings("settings/tiles.ron")?,
+            objects:        load_settings_dir("settings/objects")?,
+            audio:          load_settings("settings/audio.ron")?,
+            display_config: load_settings("config/display.ron")?,
         })
     }
 }
@@ -59,7 +62,7 @@ where
     for<'de> S: serde::Deserialize<'de>,
     P: fmt::Display,
 {
-    let file = File::open(resource(format!("settings/{}", &path)))?;
+    let file = File::open(resource(path.to_string()))?;
     Ok(ron::de::from_reader(file).map_err(|e| {
         amethyst::Error::from_string(format!(
             "Failed parsing RON settings file: {}\n{:#?}",
@@ -75,7 +78,7 @@ where
     for<'de> T: serde::Deserialize<'de> + Merge + Default,
     S: std::fmt::Display,
 {
-    let path = resource(format!("settings/{}", dirname));
+    let path = resource(dirname.to_string());
     let errmsg = format!("No settings files found in {:?}", &path);
     let all_settings = load_configs_recursively_from(path)?;
     let merged_settings = merge_settings(all_settings).unwrap_or_else(|| {

@@ -34,6 +34,7 @@ pub enum EntityComponent {
     Movement(Movement),
     Interactable(Interactable),
     TextLines(TextLines),
+    AttachUi(AttachUi),
 
     InLoop(usize, Vec<EntityComponent>),
 }
@@ -72,6 +73,7 @@ pub fn add_components_to_entity(
             Comp::Movement(movement) => builder.with(movement),
             Comp::Interactable(interactable) => builder.with(interactable),
             Comp::TextLines(text_lines) => builder.with(text_lines),
+            Comp::AttachUi(attach_ui) => builder.with(attach_ui),
 
             Comp::InLoop(target_loop, comps) => {
                 if current_loop == target_loop {

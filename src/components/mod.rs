@@ -1,3 +1,4 @@
+mod attach_ui;
 mod events_register;
 mod if_actions;
 mod interactable;
@@ -8,6 +9,7 @@ mod text_lines;
 mod variables_register;
 
 pub mod prelude {
+    pub use super::attach_ui::AttachUi;
     pub use super::events_register::prelude::*;
     pub use super::if_actions::prelude::*;
     pub use super::interactable::Interactable;

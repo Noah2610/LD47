@@ -1,4 +1,3 @@
-use crate::resource;
 use crate::resources::*;
 use crate::settings::Settings;
 use crate::states::aliases::{CustomData, GameDataBuilder};
@@ -20,7 +19,7 @@ pub(super) fn build_game_data<'a, 'b>(
     let transform_bundle = TransformBundle::new();
     let rendering_bundle = RenderingBundle::<DefaultBackend>::new()
         .with_plugin(
-            RenderToWindow::from_config_path(resource("config/display.ron"))?
+            RenderToWindow::from_config(settings.display_config.clone())
                 .with_clear([0.0, 0.0, 0.0, 1.0]),
         )
         .with_plugin(RenderUi::default())
@@ -116,6 +115,12 @@ pub(super) fn build_game_data<'a, 'b>(
             HandleFadeSystem::default(),
             "handle_fade_system",
             &[],
+        )?
+        .with(
+            DispatcherId::Ingame,
+            PositionAttachedUiSystem::default(),
+            "position_attached_ui_system",
+            &["move_entities_system"],
         )?
         .with(
             DispatcherId::Ingame,

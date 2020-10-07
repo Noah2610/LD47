@@ -23,6 +23,7 @@ pub fn run() -> amethyst::Result<()> {
         tiles: tiles_settings,
         objects: objects_settings,
         audio: audio_settings,
+        display_config,
     } = settings;
 
     let mut game: amethyst::CoreApplication<GameData> =
@@ -35,6 +36,7 @@ pub fn run() -> amethyst::Result<()> {
             .with_resource(tiles_settings)
             .with_resource(objects_settings)
             .with_resource(audio_settings)
+            .with_resource(display_config)
             .build(game_data)?;
 
     game.run();
