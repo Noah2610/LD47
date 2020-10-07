@@ -33,7 +33,7 @@ Container(
         // DEFAULT TEXT OUTPUT
         Label(
             transform: (
-                id:             "ingame_output_text",
+                id:             "text_output",
                 x:              0.0,
                 y:              100.0,
                 z:              1.0,
@@ -57,7 +57,7 @@ Container(
         // GET UP PROMPT TEXT OUTPUT
         Label(
             transform: (
-                id:             "ingame_output_text_get_up",
+                id:             "text_output_get_up",
                 x:              -375.0,
                 y:              10.0,
                 z:              1.0,

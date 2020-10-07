@@ -81,5 +81,5 @@ pub enum ActionType {
 }
 
 fn default_output_target() -> String {
-    String::from("ingame_output_text")
+    String::from("text_output")
 }

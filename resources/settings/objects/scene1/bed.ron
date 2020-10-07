@@ -50,7 +50,7 @@
                                 Show,
                                 SetVariable("is_controllable", true),
                                 ClearOutput(
-                                    target: "ingame_output_text_get_up",
+                                    target: "text_output_get_up",
                                 ),
                             ],
                         ),

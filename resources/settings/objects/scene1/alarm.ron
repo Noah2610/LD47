@@ -186,7 +186,7 @@
                 )),
                 ClearOutput(),
                 ClearOutput(
-                    target: "ingame_output_text_get_up",
+                    target: "text_output_get_up",
                 ),
                 StartTimer("InitFight", 3000),
                 StartTimer("Hide", 100),
@@ -219,7 +219,7 @@
                 ForeignObjectAction(Custom("BgFragment10"), [StartTimer("StartFight", 0)]),
                 ClearOutput(),
                 ClearOutput(
-                    target: "ingame_output_text_get_up",
+                    target: "text_output_get_up",
                 ),
                 StartTimer("Delete", 100),
             ],
