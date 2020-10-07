@@ -5,9 +5,11 @@ _dir="$( dirname "$0" )"
 source "${_dir}/share.sh"
 unset _dir
 
+[ -z "$CARGO_CMD" ] && CARGO_CMD="run"
+
 function main {
     cargo_cmd \
-        run --features debug "$@"
+        "$CARGO_CMD" --features debug "$@"
 }
 
 main "$@"
