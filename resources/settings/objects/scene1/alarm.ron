@@ -10,14 +10,7 @@
             Collidable((
                 tag: Interactable,
             )),
-            Hitbox(Custom([
-                (
-                    top:    0.0,
-                    bottom: 24.0,
-                    left:   -16.0,
-                    right:  4.0,
-                ),
-            ])),
+            Hitbox(Size),
             Animations({
                 Idle: Cycle([
                     (0, 1000),
@@ -56,6 +49,14 @@
                     ],
                     behavior: Sequence(loop: false),
                 ),
+                "Inspect": (
+                    lines: [
+                        "My alarm clock.",
+                        "This thing rips me from my sleep every morning.",
+                        "Sometimes I dream of it talking to me.",
+                    ],
+                    behavior: Sequence(loop: true),
+                ),
             }),
         ],
 
@@ -66,6 +67,12 @@
                 PlayAnimation(Custom("Ring")),
                 StartTimer("Text", 500),
                 StartTimer("Sound", 500),
+            ],
+
+            OnInteract: [
+                OutputNextLine(
+                    id: "Inspect",
+                ),
             ],
 
             OnTimerFinish("Text"): [
