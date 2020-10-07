@@ -56,7 +56,7 @@
         Init: [
             SetVariable("in_alarm_fight", false),
 
-            If((
+            If(If((
                 if: Equal(CurrentScene, Val(0)),
                 then: [
                     SetVariable("is_controllable", false),
@@ -71,7 +71,7 @@
                 else: [
                     SetVariable("is_controllable", true),
                 ],
-            )),
+            ))),
             Fade((
                 type: FadeIn,
                 duration_ms: 500,
@@ -86,21 +86,21 @@
         ],
 
         OnKeyDown(Interact): [
-            If((
+            If(If((
                 if: Equal(Var("in_alarm_fight"), Val(true)),
                 then: [
                     StartTimer("Shoot", 0),
                 ],
-            )),
+            ))),
         ],
 
         OnKeyUp(Interact): [
-            If((
+            If(If((
                 if: Equal(Var("in_alarm_fight"), Val(true)),
                 then: [
                     StopTimer("Shoot"),
                 ],
-            )),
+            ))),
         ],
 
         OnTimerFinish("Shoot"): [
