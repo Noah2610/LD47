@@ -1,0 +1,16 @@
+*.png
+*.jpg
+*.wav
+*.mp3
+*.ogg
+*.ttf
+*.otf
+
+/resources/fonts
+/resources/levels
+/resources/spritesheets
+
+/tiled/tmx
+/tiled/tsx
+
+/docs/concept\ art
