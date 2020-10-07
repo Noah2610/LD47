@@ -42,17 +42,17 @@
    <property name="z" type="float" value="0.5"/>
   </properties>
   <object id="11" name="Dustbin" type="Custom(Dustbin)" x="112" y="73" width="8" height="16"/>
-  <object id="12" name="Dustbin" type="Custom(Dustbin)" x="176" y="73" width="8" height="16"/>
-  <object id="13" name="Dustbin Bloody" type="Custom(DustbinBloody)" x="329" y="73" width="8" height="16"/>
-  <object id="14" name="Locker" type="Custom(Locker)" x="196" y="48" width="24" height="41"/>
+  <object id="12" name="Dustbin" type="Custom(Dustbin)" x="394" y="72" width="8" height="16"/>
+  <object id="13" name="Dustbin Bloody" type="Custom(DustbinBloody)" x="191" y="73" width="8" height="16"/>
+  <object id="14" name="Locker" type="Custom(Locker)" x="308" y="48" width="24" height="41"/>
   <object id="15" name="Door" type="Custom(OfficeDoor)" x="38" y="50" width="21" height="38"/>
   <object id="17" name="Whiteboard" type="Custom(Whiteboard)" x="339" y="32" width="56" height="32"/>
   <object id="20" name="Table BG" type="Custom(TableBg)" x="438" y="41" width="48" height="48"/>
   <object id="24" name="Boss Desk Hitbox" type="Custom(BossTableHitbox)" x="298" y="41" width="2" height="48"/>
   <object id="29" name="Table BG" type="Custom(TableBg)" x="124" y="41" width="48" height="48"/>
-  <object id="33" name="Clock" type="Custom(Clock)" x="304" y="28" width="16" height="16"/>
+  <object id="33" name="Clock" type="Custom(Clock)" x="312" y="27" width="16" height="16"/>
   <object id="36" name="Button" type="Custom(Button)" x="362" y="66" width="11" height="10"/>
-  <object id="37" name="Cofee" type="Custom(CoffeeMaker)" x="309" y="48" width="6" height="41"/>
+  <object id="37" name="Cofee" type="Custom(CoffeeMaker)" x="212" y="48" width="6" height="41"/>
  </objectgroup>
  <objectgroup id="9" name="splooch" visible="0">
   <properties>
