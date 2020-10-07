@@ -49,6 +49,11 @@
                 right:   3.0,
             ),
         ])),
+        // DEBUG
+        AttachUi((
+            target: "player_attach_ui",
+            offset: (0.0, 10.0),
+        )),
     ],
 
     // Need to have this be set for other entities to trigger player actions.
