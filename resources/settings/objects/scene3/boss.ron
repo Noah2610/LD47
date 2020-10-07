@@ -322,12 +322,20 @@
             ],
 
             OnTimerFinish("InitExplode"): [
+                SetOutput(
+                    text: "AAAAAAAAAAAAARRRRGGGHHH...",
+                    scroll: true,
+                    target: "boss_text",
+                ),
                 PushAnimation(Custom("Explode")),
                 PlaySound("BossScream4"),
                 StartTimer("Explode", 1400),
             ],
 
             OnTimerFinish("Explode"): [
+                ClearOutput(
+                    target: "boss_text",
+                ),
                 StopSong(MainBgm),
                 PlaySong(HappyTrack),
                 ForeignObjectAction(Custom("BossSplooch"), [
