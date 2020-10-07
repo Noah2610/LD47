@@ -2,6 +2,7 @@
 
 use super::EntityComponents;
 use crate::components::prelude::EventsRegister;
+use deathframe::components::prelude::Merge;
 use std::collections::HashMap;
 
 #[derive(Deserialize, Clone, PartialEq, Eq, Hash, Debug)]
@@ -10,7 +11,7 @@ pub enum ObjectType {
     Custom(String),
 }
 
-#[derive(Deserialize, Clone)]
+#[derive(Deserialize, Clone, Default)]
 #[serde(from = "HashMap<String, ObjectSettings>", deny_unknown_fields)]
 pub struct ObjectsSettings {
     pub objects: HashMap<String, ObjectSettings>,
@@ -19,6 +20,12 @@ pub struct ObjectsSettings {
 impl From<HashMap<String, ObjectSettings>> for ObjectsSettings {
     fn from(objects: HashMap<String, ObjectSettings>) -> Self {
         Self { objects }
+    }
+}
+
+impl Merge for ObjectsSettings {
+    fn merge(&mut self, other: Self) {
+        (&mut self.objects).extend(other.objects)
     }
 }
 
