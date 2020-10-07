@@ -231,7 +231,7 @@ impl<'a> System<'a> for HandleEventsActionsSystem {
                     }
 
                     ActionType::ResetOutputLines { id } => {
-                        let line_opt = text_lines_store
+                        text_lines_store
                             .get_mut(entity)
                             .expect(
                                 "ResetOutputLines action requires \
