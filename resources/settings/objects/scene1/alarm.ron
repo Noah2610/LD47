@@ -61,7 +61,6 @@
 
         events: {
             Init: [
-                SetVariable("text_idx", 0),
                 SetVariable("intense_shake", false),
                 SetVariable("alarm_fight", false),
                 PlayAnimation(Custom("Ring")),
@@ -71,7 +70,7 @@
 
             OnTimerFinish("Text"): [
                 If(If((
-                    if: Equal(Var("text_idx"), Val(19)),
+                    if: Equal(TextLinesIdx("Ring"), Val(18)),
                     then: [
                         SetVariable("intense_shake", true),
                     ],
@@ -80,7 +79,7 @@
                 If(IfElseChain((
                     branches: [
                         (
-                            if: LessThan(Var("text_idx"), Val(5)),
+                            if: LessThan(TextLinesIdx("Ring"), Val(5)),
                             then: [
                                 OutputNextLine(
                                     id: "Ring",
@@ -90,7 +89,7 @@
                             ],
                         ),
                         (
-                            if: LessThan(Var("text_idx"), Val(15)),
+                            if: LessThan(TextLinesIdx("Ring"), Val(14)),
                             then: [
                                 OutputNextLine(
                                     id: "Ring",
@@ -100,7 +99,7 @@
                             ],
                         ),
                         (
-                            if: Equal(Var("text_idx"), Val(15)),
+                            if: Equal(TextLinesIdx("Ring"), Val(14)),
                             then: [
                                 // obey me
                                 OutputNextLine(
@@ -111,7 +110,7 @@
                             ],
                         ),
                         (
-                            if: Equal(Var("text_idx"), Val(16)),
+                            if: Equal(TextLinesIdx("Ring"), Val(15)),
                             then: [
                                 // after obey me
                                 OutputNextLine(
@@ -121,7 +120,7 @@
                             ],
                         ),
                         (
-                            if: GreaterThan(Var("text_idx"), Val(21)),
+                            if: GreaterThan(TextLinesIdx("Ring"), Val(20)),
                             then: [
                                 OutputNextLine(
                                     id: "Ring",
@@ -139,12 +138,6 @@
                         StartTimer("Text", 4000),
                     ],
                 ))),
-
-                StartTimer("CountTextIdx", 10),
-            ],
-
-            OnTimerFinish("CountTextIdx"): [
-                OpAddVariable("text_idx", 1),
             ],
 
             OnTimerFinish("Sound"): [
