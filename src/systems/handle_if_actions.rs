@@ -24,15 +24,9 @@ impl<'a> System<'a> for HandleIfActionsSystem {
             (&entities, &mut if_actions_store, &mut events_register_store)
                 .join()
         {
-            for mut action in if_actions.drain_actions() {
-                if action.condition.passes(entity, &if_stores) {
-                    events_register
-                        .triggered_actions
-                        .append(&mut action.success);
-                } else {
-                    if let Some(mut failure) = action.failure {
-                        events_register.triggered_actions.append(&mut failure);
-                    }
+            for if_action in if_actions.drain_actions() {
+                if let Some(mut actions) = if_action.run(entity, &if_stores) {
+                    events_register.triggered_actions.append(&mut actions);
                 }
             }
         }

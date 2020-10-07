@@ -90,6 +90,22 @@
                                 StartTimer("Text", 4000),
                             ],
                             else: [
+                                If(IfElseChain((
+                                    branches: [
+                                        (
+                                            if: Equal(...),
+                                            then: [ Echo("SUCCESS") ],
+                                        ),
+                                        (
+                                            if: Equal(...),
+                                            then: [ Echo("SUCCESS") ],
+                                        ),
+                                    ],
+                                    else: [
+                                        Echo("Default")
+                                    ],
+                                ))),
+
                                 If((
                                     if: Equal(Var("text_idx"), Val(15)),
                                     then: [
