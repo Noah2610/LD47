@@ -1,0 +1,173 @@
+#![enable(implicit_some)]
+{
+    "BgFragment1": (
+        spritesheet: "scene1/bg_fragments/bgf1.png",
+        components: [
+            Velocity(( x: 0.0, y: 0.0 )),
+        ],
+        events: {
+            OnTimerFinish("StartFight"): [
+                SetVelocity(
+                    x: -60.0,
+                ),
+                StartTimer("Delete", 10000),
+            ],
+            OnTimerFinish("Delete"): [
+                DeleteEntity,
+            ],
+        },
+    ),
+    "BgFragment2": (
+        spritesheet: "scene1/bg_fragments/bgf2.png",
+        components: [
+            Velocity(( x: 0.0, y: 0.0 )),
+        ],
+        events: {
+            OnTimerFinish("StartFight"): [
+                SetVelocity(
+                    y: -60.0,
+                ),
+                StartTimer("Delete", 10000),
+            ],
+            OnTimerFinish("Delete"): [
+                DeleteEntity,
+            ],
+        },
+    ),
+    "BgFragment3": (
+        spritesheet: "scene1/bg_fragments/bgf3.png",
+        components: [
+            Velocity(( x: 0.0, y: 0.0 )),
+        ],
+        events: {
+            OnTimerFinish("StartFight"): [
+                SetVelocity(
+                    x: -60.0,
+                ),
+                StartTimer("Delete", 10000),
+            ],
+            OnTimerFinish("Delete"): [
+                DeleteEntity,
+            ],
+        },
+    ),
+    "BgFragment4": (
+        spritesheet: "scene1/bg_fragments/bgf4.png",
+        components: [
+            Velocity(( x: 0.0, y: 0.0 )),
+        ],
+        events: {
+            OnTimerFinish("StartFight"): [
+                SetVelocity(
+                    y: 60.0,
+                ),
+                StartTimer("Delete", 10000),
+            ],
+            OnTimerFinish("Delete"): [
+                DeleteEntity,
+            ],
+        },
+    ),
+    "BgFragment5": (
+        spritesheet: "scene1/bg_fragments/bgf5.png",
+        components: [
+            Velocity(( x: 0.0, y: 0.0 )),
+        ],
+        events: {
+            OnTimerFinish("StartFight"): [
+                SetVelocity(
+                    y: -60.0,
+                ),
+                StartTimer("Delete", 10000),
+            ],
+            OnTimerFinish("Delete"): [
+                DeleteEntity,
+            ],
+        },
+    ),
+    "BgFragment6": (
+        spritesheet: "scene1/bg_fragments/bgf6.png",
+        components: [
+            Velocity(( x: 0.0, y: 0.0 )),
+        ],
+        events: {
+            OnTimerFinish("StartFight"): [
+                SetVelocity(
+                    x: -60.0,
+                ),
+                StartTimer("Delete", 10000),
+            ],
+            OnTimerFinish("Delete"): [
+                DeleteEntity,
+            ],
+        },
+    ),
+    "BgFragment7": (
+        spritesheet: "scene1/bg_fragments/bgf7.png",
+        components: [
+            Velocity(( x: 0.0, y: 0.0 )),
+        ],
+        events: {
+            OnTimerFinish("StartFight"): [
+                SetVelocity(
+                    y: 60.0,
+                ),
+                StartTimer("Delete", 10000),
+            ],
+            OnTimerFinish("Delete"): [
+                DeleteEntity,
+            ],
+        },
+    ),
+    "BgFragment8": (
+        spritesheet: "scene1/bg_fragments/bgf8.png",
+        components: [
+            Velocity(( x: 0.0, y: 0.0 )),
+        ],
+        events: {
+            OnTimerFinish("StartFight"): [
+                SetVelocity(
+                    x: 60.0,
+                ),
+                StartTimer("Delete", 10000),
+            ],
+            OnTimerFinish("Delete"): [
+                DeleteEntity,
+            ],
+        },
+    ),
+    "BgFragment9": (
+        spritesheet: "scene1/bg_fragments/bgf9.png",
+        components: [
+            Velocity(( x: 0.0, y: 0.0 )),
+        ],
+        events: {
+            OnTimerFinish("StartFight"): [
+                SetVelocity(
+                    y: 60.0,
+                ),
+                StartTimer("Delete", 10000),
+            ],
+            OnTimerFinish("Delete"): [
+                DeleteEntity,
+            ],
+        },
+    ),
+    "BgFragment10": (
+        spritesheet: "scene1/bg_fragments/bgf10.png",
+        components: [
+            Velocity(( x: 0.0, y: 0.0 )),
+        ],
+        events: {
+            OnTimerFinish("StartFight"): [
+                SetVelocity(
+                    x: 60.0,
+                ),
+                StartTimer("Delete", 10000),
+            ],
+            OnTimerFinish("Delete"): [
+                DeleteEntity,
+            ],
+        },
+    ),
+}

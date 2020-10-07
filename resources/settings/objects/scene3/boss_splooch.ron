@@ -1,0 +1,18 @@
+#![enable(implicit_some)]
+{
+    "BossSplooch": (
+        spritesheet: "scene3/boss_splooch.png",
+        components: [
+            Size((
+                w: 110.0,
+                h: 76.0,
+            )),
+            Animation([(0, 1000)]),
+        ],
+        events: {
+            Init: [
+                Hide,
+            ],
+        },
+    ),
+}

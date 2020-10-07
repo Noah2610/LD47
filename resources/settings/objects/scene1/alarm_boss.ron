@@ -1,0 +1,138 @@
+#![enable(implicit_some)]
+{
+    "AlarmBoss": (
+        spritesheet: "alarm.png",
+        components: [
+            Size((
+                w: 32.0,
+                h: 48.0,
+            )),
+            Collider((
+                tag: AlarmBoss,
+            )),
+            Hitbox(Size),
+            Animations({
+                Custom("Spawn"): Once([
+                    (0,  100),
+                    (1,  100),
+                    (0,  100),
+                    (1,  100),
+                    (0,  100),
+                    (1,  100),
+
+                    (2,  100),
+                    (3,  100),
+                    (2,  100),
+                    (3,  100),
+                    (2,  100),
+                    (3,  100),
+
+                    (4,  100),
+                    (5,  100),
+                    (6,  100),
+                    (7,  100),
+                    (8,  100),
+                    (9,  100),
+                    (10, 100),
+                    (11, 100),
+                    (12, 100),
+                    (13, 100),
+                    (14, 100),
+                    (15, 100),
+                    (16, 100),
+                    (17, 100),
+                    (18, 100),
+                    (19, 100),
+                    (20, 100),
+                    (21, 100),
+                    (22, 100),
+                    (23, 100),
+                ]),
+                Idle: Cycle([
+                    (24, 100),
+                    (25, 100),
+                    (26, 100),
+                    (27, 100),
+                    (28, 100),
+                    (29, 100),
+                    (30, 100),
+                    (31, 100),
+                    (32, 100),
+                    (33, 100),
+                ]),
+            }),
+            Velocity((x: 0.0, y: 0.0)),
+        ],
+
+        events: {
+            Init: [
+                SetVariable("health_countdown", 5),
+                StopSong(MainBgm),
+                PlaySong(BossFight),
+                PushAnimation(Custom("Spawn")),
+                StartTimer("Init", 3200),
+            ],
+
+            OnTimerFinish("Init"): [
+                SetVariable("move_dir", "Right"),
+                SetVelocity(x: 50.0, y: 100.0),
+                StartTimer("KillY", 300),
+                StartTimer("InitSwitchDir", 3000),
+                StartTimer("Shoot", 1000),
+            ],
+
+            OnTimerFinish("KillY"): [
+                SetVelocity(y: 0.0),
+            ],
+
+            OnTimerFinish("Shoot"): [
+                SpawnObject((
+                    object: Custom("AlarmBullet"),
+                    offset: (0.0, -10.0, 1.0),
+                    size: (8.0, 8.0),
+                )),
+                StartTimer("Shoot", 1000),
+            ],
+
+            OnTimerFinish("InitSwitchDir"): [
+                If((
+                    if: Equal(Var("move_dir"), Val("Right")),
+                    then: [
+                        SetVariable("move_dir", "Left"),
+                        SetVelocity(x: -50.0),
+                    ],
+                    else: [
+                        SetVariable("move_dir", "Right"),
+                        SetVelocity(x: 50.0),
+                    ],
+                )),
+                StartTimer("SwitchDir", 4500),
+            ],
+
+            OnTimerFinish("SwitchDir"): [
+                If((
+                    if: Equal(Var("move_dir"), Val("Right")),
+                    then: [
+                        SetVariable("move_dir", "Left"),
+                        SetVelocity(x: -50.0),
+                    ],
+                    else: [
+                        SetVariable("move_dir", "Right"),
+                        SetVelocity(x: 50.0),
+                    ],
+                )),
+                StartTimer("SwitchDir", 4500),
+            ],
+
+            OnCollision(And([IsTag(PlayerBullet), IsState(Enter)])): [
+                OpSubVariable("health_countdown", 1),
+                If((
+                    if: LessThan(Var("health_countdown"), Val(1)),
+                    then: [
+                        Echo("GAME OVER!"),
+                    ],
+                )),
+            ],
+        },
+    ),
+}

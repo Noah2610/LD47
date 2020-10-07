@@ -1,0 +1,72 @@
+#![enable(implicit_some)]
+{
+    "Bed": (
+        spritesheet: "bed.png",
+        components: [
+            Size((
+                w: 42.0,
+                h: 32.0,
+            )),
+            Animations({
+                Idle: Cycle([
+                    (1, 1000),
+                ]),
+                Custom("Sleep"): Cycle([
+                    (0, 1000)
+                ]),
+            }),
+            Collidable((
+                tag: Interactable,
+            )),
+            Interactable(()),
+            Hitbox(Size),
+            TextLines({
+                "Inspect": (
+                    lines: [
+                        "My only friend.",
+                        "I feel as if the cozy sheets are calling for me.",
+                    ],
+                    behavior: Sequence(loop: true),
+                ),
+            }),
+        ],
+
+        events: {
+            Init: [
+                PlayAnimation(Custom("Sleep")),
+            ],
+
+            OnInteract: [
+                If((
+                    if: Equal(
+                        ForeignObjectValue(Player, Var("is_controllable")),
+                        Val(true),
+                    ),
+                    then: [
+                        PlaySound("Interact"),
+                        OutputNextLine(
+                            id: "Inspect",
+                        ),
+                    ],
+                    else: [
+                        PlayAnimation(Idle),
+                        ForeignObjectAction(
+                            Player,
+                            [
+                                SetControllable(true),
+                                Show,
+                                SetVariable("is_controllable", true),
+                                ClearOutput(
+                                    target: "ingame_output_text_get_up",
+                                ),
+                            ],
+                        ),
+                        ForeignObjectAction(Custom("Alarm"), [
+                            StartTimer("StopAlarm", 0),
+                        ]),
+                    ],
+                )),
+            ],
+        },
+    ),
+}

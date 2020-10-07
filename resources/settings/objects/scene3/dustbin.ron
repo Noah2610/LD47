@@ -1,0 +1,40 @@
+#![enable(implicit_some)]
+{
+    "Dustbin": (
+        components: [
+            Collidable((
+                tag: Interactable,
+            )),
+            Interactable(()),
+            Hitbox(Size),
+        ],
+
+        events: {
+            OnInteract: [
+                PlaySound("Interact"),
+                SetOutput(
+                    text: "A dustbin.\nIt's offensively generic.",
+                ),
+            ],
+        },
+    ),
+
+    "DustbinBloody": (
+        components: [
+            Collidable((
+                tag: Interactable,
+            )),
+            Interactable(()),
+            Hitbox(Size),
+        ],
+
+        events: {
+            OnInteract: [
+                PlaySound("Interact"),
+                SetOutput(
+                    text: "A dustbin.\nIt's got some Charlie on it.",
+                ),
+            ],
+        },
+    ),
+}

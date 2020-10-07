@@ -1,0 +1,234 @@
+#![enable(implicit_some)]
+{
+    "Alarm": (
+        spritesheet: "alarm.png",
+        components: [
+            Size((
+                w: 32.0,
+                h: 48.0,
+            )),
+            Collidable((
+                tag: Interactable,
+            )),
+            Hitbox(Custom([
+                (
+                    top:    0.0,
+                    bottom: 24.0,
+                    left:   -16.0,
+                    right:  4.0,
+                ),
+            ])),
+            Animations({
+                Idle: Cycle([
+                    (0, 1000),
+                ]),
+                Custom("Ring"): Cycle([
+                    (48, 500),
+                    (49, 500),
+                ]),
+            }),
+            Interactable(()),
+            TextLines({
+                "Ring": (
+                    lines: [
+                        "Ring Ring",
+                        "Ring Ring",
+                        "Ring Ring",
+                        "Ring Ring",
+                        "Ring Ring",
+                        "Ringggg.... ringg....... ring?",
+                        "Hello-oh! Anyone home?",
+                        "Rise and shine, buddy!",
+                        "Goodmorning sunshine! Time to greet another beautiful day!",
+                        "Turtle-Man? I'm right here, buddy.",
+                        "Press me :)",
+                        "Press me. That's how clocks work, you know?",
+                        "You DO know, right?",
+                        "Press me. That's how clocks work, in case you forgot.",
+                        "Obey me, mortal, or suffer the conseque-",
+                        "*Press me buddy :)",
+                        "...",
+                        "press me. now.",
+                        "PRESS ME. NOW.",
+                        "PRESS ME YOU ****" ,
+                        "PRESS ME YOU ****** *** OR I WILL ******** AND ***** *** YOUR ****** YOU ***** *******",
+                        "****** **** *** ***** **** ***** *** ***** **** ******* ******",
+                    ],
+                    behavior: Sequence(loop: false),
+                ),
+            }),
+        ],
+
+        events: {
+            Init: [
+                SetVariable("text_idx", 0),
+                SetVariable("intense_shake", false),
+                SetVariable("alarm_fight", false),
+                PlayAnimation(Custom("Ring")),
+                StartTimer("Text", 500),
+                StartTimer("Sound", 500),
+            ],
+
+            OnTimerFinish("Text"): [
+                If((
+                    if: LessThan(Var("text_idx"), Val(5)),
+                    then: [
+                        OutputNextLine(
+                            id: "Ring",
+                            scroll: true,
+                        ),
+                        StartTimer("Text", 2000),
+                    ],
+                    else: [
+                        If((
+                            if: LessThan(Var("text_idx"), Val(15)),
+                            then: [
+                                OutputNextLine(
+                                    id: "Ring",
+                                    scroll: true,
+                                ),
+                                StartTimer("Text", 4000),
+                            ],
+                            else: [
+                                If((
+                                    if: Equal(Var("text_idx"), Val(15)),
+                                    then: [
+                                        // obey me
+                                        OutputNextLine(
+                                            id: "Ring",
+                                            scroll: true,
+                                        ),
+                                        StartTimer("Text", 1800),
+                                    ],
+                                    else: [
+                                        If((
+                                            if: Equal(Var("text_idx"), Val(16)),
+                                            then: [
+                                                // after obey me
+                                                OutputNextLine(
+                                                    id: "Ring",
+                                                ),
+                                                StartTimer("Text", 4000),
+                                            ],
+                                            else: [
+                                                If((
+                                                    if: Equal(Var("text_idx"), Val(19)),
+                                                    then: [
+                                                        SetVariable("intense_shake", true),
+                                                    ],
+                                                )),
+                                                If((
+                                                    if: GreaterThan(Var("text_idx"), Val(21)),
+                                                    then: [
+                                                        OutputNextLine(
+                                                            id: "Ring",
+                                                            scroll: true,
+                                                        ),
+                                                        StartTimer("StartFight", 4000),
+                                                    ],
+                                                    else: [
+                                                        OutputNextLine(
+                                                            id: "Ring",
+                                                            scroll: true,
+                                                        ),
+                                                        StartTimer("Text", 4000),
+                                                    ],
+                                                )),
+                                            ],
+                                        )),
+                                    ],
+                                )),
+                            ],
+                        )),
+                    ],
+                )),
+                StartTimer("CountTextIdx", 10),
+            ],
+
+            OnTimerFinish("CountTextIdx"): [
+                OpAddVariable("text_idx", 1),
+            ],
+
+            OnTimerFinish("Sound"): [
+                If((
+                    if: Equal(Var("intense_shake"), Val(true)),
+                    then: [
+                        ScreenShake((
+                            duration_ms: 670,
+                            strength: 4.0,
+                            shake_delay_ms: 5,
+                        )),
+                    ],
+                    else: [
+                        ScreenShake((
+                            duration_ms: 670,
+                            strength: 0.5,
+                            shake_delay_ms: 10,
+                        )),
+                    ],
+                )),
+                PlaySound("Alarm"),
+                StartTimer("Sound", 1000),
+            ],
+
+            OnTimerFinish("StopAlarm"): [
+                PlayAnimation(Idle),
+                StopTimer("Text"),
+                StopTimer("Sound"),
+                PlaySound("Interact"),
+                ClearOutput(),
+            ],
+
+            OnTimerFinish("StartFight"): [
+                SetVariable("alarm_fight", true),
+                SpawnObject((
+                    object: Custom("AlarmBoss"),
+                    offset: (0.0, 0.0, 1.0),
+                    size: (32.0, 48.0),
+                )),
+                ClearOutput(),
+                ClearOutput(
+                    target: "ingame_output_text_get_up",
+                ),
+                StartTimer("InitFight", 3000),
+                StartTimer("Hide", 100),
+            ],
+
+            OnTimerFinish("Hide"): [
+                Hide
+            ],
+
+            OnTimerFinish("InitFight"): [
+                ForeignObjectAction(Player, [
+                    StartTimer("StartFight", 0),
+                ]),
+                ForeignObjectAction(Custom("Bed"), [DeleteEntity]),
+                ForeignObjectAction(Custom("Painting"), [DeleteEntity]),
+                ForeignObjectAction(Custom("Shoes"), [DeleteEntity]),
+                ForeignObjectAction(Custom("Door"), [DeleteEntity]),
+                ForeignObjectAction(Custom("Plant"), [DeleteEntity]),
+                ForeignObjectAction(Custom("Filth"), [DeleteEntity]),
+                ForeignObjectAction(Custom("Solid"), [DeleteEntity]),
+                ForeignObjectAction(Custom("BgFragment1"), [StartTimer("StartFight", 0)]),
+                ForeignObjectAction(Custom("BgFragment2"), [StartTimer("StartFight", 0)]),
+                ForeignObjectAction(Custom("BgFragment3"), [StartTimer("StartFight", 0)]),
+                ForeignObjectAction(Custom("BgFragment4"), [StartTimer("StartFight", 0)]),
+                ForeignObjectAction(Custom("BgFragment5"), [StartTimer("StartFight", 0)]),
+                ForeignObjectAction(Custom("BgFragment6"), [StartTimer("StartFight", 0)]),
+                ForeignObjectAction(Custom("BgFragment7"), [StartTimer("StartFight", 0)]),
+                ForeignObjectAction(Custom("BgFragment8"), [StartTimer("StartFight", 0)]),
+                ForeignObjectAction(Custom("BgFragment9"), [StartTimer("StartFight", 0)]),
+                ForeignObjectAction(Custom("BgFragment10"), [StartTimer("StartFight", 0)]),
+                ClearOutput(),
+                ClearOutput(
+                    target: "ingame_output_text_get_up",
+                ),
+                StartTimer("Delete", 100),
+            ],
+
+            OnTimerFinish("Delete"): [
+                DeleteEntity,
+            ],
+        },
+    ),
+}

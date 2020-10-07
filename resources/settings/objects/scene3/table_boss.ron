@@ -1,0 +1,33 @@
+#![enable(implicit_some)]
+{
+    "TableBoss": (
+        spritesheet: "scene3/table_boss.png",
+        components: [
+            Size((
+                w: 68.0,
+                h: 32.0,
+            )),
+            Animation([(0, 1000)]),
+        ],
+    ),
+
+    "TableBossShadow": (
+        spritesheet: "scene3/table_boss_shadow.png",
+        components: [
+            Size((
+                w: 68.0,
+                h: 32.0,
+            )),
+            Animation([(0, 1000)]),
+        ],
+    ),
+
+    "BossTableHitbox": (
+        components: [
+            Hitbox(Size),
+            Collidable((
+                tag: BossTableHitbox,
+            )),
+        ],
+    ),
+}

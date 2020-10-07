@@ -1,0 +1,24 @@
+#![enable(implicit_some)]
+{
+    "Whiteboard": (
+        spritesheet: "scene3/whiteboard.png",
+
+        components: [
+            Size((
+                w: 56.0,
+                h: 32.0,
+            )),
+            Animation([(1, 1000)]),
+            InLoop(0, [Animation([(0, 1000)])])
+        ],
+
+        events: {
+            OnInteract: [
+                PlaySound("Interact"),
+                SetOutput(
+                    text: ""
+                ),
+            ],
+        },
+    ),
+}

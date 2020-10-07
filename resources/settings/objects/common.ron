@@ -1,0 +1,37 @@
+#![enable(implicit_some)]
+{
+    "Solid": (
+        components: [
+            Collidable((
+                tag: Solid,
+            )),
+            Solid((
+                tag: Solid,
+            )),
+            Hitbox(Size),
+        ],
+        events: {},
+    ),
+
+    "SolidFight": (
+        components: [
+            Collidable((
+                tag: Solid,
+            )),
+            Solid((
+                tag: Solid,
+            )),
+            Hitbox(Size),
+        ],
+    ),
+
+    "Scene3Bg": (
+        spritesheet: "scene3/bg.png",
+        components: [
+            Size((
+                w: 512.0,
+                h: 144.0,
+            )),
+        ],
+    ),
+}

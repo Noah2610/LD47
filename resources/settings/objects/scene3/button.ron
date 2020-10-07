@@ -1,0 +1,23 @@
+#![enable(implicit_some)]
+{
+    "Button": (
+        components: [
+            Hitbox(Size),
+            Collidable((
+                tag: Interactable,
+            )),
+            Interactable(()),
+        ],
+        events: {
+            OnInteract: [
+                PlaySound("ButtonPress"),
+                ForeignObjectAction(
+                    Custom("Boss"),
+                    [
+                        StartTimer("ButtonPressed", 0),
+                    ],
+                ),
+            ],
+        },
+    ),
+}

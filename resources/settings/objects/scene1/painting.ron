@@ -1,0 +1,21 @@
+#![enable(implicit_some)]
+{
+    "Painting": (
+        components: [
+            Collidable((
+                tag: Interactable,
+            )),
+            Interactable(()),
+            Hitbox(Size),
+        ],
+
+        events: {
+            OnInteract: [
+                PlaySound("Interact"),
+                SetOutput(
+                    text: "This has been here for as long as I remember.\nThe years have left it stained with a thick, yellow tint.",
+                ),
+            ],
+        },
+    ),
+}

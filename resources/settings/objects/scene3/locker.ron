@@ -1,0 +1,23 @@
+#![enable(implicit_some)]
+{
+    "Locker": (
+        components: [
+            Collidable((
+                tag: Interactable,
+            )),
+            Interactable(()),
+            Hitbox(Size),
+        ],
+
+        events: {
+            OnInteract: [
+                PlaySound("Interact"),
+                SetOutput(
+                    text: r#"The Boss's locker.
+Its doors are permanently locked.
+I tremble at the thought of what horrors may lie behind them."#,
+                ),
+            ],
+        },
+    ),
+}

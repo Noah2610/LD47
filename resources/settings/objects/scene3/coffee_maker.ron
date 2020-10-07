@@ -1,0 +1,23 @@
+#![enable(implicit_some)]
+{
+    "CoffeeMaker": (
+        components: [
+            Hitbox(Size),
+            Collidable((
+                tag: Interactable,
+            )),
+            Interactable(()),
+        ],
+        events: {
+            OnInteract: [
+                PlaySound("CoffeeMaker"),
+                ForeignObjectAction(
+                    Custom("Boss"),
+                    [
+                        StartTimer("CoffeeMake", 0),
+                    ],
+                ),
+            ],
+        },
+    ),
+}

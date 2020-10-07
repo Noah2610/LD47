@@ -1,0 +1,21 @@
+#![enable(implicit_some)]
+{
+    "Filth": (
+        components: [
+            Collidable((
+                tag: Interactable,
+            )),
+            Interactable(()),
+            Hitbox(Size),
+        ],
+
+        events: {
+            OnInteract: [
+                PlaySound("Interact"),
+                SetOutput(
+                    text: "Filth.",
+                ),
+            ],
+        },
+    ),
+}

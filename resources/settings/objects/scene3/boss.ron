@@ -1,0 +1,260 @@
+#![enable(implicit_some)]
+{
+    "Boss": (
+        spritesheet: "scene3/boss.png",
+        components: [
+            Size((
+                w: 64.0,
+                h: 64.0,
+            )),
+            Animations({
+                Idle: Cycle([
+                    (10, 200),
+                    (11, 200),
+                ]),
+                Walk: Cycle([
+                    (20, 100),
+                    (21, 100),
+                    (22, 250),
+                    (23, 100),
+                    (24, 100),
+                    (25, 100),
+                    (26, 100),
+                    (27, 250),
+                    (28, 100),
+                    (29, 100),
+                ]),
+            }),
+            Gravity((
+                y: -800.0,
+            )),
+            Hitbox(Size),
+            Solid((
+                tag: Player,
+            )),
+            Collider((
+                tag: Boss,
+            )),
+            Collidable((
+                tag: Boss,
+            )),
+            Hitbox(Size),
+            Interactable(()),
+            TextLines({
+                "Greet": (
+                    lines: [
+                        "You're late.\nNow get to work!",
+                    ],
+                    behavior: Sequence(loop: false),
+                ),
+                "Button": (
+                    lines: [
+                        "Stop slacking off and get back to work.\nThe button on your desk requires some pressing!",
+                        "That lovely red button won't press itself...",
+                        "It's quite simple, you see...",
+                        "You're the dedicated button presser and there's a button that need pressing.",
+                        "\"Overqualified?\" What's that supposed to mean, smart-ass?",
+                        "The button, Turtle-Man, THE BUTTON!",
+                        "Stop ignoring your boss and press. The. BUTTON.",
+                        "Do what I am paying you for and PRESS THE BUTTON.",
+                        "What was that? I'm not paying you? So what?",
+                        "THE BUTTON, TURTLE-MAN, PRESS THE GODDAMN BUTTOOOONNNNN! AAAARRRRGH!!!",
+                        "AAAAAAAAARSDFRHSDLIFNJSNR",
+                        "AAAAAAAAAAAAAAOLKUJLKLKLSDLKMFLKSNDFLKJNDSF",
+                    ],
+                    behavior: Sequence(loop: false),
+                ),
+                "Coffee": (
+                    lines: [
+                        "Now make me a cup of coffee, will you?",
+                        "Did you not hear me, Turtle-Man? I desire a cup of coffee.",
+                        "Funny, I could swear I just asked for a cup of coffee.",
+                        "Don't make me repeat myself.",
+                        "Are you deaf, kid? I SAID COFFEE.",
+                        "Coffee. Now.",
+                        "Where. Is. My. COFFEE?!",
+                        "DO YOU NEED ME TO SPELL IT OUT FOR YOU? C - O - F....",
+                        "COFFEE. COFFEE.",
+                        "Coffee... Coffee....... COFFEEEEEEEEEEEE!",
+                        "COFFEE. NOW. AAAAARRRGHGH",
+                        "AAAAAAAAARHRHRHGHGHGGGGGGHHRHR",
+                    ],
+                    behavior: Sequence(loop: false),
+                ),
+                "TaskComplete": (
+                    lines: [
+                        "Excellent.",
+                        "Good enough.",
+                    ],
+                    behavior: Random,
+                ),
+                "DayComplete": (
+                    lines: [
+                        "That's it for today.\nNow get out of here.",
+                    ],
+                    behavior: Random,
+                ),
+            }),
+            Velocity((x: 0.0, y: 0.0)),
+        ],
+
+        events: {
+            Init: [
+                SetVariable("text_idx", 0),
+                SetVariable("reached_desk", false),
+                SetVariable("current_task", Null),
+                SetVariable("task_loops", 0),
+                SetVariable("day_complete", false),
+                StartTimer("InitGreet", 1000),
+            ],
+
+            OnTimerFinish("InitGreet"): [
+                FaceTowardsObject(Player),
+                StartTimer("Greet", 1000),
+            ],
+
+            OnTimerFinish("Greet"): [
+                OutputNextLine(
+                    id: "Greet",
+                    scroll: true,
+                ),
+                PlaySound("BossScream1"),
+                StartTimer("StartMovingToDesk", 2000),
+            ],
+
+            OnTimerFinish("StartMovingToDesk"): [
+                SetVelocity(x: 24.0),
+            ],
+
+            OnCollision(And([IsTag(BossTableHitbox), IsState(Enter)])): [
+                SetVariable("reached_desk", true),
+                SetVelocity(x: 0.0),
+            ],
+
+            OnCollision(IsTag(Player)): [
+                If((
+                    if: And([
+                        Equal(Var("reached_desk"), Val(true)),
+                        Equal(Var("day_complete"), Val(false)),
+                        Equal(Var("current_task"), Val(Null)),
+                    ]),
+                    then: [
+                        SetVariable("text_idx", 0),
+                        SetVariable("current_task", "Button"),
+                        OutputNextLine(
+                            id: "Button",
+                            scroll: true,
+                        ),
+                        PlaySound("BossScream2"),
+                        StartTimer("Button", 8000),
+                    ],
+                )),
+            ],
+
+            OnTimerFinish("Button"): [
+                OpAddVariable("text_idx", 1),
+                OutputNextLine(
+                    id: "Button",
+                    scroll: true,
+                ),
+                PlaySound("BossScream2"),
+                StartTimer("Button", 4000),
+                StartTimer("CheckFail", 100),
+            ],
+
+            OnTimerFinish("ButtonPressed"): [
+                If((
+                    if: Equal(Var("current_task"), Val("Button")),
+                    then: [
+                        SetVariable("text_idx", 0),
+                        SetVariable("current_task", "Coffee"),
+                        ResetOutputLines( id: "Button" ),
+                        OutputNextLine(
+                            id: "TaskComplete",
+                            scroll: true,
+                        ),
+                        PlaySound("BossScream2"),
+                        StopTimer("Button"),
+                        StartTimer("Coffee", 2000),
+                        ForeignObjectAction(Custom("Clock"), [StartTimer("NextAnim", 0)]),
+                    ],
+                )),
+            ],
+
+            OnTimerFinish("Coffee"): [
+                OpAddVariable("text_idx", 1),
+                OutputNextLine(
+                    id: "Coffee",
+                    scroll: true,
+                ),
+                PlaySound("BossScream2"),
+                StartTimer("Coffee", 4000),
+                StartTimer("CheckFail", 100),
+            ],
+
+            OnTimerFinish("CoffeeMake"): [
+                If((
+                    if: Equal(Var("current_task"), Val("Coffee")),
+                    then: [
+                        SetVariable("text_idx", 0),
+                        SetVariable("current_task", "Button"),
+                        ResetOutputLines( id: "Coffee" ),
+                        OutputNextLine(
+                            id: "TaskComplete",
+                            scroll: true,
+                        ),
+                        PlaySound("BossScream2"),
+                        StopTimer("Coffee"),
+                        StartTimer("Button", 2000),
+                        ForeignObjectAction(Custom("Clock"), [StartTimer("NextAnim", 0)]),
+                        OpAddVariable("task_loops", 1),
+                        StartTimer("CheckComplete", 100),
+                    ],
+                )),
+            ],
+
+            OnTimerFinish("CheckFail"): [
+                If((
+                    if: GreaterThan(Var("text_idx"), Val(11)),
+                    then: [
+                        StopTimer("Button"),
+                        StopTimer("Coffee"),
+                        Hide,
+                        StopSong(MainBgm),
+                        PlaySong(HappyTrack),
+                        PlaySound("BossScream4"),
+                        ForeignObjectAction(Custom("BossSplooch"), [
+                            Show,
+                        ]),
+                        StartTimer("Delete", 100),
+                    ],
+                )),
+            ],
+
+            OnTimerFinish("Delete"): [
+                DeleteEntity,
+            ],
+
+            OnTimerFinish("CheckComplete"): [
+                If((
+                    if: GreaterThan(Var("task_loops"), Val(4)),
+                    then: [
+                        StopTimer("Button"),
+                        StopTimer("Coffee"),
+                        StartTimer("DayComplete", 1000),
+                    ],
+                )),
+            ],
+
+            OnTimerFinish("DayComplete"): [
+                SetVariable("day_complete", true),
+                OutputNextLine(
+                    id: "DayComplete",
+                    scroll: true,
+                ),
+                PlaySound("BossScream2"),
+                ForeignObjectAction(Custom("OfficeDoor"), [SetVariable("can_leave", true)]),
+            ],
+        },
+    ),
+}

@@ -1,0 +1,30 @@
+#![enable(implicit_some)]
+{
+    "Shoes": (
+        components: [
+            Collidable((
+                tag: Interactable,
+            )),
+            Interactable(()),
+            Hitbox(Size),
+            TextLines({
+                "Inspect": (
+                    lines: [
+                        "A pair of comically large loafers. They were passed down to me by my uncle.",
+                        "A pair of loafers. They don't quite fit.",
+                    ],
+                    behavior: Sequence(loop: true),
+                ),
+            }),
+        ],
+
+        events: {
+            OnInteract: [
+                PlaySound("Interact"),
+                OutputNextLine(
+                    id: "Inspect",
+                ),
+            ],
+        },
+    ),
+}

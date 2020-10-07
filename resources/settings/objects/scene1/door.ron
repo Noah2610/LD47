@@ -1,0 +1,38 @@
+#![enable(implicit_some)]
+{
+    "Door": (
+        components: [
+            Collidable((
+                tag: Interactable,
+            )),
+            Interactable(()),
+            Hitbox(Size),
+        ],
+
+        events: {
+            Init: [
+                SetVariable("did_enter", false),
+            ],
+
+            OnInteract: [
+                If((
+                    if: Equal(Var("did_enter"), Val(false)),
+                    then: [
+                        SetVariable("did_enter", true),
+                        PlaySound("SceneTransition"),
+                        ForeignObjectAction(Player, [SetControllable(false)]),
+                        Fade((
+                            type: FadeOut,
+                            duration_ms: 500,
+                        )),
+                        StartTimer("NextScene", 1000),
+                    ],
+                )),
+            ],
+
+            OnTimerFinish("NextScene"): [
+                NextScene,
+            ],
+        },
+    ),
+}

@@ -1,0 +1,85 @@
+#![enable(implicit_some)]
+{
+    "Clock": (
+        spritesheet: "scene3/clock.png",
+        components: [
+            Size((
+                w: 16.0,
+                h: 16.0,
+            )),
+            Animations({
+                Idle: Cycle([(0, 1000)]),
+                Custom("0"): Cycle([
+                    (0, 1000),
+                ]),
+                Custom("1"): Cycle([
+                    (1, 1000),
+                ]),
+                Custom("2"): Cycle([
+                    (2, 1000),
+                ]),
+                Custom("3"): Cycle([
+                    (3, 1000),
+                ]),
+                Custom("4"): Cycle([
+                    (4, 1000),
+                ]),
+                Custom("5"): Cycle([
+                    (5, 1000),
+                ]),
+            }),
+        ],
+        events: {
+            Init: [
+                SetVariable("anim", 0),
+            ],
+
+            OnTimerFinish("NextAnim"): [
+                OpAddVariable("anim", 1),
+                If((
+                    if: Equal(Var("anim"), Val(0)),
+                    then: [
+                        PlayAnimation(Custom("0")),
+                    ],
+                )),
+                If((
+                    if: Equal(Var("anim"), Val(1)),
+                    then: [
+                        PlayAnimation(Custom("1")),
+                    ],
+                )),
+                If((
+                    if: Equal(Var("anim"), Val(2)),
+                    then: [
+                        PlayAnimation(Custom("2")),
+                    ],
+                )),
+                If((
+                    if: Equal(Var("anim"), Val(3)),
+                    then: [
+                        PlayAnimation(Custom("3")),
+                    ],
+                )),
+                If((
+                    if: Equal(Var("anim"), Val(4)),
+                    then: [
+                        PlayAnimation(Custom("4")),
+                    ],
+                )),
+                If((
+                    if: Equal(Var("anim"), Val(5)),
+                    then: [
+                        PlayAnimation(Custom("5")),
+                    ],
+                )),
+                If((
+                    if: GreaterThan(Var("anim"), Val(5)),
+                    then: [
+                        SetVariable("anim", 0),
+                        PlayAnimation(Custom("0")),
+                    ],
+                )),
+            ],
+        },
+    ),
+}

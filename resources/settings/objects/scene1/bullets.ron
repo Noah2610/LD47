@@ -1,0 +1,70 @@
+#![enable(implicit_some)]
+{
+    "PlayerBullet": (
+        spritesheet: "bullets.png",
+        components: [
+            Size((
+                w: 8.0,
+                h: 8.0,
+            )),
+            Velocity((
+                x: 0.0,
+                y: 100.0,
+            )),
+            Animation([
+                (3, 100),
+                (4, 100),
+                (5, 100),
+            ]),
+            Collidable((
+                tag: PlayerBullet,
+            )),
+            Collider((
+                tag: PlayerBullet,
+            )),
+            Hitbox(Size),
+        ],
+        events: {
+            OnCollision(And([IsTag(AlarmBoss), IsState(Enter)])): [
+                StartTimer("Delete", 10),
+            ],
+            OnTimerFinish("Delete"): [
+                DeleteEntity,
+            ],
+        },
+    ),
+
+    "AlarmBullet": (
+        spritesheet: "bullets.png",
+        components: [
+            Size((
+                w: 8.0,
+                h: 8.0,
+            )),
+            Velocity((
+                x: 0.0,
+                y: -100.0,
+            )),
+            Animation([
+                (0, 100),
+                (1, 100),
+                (2, 100),
+            ]),
+            Collidable((
+                tag: AlarmBullet,
+            )),
+            Collider((
+                tag: AlarmBullet,
+            )),
+            Hitbox(Size),
+        ],
+        events: {
+            OnCollision(And([IsTag(Player), IsState(Enter)])): [
+                StartTimer("Delete", 10),
+            ],
+            OnTimerFinish("Delete"): [
+                DeleteEntity,
+            ],
+        },
+    ),
+}

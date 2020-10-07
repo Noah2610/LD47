@@ -1,0 +1,29 @@
+#![enable(implicit_some)]
+{
+    "TableBg": (
+        spritesheet: "scene3/table_bg.png",
+        components: [
+            Size((
+                w: 48.0,
+                h: 48.0,
+            )),
+            Animation([
+                (0, 3000),
+                (1, 3000),
+                (2, 3000),
+                (3, 3000),
+            ]),
+        ],
+    ),
+
+    "TableFg": (
+        spritesheet: "scene3/table_fg.png",
+        components: [
+            Size((
+                w: 48.0,
+                h: 48.0,
+            )),
+            Animation([(0, 1000)]),
+        ],
+    ),
+}

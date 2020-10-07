@@ -1,0 +1,45 @@
+#![enable(implicit_some)]
+{
+    "OfficeDoor": (
+        components: [
+            Collidable((
+                tag: Interactable,
+            )),
+            Interactable(()),
+            Hitbox(Size),
+        ],
+
+        events: {
+            Init: [
+                SetVariable("can_leave", false),
+                SetVariable("did_enter", false),
+            ],
+
+            OnInteract: [
+                If((
+                    if: And([
+                        Equal(Var("can_leave"), Val(true)),
+                        Equal(Var("did_enter"), Val(false)),
+                    ]),
+                    then: [
+                        SetVariable("did_enter", true),
+                        PlaySound("SceneTransition"),
+                        ForeignObjectAction(Player, [SetControllable(false)]),
+                        Fade((
+                            type: FadeOut,
+                            duration_ms: 500,
+                        )),
+                        StartTimer("NextScene", 1000),
+                    ],
+                    else: [
+                        SetOutput(text: "I wish."),
+                    ],
+                ))
+            ],
+
+            OnTimerFinish("NextScene"): [
+                NextScene,
+            ],
+        },
+    ),
+}
