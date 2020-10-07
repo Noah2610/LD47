@@ -120,6 +120,24 @@
                     ],
                     behavior: Random,
                 ),
+                "InspectWorking": (
+                    lines: [
+                        "Don't you have anything better to do?",
+                        "Stop wasting my time and do your job!",
+                        "Don't look at me, do your job!",
+                        "I won't do YOUR job, so get to it!",
+                    ],
+                    behavior: Random,
+                ),
+                "InspectDayComplete": (
+                    lines: [
+                        "Leave my sight.",
+                        "Get out of here.",
+                        "Your work's done, now get out of here!",
+                        "You want to work overtime?",
+                    ],
+                    behavior: Random,
+                ),
             }),
             Velocity((x: 0.0, y: 0.0)),
         ],
@@ -133,6 +151,19 @@
                 SetVariable("task_fail_count", 0),
                 ForeignObjectAction(Player, [SetControllable(false)]),
                 StartTimer("InitGreet", 1000),
+            ],
+
+            OnInteract: [
+                If(If((
+                    if: Equal(Var("day_complete"), Val(true)),
+                    then: [
+                        OutputNextLine(id: "InspectDayComplete"),
+                    ],
+                    else: [
+                        OutputNextLine(id: "InspectWorking"),
+                    ],
+                ))),
+                StartTimer("Speek", 0),
             ],
 
             OnTimerFinish("InitGreet"): [
