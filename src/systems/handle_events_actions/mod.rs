@@ -82,6 +82,15 @@ impl<'a> System<'a> for HandleEventsActionsSystem {
                                 "SetControllable action only works with Player",
                             )
                             .in_control = controllable;
+                        if !controllable {
+                            velocity_store
+                                .get_mut(entity)
+                                .expect(
+                                    "SetControllable(false) action requires \
+                                     Velocity component",
+                                )
+                                .x = 0.0;
+                        }
                     }
 
                     ActionType::Show => {
