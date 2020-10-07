@@ -3,9 +3,8 @@ use crate::components::prelude::Size;
 use crate::level_loader::{data, load_objects::load_object};
 use std::collections::HashMap;
 
-#[derive(Default)]
 pub struct Ingame {
-    level_size: Option<Size>,
+    level_size: Size,
 }
 
 impl<'a, 'b> State<GameData<'a, 'b>, StateEvent> for Ingame {
@@ -25,6 +24,10 @@ impl<'a, 'b> State<GameData<'a, 'b>, StateEvent> for Ingame {
 }
 
 impl<'a, 'b> Ingame {
+    pub fn new(level_size: Size) -> Self {
+        Self { level_size }
+    }
+
     fn maybe_load_next_level(
         &mut self,
         data: &mut StateData<GameData<'a, 'b>>,
@@ -61,14 +64,9 @@ impl<'a, 'b> Ingame {
                 },
                 props,
             };
-            if let Err(e) = load_object(
-                world,
-                object_data,
-                self.level_size
-                    .as_ref()
-                    .map(|s| s.clone())
-                    .expect("Should have level_size at this point"),
-            ) {
+            if let Err(e) =
+                load_object(world, object_data, self.level_size.clone())
+            {
                 panic!("Error loading object {:?}: {}", object.object, e);
             }
         }

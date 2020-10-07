@@ -7,7 +7,6 @@ use deathframe::amethyst::assets::ProgressCounter;
 
 #[derive(Default)]
 pub struct LoadIngame {
-    level_size:  Option<Size>,
     ui_data:     UiData,
     ui_progress: Option<ProgressCounter>,
 }
@@ -52,8 +51,8 @@ impl<'a, 'b> State<GameData<'a, 'b>, StateEvent> for LoadIngame {
 
         if let Some(ui_progress) = self.ui_progress.as_ref() {
             if ui_progress.is_complete() {
-                self.load_current_level(data.world);
-                Trans::Push(Box::new(Ingame::default()))
+                let level_size = self.load_current_level(data.world);
+                Trans::Push(Box::new(Ingame::new(level_size)))
             } else {
                 Trans::None
             }
@@ -64,24 +63,28 @@ impl<'a, 'b> State<GameData<'a, 'b>, StateEvent> for LoadIngame {
 }
 
 impl<'a, 'b> LoadIngame {
-    fn load_current_level(&mut self, world: &mut World) {
+    fn load_current_level(&mut self, world: &mut World) -> Size {
         world.insert(TextOutput::default());
         let level_filename = {
             let scene_manager = world.read_resource::<SceneManager>();
             let scene = scene_manager.current_scene();
             scene.level_filename.to_string()
         };
-        match load_level(world, resource(format!("levels/{}", &level_filename)))
-        {
-            Ok(level_size) => self.level_size = Some(level_size),
+        let level_size = match load_level(
+            world,
+            resource(format!("levels/{}", &level_filename)),
+        ) {
+            Ok(level_size) => level_size,
             Err(e) => {
                 panic!("Error loading level {}: {}", level_filename, e);
             }
-        }
+        };
 
         world
             .write_resource::<Songs<SongKey>>()
             .play(&SongKey::MainBgm);
+
+        level_size
     }
 }
 
