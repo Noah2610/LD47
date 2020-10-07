@@ -37,7 +37,7 @@
             ],
 
             OnInteract: [
-                If((
+                If(If((
                     if: Equal(
                         ForeignObjectValue(Player, Var("is_controllable")),
                         Val(true),
@@ -65,7 +65,7 @@
                             StartTimer("StopAlarm", 0),
                         ]),
                     ],
-                )),
+                ))),
             ],
         },
     ),

@@ -16,7 +16,7 @@
             ],
 
             OnInteract: [
-                If((
+                If(If((
                     if: And([
                         Equal(Var("can_leave"), Val(true)),
                         Equal(Var("did_enter"), Val(false)),
@@ -34,7 +34,7 @@
                     else: [
                         SetOutput(text: "I wish."),
                     ],
-                ))
+                )))
             ],
 
             OnTimerFinish("NextScene"): [

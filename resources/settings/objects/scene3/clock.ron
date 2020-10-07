@@ -36,49 +36,49 @@
 
             OnTimerFinish("NextAnim"): [
                 OpAddVariable("anim", 1),
-                If((
+                If(If((
                     if: Equal(Var("anim"), Val(0)),
                     then: [
                         PlayAnimation(Custom("0")),
                     ],
-                )),
-                If((
+                ))),
+                If(If((
                     if: Equal(Var("anim"), Val(1)),
                     then: [
                         PlayAnimation(Custom("1")),
                     ],
-                )),
-                If((
+                ))),
+                If(If((
                     if: Equal(Var("anim"), Val(2)),
                     then: [
                         PlayAnimation(Custom("2")),
                     ],
-                )),
-                If((
+                ))),
+                If(If((
                     if: Equal(Var("anim"), Val(3)),
                     then: [
                         PlayAnimation(Custom("3")),
                     ],
-                )),
-                If((
+                ))),
+                If(If((
                     if: Equal(Var("anim"), Val(4)),
                     then: [
                         PlayAnimation(Custom("4")),
                     ],
-                )),
-                If((
+                ))),
+                If(If((
                     if: Equal(Var("anim"), Val(5)),
                     then: [
                         PlayAnimation(Custom("5")),
                     ],
-                )),
-                If((
+                ))),
+                If(If((
                     if: GreaterThan(Var("anim"), Val(5)),
                     then: [
                         SetVariable("anim", 0),
                         PlayAnimation(Custom("0")),
                     ],
-                )),
+                ))),
             ],
         },
     ),

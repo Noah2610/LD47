@@ -95,7 +95,7 @@
             ],
 
             OnTimerFinish("InitSwitchDir"): [
-                If((
+                If(If((
                     if: Equal(Var("move_dir"), Val("Right")),
                     then: [
                         SetVariable("move_dir", "Left"),
@@ -105,12 +105,12 @@
                         SetVariable("move_dir", "Right"),
                         SetVelocity(x: 50.0),
                     ],
-                )),
+                ))),
                 StartTimer("SwitchDir", 4500),
             ],
 
             OnTimerFinish("SwitchDir"): [
-                If((
+                If(If((
                     if: Equal(Var("move_dir"), Val("Right")),
                     then: [
                         SetVariable("move_dir", "Left"),
@@ -120,18 +120,18 @@
                         SetVariable("move_dir", "Right"),
                         SetVelocity(x: 50.0),
                     ],
-                )),
+                ))),
                 StartTimer("SwitchDir", 4500),
             ],
 
             OnCollision(And([IsTag(PlayerBullet), IsState(Enter)])): [
                 OpSubVariable("health_countdown", 1),
-                If((
+                If(If((
                     if: LessThan(Var("health_countdown"), Val(1)),
                     then: [
                         Echo("GAME OVER!"),
                     ],
-                )),
+                ))),
             ],
         },
     ),

@@ -15,7 +15,7 @@
             ],
 
             OnInteract: [
-                If((
+                If(If((
                     if: Equal(Var("did_enter"), Val(false)),
                     then: [
                         SetVariable("did_enter", true),
@@ -27,7 +27,7 @@
                         )),
                         StartTimer("NextScene", 1000),
                     ],
-                )),
+                ))),
             ],
 
             OnTimerFinish("NextScene"): [

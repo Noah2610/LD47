@@ -70,7 +70,7 @@
             ],
 
             OnTimerFinish("Text"): [
-                If((
+                If(If((
                     if: LessThan(Var("text_idx"), Val(5)),
                     then: [
                         OutputNextLine(
@@ -80,7 +80,7 @@
                         StartTimer("Text", 2000),
                     ],
                     else: [
-                        If((
+                        If(If((
                             if: LessThan(Var("text_idx"), Val(15)),
                             then: [
                                 OutputNextLine(
@@ -90,23 +90,7 @@
                                 StartTimer("Text", 4000),
                             ],
                             else: [
-                                If(IfElseChain((
-                                    branches: [
-                                        (
-                                            if: Equal(...),
-                                            then: [ Echo("SUCCESS") ],
-                                        ),
-                                        (
-                                            if: Equal(...),
-                                            then: [ Echo("SUCCESS") ],
-                                        ),
-                                    ],
-                                    else: [
-                                        Echo("Default")
-                                    ],
-                                ))),
-
-                                If((
+                                If(If((
                                     if: Equal(Var("text_idx"), Val(15)),
                                     then: [
                                         // obey me
@@ -117,7 +101,7 @@
                                         StartTimer("Text", 1800),
                                     ],
                                     else: [
-                                        If((
+                                        If(If((
                                             if: Equal(Var("text_idx"), Val(16)),
                                             then: [
                                                 // after obey me
@@ -127,13 +111,13 @@
                                                 StartTimer("Text", 4000),
                                             ],
                                             else: [
-                                                If((
+                                                If(If((
                                                     if: Equal(Var("text_idx"), Val(19)),
                                                     then: [
                                                         SetVariable("intense_shake", true),
                                                     ],
-                                                )),
-                                                If((
+                                                ))),
+                                                If(If((
                                                     if: GreaterThan(Var("text_idx"), Val(21)),
                                                     then: [
                                                         OutputNextLine(
@@ -149,15 +133,15 @@
                                                         ),
                                                         StartTimer("Text", 4000),
                                                     ],
-                                                )),
+                                                ))),
                                             ],
-                                        )),
+                                        ))),
                                     ],
-                                )),
+                                ))),
                             ],
-                        )),
+                        ))),
                     ],
-                )),
+                ))),
                 StartTimer("CountTextIdx", 10),
             ],
 
@@ -166,7 +150,7 @@
             ],
 
             OnTimerFinish("Sound"): [
-                If((
+                If(If((
                     if: Equal(Var("intense_shake"), Val(true)),
                     then: [
                         ScreenShake((
@@ -182,7 +166,7 @@
                             shake_delay_ms: 10,
                         )),
                     ],
-                )),
+                ))),
                 PlaySound("Alarm"),
                 StartTimer("Sound", 1000),
             ],

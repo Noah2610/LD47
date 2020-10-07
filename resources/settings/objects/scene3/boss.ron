@@ -132,7 +132,7 @@
             ],
 
             OnCollision(IsTag(Player)): [
-                If((
+                If(If((
                     if: And([
                         Equal(Var("reached_desk"), Val(true)),
                         Equal(Var("day_complete"), Val(false)),
@@ -148,7 +148,7 @@
                         PlaySound("BossScream2"),
                         StartTimer("Button", 8000),
                     ],
-                )),
+                ))),
             ],
 
             OnTimerFinish("Button"): [
@@ -163,7 +163,7 @@
             ],
 
             OnTimerFinish("ButtonPressed"): [
-                If((
+                If(If((
                     if: Equal(Var("current_task"), Val("Button")),
                     then: [
                         SetVariable("text_idx", 0),
@@ -178,7 +178,7 @@
                         StartTimer("Coffee", 2000),
                         ForeignObjectAction(Custom("Clock"), [StartTimer("NextAnim", 0)]),
                     ],
-                )),
+                ))),
             ],
 
             OnTimerFinish("Coffee"): [
@@ -193,7 +193,7 @@
             ],
 
             OnTimerFinish("CoffeeMake"): [
-                If((
+                If(If((
                     if: Equal(Var("current_task"), Val("Coffee")),
                     then: [
                         SetVariable("text_idx", 0),
@@ -210,11 +210,11 @@
                         OpAddVariable("task_loops", 1),
                         StartTimer("CheckComplete", 100),
                     ],
-                )),
+                ))),
             ],
 
             OnTimerFinish("CheckFail"): [
-                If((
+                If(If((
                     if: GreaterThan(Var("text_idx"), Val(11)),
                     then: [
                         StopTimer("Button"),
@@ -228,7 +228,7 @@
                         ]),
                         StartTimer("Delete", 100),
                     ],
-                )),
+                ))),
             ],
 
             OnTimerFinish("Delete"): [
@@ -236,14 +236,14 @@
             ],
 
             OnTimerFinish("CheckComplete"): [
-                If((
+                If(If((
                     if: GreaterThan(Var("task_loops"), Val(4)),
                     then: [
                         StopTimer("Button"),
                         StopTimer("Coffee"),
                         StartTimer("DayComplete", 1000),
                     ],
-                )),
+                ))),
             ],
 
             OnTimerFinish("DayComplete"): [
