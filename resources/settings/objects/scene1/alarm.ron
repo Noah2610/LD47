@@ -71,16 +71,25 @@
 
             OnTimerFinish("Text"): [
                 If(If((
-                    if: LessThan(Var("text_idx"), Val(5)),
+                    if: Equal(Var("text_idx"), Val(19)),
                     then: [
-                        OutputNextLine(
-                            id: "Ring",
-                            scroll: true,
-                        ),
-                        StartTimer("Text", 2000),
+                        SetVariable("intense_shake", true),
                     ],
-                    else: [
-                        If(If((
+                ))),
+
+                If(IfElseChain((
+                    branches: [
+                        (
+                            if: LessThan(Var("text_idx"), Val(5)),
+                            then: [
+                                OutputNextLine(
+                                    id: "Ring",
+                                    scroll: true,
+                                ),
+                                StartTimer("Text", 2000),
+                            ],
+                        ),
+                        (
                             if: LessThan(Var("text_idx"), Val(15)),
                             then: [
                                 OutputNextLine(
@@ -89,59 +98,48 @@
                                 ),
                                 StartTimer("Text", 4000),
                             ],
-                            else: [
-                                If(If((
-                                    if: Equal(Var("text_idx"), Val(15)),
-                                    then: [
-                                        // obey me
-                                        OutputNextLine(
-                                            id: "Ring",
-                                            scroll: true,
-                                        ),
-                                        StartTimer("Text", 1800),
-                                    ],
-                                    else: [
-                                        If(If((
-                                            if: Equal(Var("text_idx"), Val(16)),
-                                            then: [
-                                                // after obey me
-                                                OutputNextLine(
-                                                    id: "Ring",
-                                                ),
-                                                StartTimer("Text", 4000),
-                                            ],
-                                            else: [
-                                                If(If((
-                                                    if: Equal(Var("text_idx"), Val(19)),
-                                                    then: [
-                                                        SetVariable("intense_shake", true),
-                                                    ],
-                                                ))),
-                                                If(If((
-                                                    if: GreaterThan(Var("text_idx"), Val(21)),
-                                                    then: [
-                                                        OutputNextLine(
-                                                            id: "Ring",
-                                                            scroll: true,
-                                                        ),
-                                                        StartTimer("StartFight", 4000),
-                                                    ],
-                                                    else: [
-                                                        OutputNextLine(
-                                                            id: "Ring",
-                                                            scroll: true,
-                                                        ),
-                                                        StartTimer("Text", 4000),
-                                                    ],
-                                                ))),
-                                            ],
-                                        ))),
-                                    ],
-                                ))),
+                        ),
+                        (
+                            if: Equal(Var("text_idx"), Val(15)),
+                            then: [
+                                // obey me
+                                OutputNextLine(
+                                    id: "Ring",
+                                    scroll: true,
+                                ),
+                                StartTimer("Text", 1800),
                             ],
-                        ))),
+                        ),
+                        (
+                            if: Equal(Var("text_idx"), Val(16)),
+                            then: [
+                                // after obey me
+                                OutputNextLine(
+                                    id: "Ring",
+                                ),
+                                StartTimer("Text", 4000),
+                            ],
+                        ),
+                        (
+                            if: GreaterThan(Var("text_idx"), Val(21)),
+                            then: [
+                                OutputNextLine(
+                                    id: "Ring",
+                                    scroll: true,
+                                ),
+                                StartTimer("StartFight", 4000),
+                            ],
+                        ),
+                    ],
+                    else: [
+                        OutputNextLine(
+                            id: "Ring",
+                            scroll: true,
+                        ),
+                        StartTimer("Text", 4000),
                     ],
                 ))),
+
                 StartTimer("CountTextIdx", 10),
             ],
 
