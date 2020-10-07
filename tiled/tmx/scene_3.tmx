@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.4" tiledversion="1.4.2" orientation="orthogonal" renderorder="right-down" width="32" height="9" tilewidth="16" tileheight="16" infinite="0" nextlayerid="14" nextobjectid="38">
+<map version="1.4" tiledversion="1.4.2" orientation="orthogonal" renderorder="right-down" width="32" height="9" tilewidth="16" tileheight="16" infinite="0" nextlayerid="14" nextobjectid="39">
  <editorsettings>
   <export target="../../resources/levels/scene_3.json" format="ld47-export"/>
  </editorsettings>
@@ -41,7 +41,6 @@
   <properties>
    <property name="z" type="float" value="0.5"/>
   </properties>
-  <object id="11" name="Dustbin" type="Custom(Dustbin)" x="112" y="73" width="8" height="16"/>
   <object id="12" name="Dustbin" type="Custom(Dustbin)" x="394" y="72" width="8" height="16"/>
   <object id="13" name="Dustbin Bloody" type="Custom(DustbinBloody)" x="191" y="73" width="8" height="16"/>
   <object id="14" name="Locker" type="Custom(Locker)" x="308" y="48" width="24" height="41"/>
@@ -49,9 +48,9 @@
   <object id="17" name="Whiteboard" type="Custom(Whiteboard)" x="339" y="32" width="56" height="32"/>
   <object id="20" name="Table BG" type="Custom(TableBg)" x="438" y="41" width="48" height="48"/>
   <object id="24" name="Boss Desk Hitbox" type="Custom(BossTableHitbox)" x="298" y="41" width="2" height="48"/>
-  <object id="29" name="Table BG" type="Custom(TableBg)" x="124" y="41" width="48" height="48"/>
+  <object id="29" name="Table BG" type="Custom(TableBg)" x="141" y="41" width="48" height="48"/>
   <object id="33" name="Clock" type="Custom(Clock)" x="312" y="27" width="16" height="16"/>
-  <object id="36" name="Button" type="Custom(Button)" x="362" y="66" width="11" height="10"/>
+  <object id="36" name="Button" type="Custom(Button)" x="359" y="66" width="13" height="10"/>
   <object id="37" name="Cofee" type="Custom(CoffeeMaker)" x="212" y="48" width="6" height="41"/>
  </objectgroup>
  <objectgroup id="9" name="splooch" visible="0">
@@ -64,13 +63,13 @@
   <properties>
    <property name="z" type="float" value="0.7"/>
   </properties>
-  <object id="28" name="Charlie Dynamic" type="Custom(CharlieDynamic)" x="135" y="41" width="32" height="48"/>
+  <object id="28" name="Charlie Dynamic" type="Custom(CharlieDynamic)" x="152" y="41" width="32" height="48"/>
  </objectgroup>
- <objectgroup id="8" name="charlie_static" visible="0">
+ <objectgroup id="8" name="charlie_static">
   <properties>
    <property name="z" type="float" value="0.75"/>
   </properties>
-  <object id="31" name="Charlie Static" type="Custom(CharlieStatic)" x="135" y="41" width="32" height="48"/>
+  <object id="31" name="Charlie Static" type="Custom(CharlieStatic)" x="152" y="41" width="32" height="48"/>
  </objectgroup>
  <objectgroup id="11" name="boss">
   <properties>
@@ -94,6 +93,7 @@
   <properties>
    <property name="z" type="float" value="1.5"/>
   </properties>
-  <object id="19" name="Table FG" type="Custom(TableFg)" x="390" y="42" width="48" height="48"/>
+  <object id="38" name="Table FG" type="Custom(TableFg)" x="70" y="42" width="48" height="48"/>
+  <object id="11" name="Dustbin" type="Custom(Dustbin)" x="131" y="72" width="8" height="16"/>
  </objectgroup>
 </map>
