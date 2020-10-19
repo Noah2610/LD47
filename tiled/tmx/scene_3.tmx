@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.4" tiledversion="1.4.2" orientation="orthogonal" renderorder="right-down" width="32" height="9" tilewidth="16" tileheight="16" infinite="0" nextlayerid="14" nextobjectid="39">
+<map version="1.4" tiledversion="1.4.2" orientation="orthogonal" renderorder="right-down" width="32" height="9" tilewidth="16" tileheight="16" infinite="0" nextlayerid="14" nextobjectid="41">
  <editorsettings>
   <export target="../../resources/levels/scene_3.json" format="ld47-export"/>
  </editorsettings>
@@ -52,6 +52,7 @@
   <object id="33" name="Clock" type="Custom(Clock)" x="312" y="27" width="16" height="16"/>
   <object id="36" name="Button" type="Custom(Button)" x="359" y="66" width="13" height="10"/>
   <object id="37" name="Cofee" type="Custom(CoffeeMaker)" x="212" y="48" width="6" height="41"/>
+  <object id="40" name="Coworker" type="Custom(Coworker1)" x="96" y="57" width="32" height="32"/>
  </objectgroup>
  <objectgroup id="9" name="splooch" visible="0">
   <properties>
@@ -71,7 +72,7 @@
   </properties>
   <object id="31" name="Charlie Static" type="Custom(CharlieStatic)" x="152" y="41" width="32" height="48"/>
  </objectgroup>
- <objectgroup id="11" name="boss">
+ <objectgroup id="11" name="boss" visible="0">
   <properties>
    <property name="z" type="float" value="0.9"/>
   </properties>

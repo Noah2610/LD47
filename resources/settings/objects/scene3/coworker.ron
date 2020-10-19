@@ -46,15 +46,22 @@
                 tag: Interactable,
             )),
             Interactable(()),
+            TextLines({
+                "Inspect": (
+                    lines: [
+                        "The boss is having one of his episodes again.\nEarlier he threw a dustbin at Charlie.",
+                    ],
+                    behavior: Sequence(loop: true),
+                ),
+            }),
         ],
 
         events: {
             OnInteract: [
                 PlaySound("Interact"),
-                PlaySound("BossScream1"),
                 PushAnimation(Custom("Talk")),
-                SetOutput(
-                    text: "The boss is having one of his episodes again.\nEarlier he threw a dustbin at Charlie.",
+                OutputNextLine(
+                    id: "Inspect",
                     scroll: true,
                 ),
                 FaceTowardsObject(Player),
