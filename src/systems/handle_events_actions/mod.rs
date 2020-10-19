@@ -452,6 +452,21 @@ impl<'a> System<'a> for HandleEventsActionsSystem {
                         let idx = rng.gen_range(0, actions.len());
                         trigger_actions.append(&mut actions[idx]);
                     }
+
+                    ActionType::SetScale { x, y } => {
+                        let scale = transform_store
+                            .get_mut(entity)
+                            .expect(
+                                "SetScale action requires Transform component",
+                            )
+                            .scale_mut();
+                        if let Some(x) = x {
+                            scale.x = x;
+                        }
+                        if let Some(y) = y {
+                            scale.y = y;
+                        }
+                    }
                 }
             }
 

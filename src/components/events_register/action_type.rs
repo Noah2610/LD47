@@ -78,6 +78,10 @@ pub enum ActionType {
     DeleteEntity,
     SpawnObject(ObjectSpawnData),
     RandomAction(Vec<Vec<ActionType>>),
+    SetScale {
+        x: Option<f32>,
+        y: Option<f32>,
+    },
 }
 
 fn default_output_target() -> String {
