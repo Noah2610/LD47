@@ -140,10 +140,10 @@
                 ),
             }),
             Velocity((x: 0.0, y: 0.0)),
-            AttachUi((
-                target: "boss_text",
-                offset: (0.0, 32.0),
-            )),
+            // AttachUi((
+            //     target: "boss_text",
+            //     offset: (0.0, 32.0),
+            // )),
         ],
 
         events: {
